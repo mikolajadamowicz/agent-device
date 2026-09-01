@@ -591,7 +591,7 @@ Notes:
 
 - `input` is required and uses the same fields as the matching MCP/Node command.
 - Unknown top-level step fields are rejected. Supported keys are `command`, `input`, and `runtime`.
-- CLI `--steps` and `--steps-file` still accept the legacy `positionals`/`flags` step shape with a deprecation warning. That compatibility path will be removed in the next major version.
+- The legacy `positionals`/`flags` step shape was removed in 0.21. Migrate each step to structured input, for example `{"command":"open","input":{"app":"settings","platform":"ios"}}`.
 - nested `batch` and `replay` steps are rejected.
 - `--on-error stop` is the supported behavior.
 
@@ -1055,6 +1055,11 @@ await client.capture.snapshot({ interactiveOnly: true });
 const closed = await client.sessions.close();
 ```
 
+`apps.open` also returns a response-level `selection` record describing whether the target came
+from an explicit selector, an existing session, one local booted/bootable candidate, the one booted
+simulator with the app installed, or one provider-owned candidate. Ambiguous requests fail with
+structured retry selectors instead of silently retargeting.
+
 Use `client.sessions.artifacts({ provider, providerSessionId })` with `closed.provider?.providerSessionId` to fetch provider-hosted video and log URLs after close. See the [BrowserStack](/agent-device/docs/browserstack.md), [AWS Device Farm](/agent-device/docs/aws-device-farm.md), and [Limrun](/agent-device/docs/limrun.md) guides for provider-specific setup.
 
 ## Web sessions
@@ -1195,7 +1200,7 @@ The complete domain-client method map is:
 - `client.interactions.click()`, `press()`, `longPress()`, `swipe()`, `pan()`, `drag()`, `fling()`, `swipeGesture()`, `focus()`, `type()`, `fill()`, `scroll()`, `pinch()`, `rotateGesture()`, `transformGesture()`, `get()`, `is()`, `find()`
 - `client.replay.run()` and `client.replay.test()`
 - `client.batch.run()`
-- `client.observability.perf()`, `logs()`, `events()`, `network()`, and `audio()`
+- `client.observability.perf(options)`, `logs()`, `events()`, `network()`, and `audio()`
 - `client.debug.symbols()`
 - `client.recording.record()` and `client.recording.trace()`
 - `client.settings.update()`
@@ -1224,7 +1229,7 @@ await client.observability.audio({ platform: 'web', action: 'probe', probeAction
 
 Web probes sample HTML media elements. Host-system probes use `platform: 'macos'`, `platform: 'ios'` for iOS simulators, or `platform: 'android'` for Android emulators on macOS hosts. They sample host system audio through ScreenCaptureKit and require Screen Recording permission. Physical iOS and Android app audio are not exposed by this command.
 
-Prefer an explicit area with `client.observability.perf()` so each request stays focused. Calling `perf()` without options or using `area: 'metrics'` remains a deprecated compatibility path until the next major release; on Android, that path retains the released `dumpsys cpuinfo` point sample. Pass `{ area: 'frames' }` for a bounded frame/jank-health payload or `{ area: 'memory', action: 'sample' }` for a compact memory-only sample. Use `{ area: 'memory', action: 'snapshot', kind: 'android-hprof', out: 'app.hprof' }` on Android or `{ area: 'memory', action: 'snapshot', kind: 'memgraph', out: 'app.memgraph' }` on supported Apple simulator/macOS app sessions to write large memory artifacts to disk. Android native artifacts use `{ area: 'cpu', subject: 'profile', action: 'start' | 'stop' | 'report', kind: 'simpleperf', out }` and `{ area: 'trace', action: 'start' | 'stop', kind: 'perfetto', out }`; CPU reports return at most ten top functions in data and print five, while trace/profile contents remain on disk. Physical iOS device memgraph capture reports unavailable with a reason/hint. On Android and supported Apple targets, `data.metrics.fps.droppedFramePercent` is the primary frame-smoothness value. Android derives it from the current `adb shell dumpsys gfxinfo <package> framestats` window; connected iOS devices derive it from `xcrun xctrace` Animation Hitches for the active app process. Frame samples include `windowStartedAt`, `windowEndedAt`, and `worstWindows` so agents can correlate dropped-frame clusters with logs, network entries, and their own session actions. A successful Android read resets Android frame stats; `open <app>` resets the Android frame window too, so agents can call `perf({ area: 'frames' })`, perform a transition or gesture, then call it again to inspect that focused window. iOS simulator and macOS app sessions report frame health as unavailable rather than inventing FPS or dropped-frame values.
+Pass an explicit area to `client.observability.perf()` so each request stays focused; options and `area` are required. The removed optionless call and `area: 'metrics'` aggregate shape fail with replacements in 0.21. Pass `{ area: 'frames' }` for a bounded frame/jank-health payload or `{ area: 'memory', action: 'sample' }` for a compact memory-only sample. Use `{ area: 'memory', action: 'snapshot', kind: 'android-hprof', out: 'app.hprof' }` on Android or `{ area: 'memory', action: 'snapshot', kind: 'memgraph', out: 'app.memgraph' }` on supported Apple simulator/macOS app sessions to write large memory artifacts to disk. Android native artifacts use `{ area: 'cpu', subject: 'profile', action: 'start' | 'stop' | 'report', kind: 'simpleperf', out }` and `{ area: 'trace', action: 'start' | 'stop', kind: 'perfetto', out }`; CPU reports return at most ten top functions in data and print five, while trace/profile contents remain on disk. Physical iOS device memgraph capture reports unavailable with a reason/hint. On Android and supported Apple targets, `data.metrics.fps.droppedFramePercent` is the primary frame-smoothness value. Android derives it from the current `adb shell dumpsys gfxinfo <package> framestats` window; connected iOS devices derive it from `xcrun xctrace` Animation Hitches for the active app process. Frame samples include `windowStartedAt`, `windowEndedAt`, and `worstWindows` so agents can correlate dropped-frame clusters with logs, network entries, and their own session actions. A successful Android read resets Android frame stats; `open <app>` resets the Android frame window too, so agents can call `perf({ area: 'frames' })`, perform a transition or gesture, then call it again to inspect that focused window. iOS simulator and macOS app sessions report frame health as unavailable rather than inventing FPS or dropped-frame values.
 
 For Apple native profiling, call `perf({ area: 'cpu', subject: 'profile', action: 'start', kind: 'xctrace', template: 'Time Profiler', out: 'app.trace' })`, then stop with the same trace path and write a compact report with `action: 'report'`. The CPU report includes a bounded weighted top-function summary; the raw trace remains an artifact. `area: 'trace'` supports xctrace templates such as `Animation Hitches`.
 
@@ -1492,6 +1497,7 @@ agent-device app-switcher
 - `shutdown` must not target an active session device; use `close --shutdown` to end the session and turn it off.
 - `daemon stop --state-dir <path>` verifies the daemon PID/start-time identity, requests graceful shutdown, and reports whether provider-release state is known. Use `daemon stop --clean` to also remove retained Apple runner processes and leases owned by that daemon.
 - `device status` reads host-local device claims without starting or contacting a daemon. Normal output shows live and attention-needed claims, then summarizes proven-stale records in one line; use `device status --stale` to inspect the hidden records. Scope either view with `--platform` plus `--udid` (Apple) or `--serial` (Android). A foreign live or uncertain claim blocks `open`; a proven-dead owner is replaced only after its session's exact-owner durable resources reconcile successfully.
+- `device release --stale` settles a provably dead owner's durable resources through the same exact-owner reconciliation `open` uses and clears its claim last, all without a daemon. Live, uncertain, PID-reused, and corrupt claims always fail closed and are reported with the reason; a live owner is released by closing its session from its own workspace or with `daemon stop --state-dir <owner state dir>`.
 - `--platform apple` is an alias for the Apple automation backend (`ios`, `tvOS`, `macOS` selection).
 - Use `--target mobile|tv|desktop` with `--platform` (required) to select phone/tablet vs TV-class vs desktop-class targets.
 - `boot` is mainly needed when starting a new session and `open` fails because no booted simulator/emulator is available.
@@ -1538,6 +1544,34 @@ agent-device reinstall MyApp /path/to/app-debug.apk --platform android --serial 
 agent-device open com.example.myapp --platform android --serial emulator-5554 --session my-session --relaunch
 agent-device metro reload
 ```
+
+## Human Takeover
+
+Use `takeover` with an active remote connection when a person needs to interact with its leased
+device without racing the agent:
+
+```bash
+agent-device takeover --session remote-session
+agent-device takeover status --session remote-session
+agent-device takeover release <hold-id> --session remote-session
+```
+
+The command uses the device from the admitted remote lease, installs a short-lived hold, keeps it
+alive in the foreground, and releases it on Ctrl+C. Activation waits for admitted mutations to finish
+before reporting active. While held, state-changing commands fail with
+`DEVICE_IN_USE` and `details.reason: "human_control_active"`, explaining that agent interactions are
+temporarily disabled. Snapshots, screenshots, selector reads, logs, and other read-only diagnostics
+remain available. The hold also
+protects an existing remote device lease from inactivity expiry so the human does not accidentally
+hand the simulator to a different agent.
+
+A foreground hold expires automatically if its process disappears. Releasing or expiring the final
+hold refreshes the existing lease's inactivity window. Tenant commands can modify only holds owned
+by their admitted lease, not provider-host administrative holds.
+
+Holds do not survive daemon restart; reconnect and re-establish them before continuing human
+interaction. Local takeover without a device-scoped remote lease is not supported in this version.
+See [remote takeover and host administration](/agent-device/docs/remote-proxy.md#human-takeover) for the VM-side API.
 
 ## Web Automation
 
@@ -1770,12 +1804,12 @@ agent-device get attrs @e1
   source checkout must run `pnpm build:android` before Android verification. The helper serializes
   Android interactive window roots when available, so keyboard and system-overlay nodes can appear
   alongside the app root; `androidSnapshot.captureMode` and `androidSnapshot.windowCount` describe
-  the capture. On API 23 the helper cannot report `drawing-order`, so covered same-window surfaces
-  (for example a React Native screen left under the foreground one) are not pruned;
-  `androidSnapshot.occlusionScanUnavailable: true` discloses that capture shape. Android
-  `--raw` is the acquired tree: it keeps nodes Android marks invisible, stale application windows,
-  and covered same-window surfaces that the default and `-i` views hide, so use it to see what a
-  pruned surface contained. The helper does not report `checked`/`selected` state, and it caps
+  the capture. Default and `-i` snapshots keep same-window covered surfaces visible for diagnosis
+  and mark exactly ordered covered controls `interactionBlocked: "covered"`, so selectors cannot
+  act on stale React Native screens. API 23 cannot report sibling `drawing-order`, so this scan fails
+  conservative and `androidSnapshot.occlusionScanUnavailable: true` discloses the difference.
+  Android `--raw` is the acquired tree: it also keeps nodes Android marks invisible and stale
+  application windows. The helper does not report `checked`/`selected` state, and it caps
   captures at 5000 nodes before any `--scope` applies (`truncated: true`).
 - `--scope <text|@ref>` returns the subtree of the first node in document order whose label, value,
   or identifier contains the scope text (case-insensitive) and whose subtree still has content in
@@ -1858,6 +1892,7 @@ agent-device gesture transform 200 420 80 -40 2 35 700 # combined pan, zoom, and
 `type` accepts text only. Do not pass `@ref` to `type`; use `fill @ref "text"` to target a field directly, or `press @ref` then `type "text"` to append in the focused field.
 If `type` reports `TEXT_INPUT_NOT_FOCUSED`, focus a visible text input and retry; when accessibility does not expose the input, use a coordinate focus command before typing.
 On iOS, if `type` reports `TEXT_INPUT_SYNTHESIS_UNAVAILABLE` while the software keyboard is hidden, show the software keyboard, then retry `type` or `fill`. The runner reports this error instead of risking partial input through an unreliable text-entry path.
+On iOS, if `type` or `fill` reports `TEXT_INPUT_COMMIT_NOT_OBSERVED`, the runner could not confirm the typed text reached the field — either it did not land before the runner's deadline, or the expected final text is identical to the field's placeholder. In the latter case, accessibility cannot distinguish committed text from an empty field rendering that placeholder, even if the field held content before dispatch. The field may hold none, part, or all of the text: run `snapshot -i` and inspect it. If it already matches, continue; otherwise retry with the full text quoted and `fill --delay-ms 80`, which replaces the whole value. Do not use `type`, which appends to whatever committed. This covers the bare-type route and the coordinate-driven `fill` route taken when the accessibility channel is under load, both of which observe the field after synthesizing; it is not a guarantee that every text-entry route verifies its result.
 Use plain `fill` or `type` first for ordinary login and form fields. Use `--delay-ms` on `type` or `fill` only when a debounced search field or search-as-you-type input actually misses characters, or when the app must receive incremental updates.
 Delayed typing intentionally prefers paced character entry over clipboard-style fallbacks so the target field receives each incremental update.
 On Android, `fill` also verifies text and treats IME-owned capture as a terminal failure instead of retrying against the wrong field.
@@ -1965,7 +2000,7 @@ agent-device batch --steps '[{"command":"open","input":{"app":"settings"}}]'
 - `batch` runs a JSON array of steps in a single daemon request.
 - Each step has `command`, `input`, and optional `runtime`.
 - `input` uses the same fields as the matching MCP/Node command.
-- Legacy CLI step payloads with `positionals`/`flags` still run with a deprecation warning and will be removed in the next major version.
+- Legacy CLI step payloads with `positionals`/`flags` were removed in 0.21. Use structured input such as `{"command":"open","input":{"app":"settings","platform":"ios"}}`.
 - Unknown top-level step fields are rejected.
 - Stop-on-first-error is the supported behavior (`--on-error stop`).
 - Use `--max-steps <n>` to tighten per-request safety limits.
@@ -2183,7 +2218,7 @@ agent-device perf trace start --kind perfetto --out app.perfetto-trace
 agent-device perf trace stop --kind perfetto --out app.perfetto-trace
 ```
 
-- Prefer an explicit `frames`, `memory`, `cpu`, or `trace` area so each request answers one profiling question. Bare `perf`, `perf sample`, `perf metrics`, and the `metrics` alias remain deprecated compatibility forms until the next major release; they return aggregate evidence plus migration guidance. On Android, this compatibility path retains the released `dumpsys cpuinfo` point sample; use `perf cpu profile` for new CPU profiling workflows.
+- Use an explicit `frames`, `memory`, `cpu`, or `trace` area so each request answers one profiling question. In 0.21, bare `perf`, `perf sample`, `perf metrics`, and the `metrics` alias fail with guidance to the focused replacements.
 - `perf frames` returns a focused, bounded frame/jank-health JSON blob.
 - `perf memory sample` returns a compact memory-only JSON blob for agents investigating growth/leaks without collecting a large artifact. It is better than raw memory command output for first-pass diagnosis because arrays and top offenders are bounded.
 - Example sample shape: `{"metrics":{"memory":{"available":true,"totalPssKb":562958,"totalRssKb":570304,"topConsumers":[{"name":"Dalvik Heap","pssKb":213456}]}}}`.
@@ -2197,7 +2232,7 @@ agent-device perf trace stop --kind perfetto --out app.perfetto-trace
 - `perf trace ... --kind perfetto` starts/stops Android Perfetto trace capture for the active session package.
 - Native profile/trace outputs are compact agent evidence: state, artifact path, size, and method. Raw `.perf.data` and `.perfetto-trace` contents stay on disk.
 - Without `--json`, each explicit perf area prints a compact focused summary.
-- App startup duration is measured by `open` and returned in `open`'s `startup` result. Use that result directly instead of the deprecated aggregate perf form.
+- App startup duration is measured by `open` and returned in `open`'s `startup` result. Use that result directly instead of the removed aggregate perf form.
 - Use native perf stop/report results as compact agent evidence, not raw profiler output. A successful Perfetto stop can return `state: "stopped"`, `outPath: "/tmp/app.perfetto-trace"`, `sizeBytes: 5392410`, and `method: "adb-shell-perfetto"` while the 5.3 MB raw trace stays on disk as the artifact.
 - Android app sessions with an active package support:
   - `fps` frame health from `adb shell dumpsys gfxinfo <package> framestats`, with `droppedFramePercent` as the primary value and `worstWindows` for dropped-frame clusters
@@ -2893,7 +2928,7 @@ agent-device perf trace start --kind perfetto --out app.perfetto-trace
 agent-device perf trace stop --kind perfetto --out app.perfetto-trace
 ```
 
-- Prefer an explicit `frames`, `memory`, `cpu`, or `trace` area so the result stays focused and interpretable. Bare `perf`, `perf sample`, `perf metrics`, and `metrics` remain deprecated compatibility forms until the next major release.
+- Use an explicit `frames`, `memory`, `cpu`, or `trace` area so the result stays focused and interpretable. In 0.21, bare `perf`, `perf sample`, `perf metrics`, and `metrics` fail with exact replacement guidance.
 - `perf frames` returns a focused frame/jank-health payload.
 - `perf memory sample` returns a compact memory-only payload. Prefer it over raw `dumpsys`/`leaks` output for first-pass agent diagnosis because it keeps arrays bounded and reports top offenders compactly.
 - Example sample shape: `{"metrics":{"memory":{"available":true,"totalPssKb":562958,"totalRssKb":570304,"topConsumers":[{"name":"Dalvik Heap","pssKb":213456}]}}}`.
@@ -2904,7 +2939,7 @@ agent-device perf trace stop --kind perfetto --out app.perfetto-trace
 - Android native profiling uses `perf cpu profile ... --kind simpleperf`; its report likewise returns at most ten top functions and prints five. Android native trace capture uses `perf trace ... --kind perfetto`. These commands require an active Android app session and return artifact paths/summaries instead of dumping profile or trace contents.
 - Use the compact native perf result as agent evidence. For example, a successful Perfetto stop may return `state: "stopped"`, `outPath: "/tmp/app.perfetto-trace"`, `sizeBytes: 5392410`, and `method: "adb-shell-perfetto"` while the 5.3 MB raw trace remains on disk as the artifact.
 - Memory and Android frame-health availability depend on platform and whether the active session is bound to an app/package. HarmonyOS reports process RSS through HDC; CPU profiling, frame sampling, and memory-snapshot artifacts remain unavailable on the public HDC surface.
-- App startup duration is returned by `open` as `startup`; use that result directly rather than the deprecated aggregate perf response.
+- App startup duration is returned by `open` as `startup`; use that result directly rather than the removed aggregate perf response.
 - On Android and supported Apple targets, use `metrics.fps.droppedFramePercent` for the health check and `metrics.fps.worstWindows` to line up jank clusters with logs, network activity, or recent actions.
 
 ## Where to go deeper
@@ -3671,11 +3706,73 @@ Do not put proxy endpoint, token, tenant, or provider fields in `./agent-device.
 configuration is intentionally limited to project-safe automation defaults. Use `connect proxy`, user
 config, an explicit `--config` file, or protected CI environment variables for the endpoint and token.
 
+## Human Takeover
+
+With a remote device already leased by `open`, pause mutations through the same connection:
+
+```bash
+agent-device takeover --session remote-session
+```
+
+The foreground command renews its hold until Ctrl+C. Read-only diagnostics remain available, the
+agent session stays open, and its lease is protected from inactivity expiry. Activation waits for
+already-admitted mutations to finish. Status and recovery use `takeover status` and
+`takeover release <hold-id>` with the same session.
+
+If the requesting connection disconnects while activation is waiting for mutations to finish, its
+pending hold is removed and cannot activate later. This applies to both tenant RPCs and host PUTs.
+Once active, holds follow their configured TTL or explicit release lifecycle.
+
+Lease-owner operations use ordinary `agent_device.command` RPCs at `POST /rpc`, with command
+`human_control` and positionals `["list"]`, `["put", "<hold-id>", "{\"ttlMs\":15000}"]`, or
+`["remove", "<hold-id>"]`. Supply the same tenant, run, client, lease, backend, provider, and device
+metadata as other requests. The PUT payload contains only `reason` and `ttlMs`; the server derives
+the target from the admitted lease. It rejects caller-supplied `scope`.
+
+### Host administration
+
+VM-side automation can manage holds independently of a tenant. Read the daemon's `httpPort` and
+`token` from `daemon.json` in its effective state directory, then use the loopback listener with
+`Authorization: Bearer <daemon-token>` or `X-Agent-Device-Token: <daemon-token>`. An HTTP listener
+is required. A tenant credential does not grant this capability.
+
+```text
+PUT    /admin/human-control/holds/<hold-id>
+GET    /admin/human-control/holds
+DELETE /admin/human-control/holds/<hold-id>
+```
+
+The host PUT body names the exact lease contention identity, including its backend and provider.
+Use the lease's `deviceKey`, not a bare device ID or a display name:
+
+```json
+{
+  "scope": {
+    "backend": "ios-instance",
+    "leaseProvider": "proxy",
+    "deviceKey": "ios:mobile:<simulator-udid>"
+  },
+  "reason": "Human is using the VM console.",
+  "ttlMs": 15000
+}
+```
+
+Repeated PUT renews the hold. Omitting `ttlMs` keeps it until explicit release or daemon shutdown.
+Tenant RPCs cannot modify host holds. Multiple holds can coexist; mutations resume only when all
+holds on the device end.
+
+Holds do not survive daemon restart, matching lease state. Reconnect and re-establish the hold
+before continuing human interaction. Local takeover without a device-scoped remote lease is
+deferred; this does not provide a host-global fence across local daemons.
+
 ## What Is Exposed
 
 The proxy allows only the daemon HTTP contract: `/health`, `/rpc`, `/upload` plus resumable `/upload/*` routes, and `/artifacts/*`, with the same routes also available under `/agent-device/*`. Health checks are unauthenticated; command, upload, and artifact routes require the bearer token.
 
 The proxy validates the client token and rewrites authorized upstream requests to the local daemon token. The local daemon still validates its own token, so the daemon token is not exposed to remote clients.
+
+The proxy deliberately does not forward `/admin/*`, including human-control holds. A caller inside
+the device-host VM must use the daemon's loopback port and local daemon token.
 
 ## Compatibility
 
@@ -3761,13 +3858,13 @@ Supported subset:
 
 - Flows: `launchApp`; `runFlow` file/inline with platform, visibility, and limited boolean conditions; `onFlowStart`/`onFlowComplete`; `repeat.times` and retry.
 - Interactions: `tapOn`, `doubleTapOn`, `longPressOn`, `inputText` on the focused element, `eraseText`, `openLink`, `hideKeyboard`, basic `pressKey`, and `back`; selector targets poll until available and support recursive `index`, `childOf`, `above`, `below`, `leftOf`, `rightOf`, `containsChild`, `containsDescendants`, points, and `optional`; outer command labels are metadata, not target selectors.
-- Assertions and navigation: `assertVisible`, `assertNotVisible`, `extendedWaitUntil`, `scroll`, `scrollUntilVisible`, absolute/percentage/target `swipe`, `takeScreenshot`, `waitForAnimationToEnd`, and `stopApp`.
+- Assertions and navigation: `assertVisible`, `assertNotVisible`, `assertTrue` (literal values and `${VAR}` lookups only; `""`, `"false"`, `"0"`, `"null"`, and `"undefined"` are falsy, everything else is truthy), `extendedWaitUntil`, `scroll`, `scrollUntilVisible`, absolute/percentage/target `swipe`, `takeScreenshot`, `waitForAnimationToEnd`, and `stopApp`.
 - Scripts: ordered `runScript` file/env scripts with `http.post`, `json`, and `output` variables.
 
 Boundaries:
 
 - Runtime: iOS and Android only; `launchApp.clearState` supports Android and iOS simulators, launch arguments are Apple-only, and standalone device utility/state commands are unsupported.
-- Expressions: `when.true` supports boolean literals and `maestro.platform` comparisons; `repeat.while`, `evalScript`, and broader JavaScript expressions are unsupported.
+- Expressions: `when.true` supports boolean literals and `maestro.platform` comparisons; `assertTrue` supports literal values and `${VAR}` lookups only; `repeat.while`, `evalScript`, and broader JavaScript expressions are unsupported.
 - Environment: flow `env` is the default, `AD_VAR_*` overrides it, and CLI `-e KEY=VALUE` wins over both.
 - Failure diagnostics: resolved targets and `runFlow` paths are rendered, while `inputText` payloads remain hidden; do not place secrets in diagnostic identifiers.
 - Trust: `runScript` executes trusted scripts, may make `http.post` network requests, and is not a security sandbox; output keys cannot contain a dot.
@@ -4088,11 +4185,19 @@ url: /agent-device/docs/security-trust.md
 CLI commands run through a per-user background daemon:
 
 - The daemon binds to `127.0.0.1` only, on ephemeral ports, for both its socket and HTTP transports. It is never reachable from the network unless you deliberately front it with your own proxy.
-- Command (RPC), upload, and artifact-download requests must present a token generated fresh on each daemon boot (24 random bytes). The only unauthenticated endpoint is `GET /health`, which intentionally returns a bare liveness response and nothing else; like the rest of the server it is reachable only via loopback. The token is stored in `daemon.json` inside the daemon state directory (`~/.agent-device` for packaged installs; source checkouts use a worktree-scoped directory under `~/.agent-device/dev/`) with `0600` permissions; whoever can read that file already has your user account.
+- Command (RPC), upload, artifact-download, and `/admin/human-control/*` requests must present a token generated fresh on each daemon boot (24 random bytes). The only unauthenticated endpoint is `GET /health`, which intentionally returns a bare liveness response and nothing else; like the rest of the server it is reachable only via loopback. The token is stored in `daemon.json` inside the daemon state directory (`~/.agent-device` for packaged installs; source checkouts use a worktree-scoped directory under `~/.agent-device/dev/`) with `0600` permissions; whoever can read that file already has your user account.
 - A client only reuses a running daemon when the daemon's version and binary code signature match its own; otherwise the daemon is restarted. This prevents a stale or tampered daemon from silently serving new clients.
 - Artifact uploads are size-capped, filenames are sanitized, and archive extraction rejects path-traversal entries. Artifact downloads resolve through server-side IDs, never client-supplied paths.
 
-For remote or cloud deployments, the daemon supports a custom auth hook: `AGENT_DEVICE_HTTP_AUTH_HOOK` names a module path that is dynamically imported and invoked for each HTTP request (with `AGENT_DEVICE_HTTP_AUTH_EXPORT` selecting the export). The hook runs with the daemon's full privileges, so treat it as part of your trusted computing base: point it only at a read-only path you control, never at a location writable by less-trusted users or processes. Whoever controls the daemon's environment controls the hook.
+For remote or cloud deployments, the daemon supports a custom auth hook for remotely consumable HTTP routes: `AGENT_DEVICE_HTTP_AUTH_HOOK` names a module path that is dynamically imported (with `AGENT_DEVICE_HTTP_AUTH_EXPORT` selecting the export). The host-local `/admin/human-control/*` route uses the daemon token instead. The hook runs with the daemon's full privileges, so treat it as part of your trusted computing base: point it only at a read-only path you control, never at a location writable by less-trusted users or processes. Whoever controls the daemon's environment controls the hook.
+
+Lease-owner human-control RPCs pass normal authentication and tenant/lease admission. They can
+target only the admitted lease's device and cannot alter a host administrator's hold. Host
+administration is a separate capability: the daemon accepts `/admin/human-control/*` only on its
+loopback listener with the local daemon token, and `agent-device proxy` does not forward `/admin/*`.
+Holds and leases are in-memory; neither survives daemon restart.
+
+If a hook is configured and its result does not attest a `tenantId`, the daemon refuses the request (401) outright — it never falls back to a tenant the client declares itself (RPC body `meta.tenantId` or `flags.tenant`, or the `x-agent-device-tenant` header on the upload/artifact-download/diagnostics routes), and it never admits the request unscoped either: a shared token must not let one caller claim another tenant's identity, nor read a tenant-owned session or artifact by simply declaring none. A hook must attest `tenantId` on every request it wants admitted; a deployment with no hook configured is unaffected.
 
 ## Sensitive artifacts
 

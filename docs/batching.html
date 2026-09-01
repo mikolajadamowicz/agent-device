@@ -7,9 +7,9 @@
 <link href="/agent-device/static/css/styles.cf5e9ab9a4.css" rel="stylesheet">
 <script defer src="/agent-device/static/js/styles.308ea4bafe.js"></script>
 <script defer src="/agent-device/static/js/lib-react.e84adf13b9.js"></script>
-<script defer src="/agent-device/static/js/lib-router.7cf88a311a.js"></script>
-<script defer src="/agent-device/static/js/476.cf0323f326.js"></script>
-<script defer src="/agent-device/static/js/index.98addfca9e.js"></script>
+<script defer src="/agent-device/static/js/lib-router.270f17bfa6.js"></script>
+<script defer src="/agent-device/static/js/476.52ed165336.js"></script>
+<script defer src="/agent-device/static/js/index.997048ac58.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -55,7 +55,7 @@
 <ul>
 <li><code>input</code> is required and uses the same fields as the matching MCP/Node command.</li>
 <li>Unknown top-level step fields are rejected. Supported keys are <code>command</code>, <code>input</code>, and <code>runtime</code>.</li>
-<li>CLI <code>--steps</code> and <code>--steps-file</code> still accept the legacy <code>positionals</code>/<code>flags</code> step shape with a deprecation warning. That compatibility path will be removed in the next major version.</li>
+<li>The legacy <code>positionals</code>/<code>flags</code> step shape was removed in 0.21. Migrate each step to structured input, for example <code>{&quot;command&quot;:&quot;open&quot;,&quot;input&quot;:{&quot;app&quot;:&quot;settings&quot;,&quot;platform&quot;:&quot;ios&quot;}}</code>.</li>
 <li>nested <code>batch</code> and <code>replay</code> steps are rejected.</li>
 <li><code>--on-error stop</code> is the supported behavior.</li>
 </ul>
