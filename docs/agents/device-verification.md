@@ -26,6 +26,27 @@ physical devices. Live verification steps apply when exercising a device-facing 
 - For Android RN/Expo/dev-client apps that use local Metro, configure
   `adb reverse tcp:<port> tcp:<port>` for the app's Metro port before opening the app or URL.
 
+## Screenshot pixel identity
+
+A capture is pixel-identical when a snapshot rect names the same coordinates a reader of the PNG
+would point at. It holds on iOS simulators (captures are normalized to one pixel per logical point)
+and on Android (both spaces are device pixels); everywhere else it is unproven, which is what
+`SCREENSHOT_CROP_TARGET_CELLS` withholds `--crop-on` acceptance for.
+
+Measure it on the target itself before relying on screenshot coordinates, or before promoting a
+crop cell:
+
+```bash
+pnpm verify:screenshot-pixel-identity --label General --app com.apple.Preferences \
+  --platform ios --udid <udid>
+```
+
+It captures one snapshot and one screenshot through the CLI, projects the labeled node's rect with
+the shipped law, and writes `evidence.json` plus two crops of the same capture. `projected.png`
+frames the control whenever the projection is right; `identity.png` frames it only when image
+coordinates equal snapshot coordinates. A `ratio` other than 1 is the factor a coordinate read off
+the PNG is wrong by. Close the session afterwards per the hygiene rules below.
+
 ## Worktree ownership and runner diagnostics
 
 - Source-checkout daemon state is worktree-scoped, but devices are not. Use `pnpm daemon:state-dir`
