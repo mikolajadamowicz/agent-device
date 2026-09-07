@@ -170,7 +170,7 @@ agent-device close --platform web
 - `web doctor` verifies the managed backend after setup.
 - The managed install respects `--state-dir` and `AGENT_DEVICE_STATE_DIR`.
 - Web automation requires Node 24+.
-- Supported through `agent-device`: URL open, snapshot refs, `get text/attrs`, `is visible/exists/text`, `find text/selector`, click/press, hover, fill/type, wait, `network dump`, `audio probe`, screenshot, close, and replay scripts composed from those commands.
+- Supported through `agent-device`: URL open, snapshot refs, `get text/attrs`, `is visible/hidden/exists/absent/focused/text`, `find text/selector`, click/press, hover, fill/type, wait, `network dump`, `audio probe`, screenshot, close, and replay scripts composed from those commands.
 - `hover <@ref|selector|x y>` moves the pointer without pressing so hover-gated UI (row toolbars, menus) appears. Add `--settle` to read what it revealed instead of taking another snapshot. `hover @ref` hovers the browser's own element handle; like `click @ref --settle`, the `--settle` diff needs a selector or coordinate target on web because web refs carry no geometry.
 - `audio probe start [durationSeconds] [bucketMs]` samples HTML media elements into compact RMS/peak dBFS buckets while the page keeps running. The first timing positional is seconds; the second is milliseconds.
 - URL-backed web media may be routed through the probe `AudioContext` while observed. Use `audio probe status` to poll partial buckets and `audio probe stop` to end the probe early.
@@ -398,6 +398,7 @@ agent-device wait 1500
 agent-device wait text "Welcome back"
 agent-device wait @e12
 agent-device wait 'role="button" label="Continue"' 5000
+agent-device wait absent 'label="Loading..."' 5000
 agent-device alert
 agent-device alert get
 agent-device alert wait 3000
@@ -405,16 +406,22 @@ agent-device alert accept
 agent-device alert dismiss
 ```
 
-- `wait` accepts a millisecond duration, `text <value>`, a snapshot ref (`@eN`), or a selector.
+- `wait` accepts a millisecond duration, `text <value>`, a snapshot ref (`@eN`), a selector, or strict `absent <selector>`.
 - `wait <selector> [timeoutMs]` polls until the selector resolves or the timeout expires.
+- `wait absent <selector> [timeoutMs]` polls until a complete, readable capture has zero matches. It is strict absence, not a visibility check: hidden or off-screen matches still keep the wait pending.
+- Strict absence rejects `--scope` and `--depth`. Sparse, truncated, incomplete, and Android unreadable-content captures do not count as readable captures and cannot satisfy the wait; they are ridden out until the deadline, and a run with no valid capture preserves its typed unreadable diagnostic.
 - `wait @ref [timeoutMs]` requires an existing session snapshot from a prior `snapshot` command.
 - `wait @ref` resolves the ref to its label/text from that stored snapshot, then polls for that text; it does not track the original node identity.
 - Because `wait @ref` is text-based after resolution, duplicate labels can match a different element than the original ref target.
 - `wait` shares the selector/snapshot resolution flow used by `click`, `fill`, `get`, and `is`.
-- Wait failures carry a structured `error.details.reason` in `--json` output: `wait_target_absent` proves at least one readable capture saw no match; `wait_capture_stalled` means no readable capture arrived and is retriable; `wait_deadline_exceeded` means a later capture consumed the remaining budget after an earlier readable capture; `wait_landmark_identity_mismatch` is a replay destination-guard refusal; and `wait_stable_timeout` means the UI did not settle. Use `readableCaptures` and `waitedMs` instead of parsing error text.
+- Wait failures carry a structured `error.details.reason` in `--json` output: `wait_target_absent` proves a positive wait never found a match; `wait_target_present` means strict `wait absent` reached its deadline with valid captures that still contained matches; `predicate_failed` means strict `wait absent` could not prove absence because no valid capture arrived, with the final observation/diagnostic preserved; `wait_capture_stalled` means no readable capture arrived and is retriable; `wait_deadline_exceeded` means a later capture consumed the remaining budget after an earlier readable capture; `wait_landmark_identity_mismatch` is a replay destination-guard refusal; and `wait_stable_timeout` means the UI did not settle. Use `readableCaptures`, `waitedMs`, `matches`, and `firstMatch` instead of parsing error text. `firstMatch` carries identity/text evidence only; absence failures do not claim visibility or rect evidence.
+- Polling wait timeouts (`wait <selector>`, `wait text`, `wait @ref`, and `wait absent` once a readable capture has been seen) also carry `captures` (every poll attempted), `readableCaptures`, and `polls`, one entry per poll with `startedMs` on the wait's own clock, `durationMs`, and `outcome` (`readable`, `unreadable`, `deadline`, or `runner-restart`), so a timeout says where its budget went; long waits keep the first five and last twenty-five polls. A replayed selector wait refused for a recorded landmark mismatch (`wait_landmark_identity_mismatch`) carries the same poll evidence next to its mismatch details. `wait --stable` timeouts and a never-readable strict absence keep their own diagnostics. `logPath` links the full request log.
 - `alert` inspects or handles system alerts on iOS simulator, macOS desktop, and Android native/runtime permission dialogs.
 - `alert` without an action is equivalent to `alert get`.
+- `accept` and `dismiss` are sent once on every platform. A lost or unconfirmed response is reported as an error and never replayed; run `alert get` before acting again.
 - Use `alert get` for an immediate cheap check. Use `alert wait <short-ms>` only when a prompt may appear after async work.
+- Within an iOS XCTest execution, `accept` and `dismiss` activate the selected button once, then only observe until the alert disappears, its presentation changes, or the deadline expires. A shared button label never triggers a second coordinate tap. A changed presentation can be an updated original alert or a replacement; it does not prove a permission was granted. Verify the application outcome separately.
+- An unreadable or ambiguous post-action capture fails with `error.details.runnerErrorCode: ALERT_CONFIRMATION_UNAVAILABLE`; an expired runner deadline uses `ALERT_DEADLINE_EXCEEDED` (the outer command watchdog can also report a timeout). Neither proves absence or that no action occurred. Identical-looking alerts remain unconfirmed. Inspect the current alert before deciding whether to act again.
 - Android support is snapshot-derived. If `alert` reports no alert but a sheet is visible, treat it as app-owned UI and use `snapshot -i` plus `press` by visible label/ref.
 - If an iOS permission sheet is visible in `snapshot` or `screenshot` but `alert accept` reports no alert, fall back to a scoped `snapshot -i -s "<visible label>"` plus `press @ref`; not every simulator permission surface is exposed as a native XCTest alert.
 
@@ -510,6 +517,7 @@ Actions: `click` (default; `press`/`tap` are aliases), `list`, `focus`, `fill`, 
 ```bash
 agent-device is visible 'role="button" label="Continue"'
 agent-device is exists 'id="primary-cta"'
+agent-device is absent 'label="Loading..."'
 agent-device is hidden 'text="Loading..."'
 agent-device is editable 'id="email"'
 agent-device is selected 'label="Wi-Fi"'
@@ -517,13 +525,15 @@ agent-device is text 'id="greeting"' "Welcome back"
 ```
 
 - `is` evaluates UI predicates against a selector expression and exits non-zero on failure.
-- Supported predicates are `visible`, `hidden`, `exists`, `editable`, `selected`, and `text`.
+- Supported predicates are `visible`, `hidden`, `exists`, `absent`, `editable`, `selected`, `focused`, and `text`.
 - `is visible` checks whether the resolved element is present in the current visible snapshot viewport. A node without its own rect still passes when a visible ancestor within the viewport provides the on-screen geometry.
 - `is exists` only checks whether the selector matches in the current snapshot.
+- `is absent` passes only when the selector has zero matches in one readable, complete, unscoped, full-depth accessibility capture. It does not mean hidden; `--scope` and `--depth` are rejected, and sparse, unreadable, or truncated captures fail closed.
 - `wait text` is a text-presence wait, not a hittability assertion.
+- Strict `wait absent` is not exported to Maestro's lenient `notVisible` condition; Maestro export reports it as unsupported unless an exact zero-candidate primitive becomes available.
 - `is text <selector> <value>` compares the resolved element text against the expected value.
 - `is` does not accept snapshot refs like `@e3`; use a selector expression instead.
-- `is` accepts the same selector-oriented snapshot flags as `click`, `fill`, `get`, and `wait`.
+- `is` accepts the same selector-oriented snapshot flags as `click`, `fill`, `get`, and `wait`; `is absent` rejects `--scope` and `--depth` because its proof must cover the complete unscoped tree.
 
 ## Replay
 
@@ -683,6 +693,7 @@ agent-device settings fingerprint match
 agent-device settings fingerprint nonmatch
 agent-device settings clear-app-state
 agent-device settings clear-app-state com.example.app
+agent-device settings reset-keychain clear
 agent-device settings permission grant camera
 agent-device settings permission deny microphone
 agent-device settings permission grant photos limited
@@ -697,8 +708,10 @@ agent-device settings permission reset screen-recording --platform macos
 - Android `settings animations off|on` toggles the global `window_animation_scale`, `transition_animation_scale`, and `animator_duration_scale` values. Use it as an opt-in stabilizer for automation runs with heavy system or app animations, then restore with `settings animations on` when needed.
 - `settings appearance` maps to macOS appearance, iOS simulator appearance, and Android night mode.
 - `settings location set <lat> <lon>` sets precise coordinates on iOS simulators and Android emulators.
-- `settings clear-app-state [app-id]` clears the active session app data, or the provided app id. Android uses `pm clear`, which removes SharedPreferences, databases, files, and cache. iOS simulator removes the app data container contents. iOS physical devices and macOS are unsupported.
+- `settings clear-app-state [app-id]` clears the active session app data, or the provided app id. Android uses `pm clear`, which removes SharedPreferences, databases, files, and cache. iOS simulator removes the app data container contents. iOS physical devices and macOS are unsupported. It does not touch the keychain, so keychain-backed credentials (e.g. Firebase auth) survive it.
+- `settings reset-keychain clear` resets the iOS simulator's keychain (`xcrun simctl keychain <device> reset`), removing keychain-backed credentials such as Firebase auth tokens that `clear-app-state` leaves behind. simctl has no per-app keychain reset, so this clears the keychain for every app installed on that simulator, not only the app under test — treat it as a whole-simulator, opt-in operation and pair it with `clear-app-state` for a full fresh-install reset. iOS physical devices, Android, and macOS are unsupported.
 - Face ID and Touch ID controls are iOS simulator-only.
+- Android `settings airplane on|off` is applied by the connectivity service (`cmd connectivity airplane-mode`, Android 11+), which drives the radios rather than only writing the `airplane_mode_on` setting. The response reports the `airplaneMode` that service holds after the change, and Android builds without that command fail without changing device state. Connectivity takes a moment to settle after the switch, so poll the app under test rather than asserting offline behavior immediately.
 - Fingerprint simulation is supported on Android targets where `cmd fingerprint` or `adb emu finger` is available.
   On physical Android devices, only `cmd fingerprint` is attempted.
 - Permission actions are scoped to the active session app.
@@ -905,6 +918,7 @@ agent-device screenshot                 # Auto filename
 agent-device screenshot page.png        # Explicit screenshot path
 agent-device screenshot page.png --scale 0.3  # Resize both dimensions to 30% for agent context
 agent-device screenshot page.png --overlay-refs  # Draw current @eN refs and target rectangles onto the PNG
+agent-device screenshot page.png --crop-on 'label="Save"'  # Crop the capture to the frame the selector resolves on the same screen
 agent-device screenshot baseline.png --normalize-status-bar  # Normalize iOS simulator chrome for reusable diff baselines
 agent-device screenshot page.png --platform web --fullscreen  # On web, --fullscreen/--full/-f captures the entire document
 agent-device viewport 1280 900 --platform web                # Resize the active web viewport for fixed-layout or 100vh apps
@@ -927,6 +941,7 @@ agent-device record stop                # Stop active recording
 - Set `AGENT_DEVICE_SCREENSHOT_SCALE=0.3` (or `screenshotScale` in config) as a token-conscious screenshot default for agent workflows. An explicit `--scale` overrides it.
 - Keep the scale default unset, or use `--scale 1`, when full-resolution screenshots are required for reusable pixel-diff baselines.
 - `screenshot --overlay-refs` captures a fresh full snapshot and burns visible `@eN` refs plus their target rectangles into the saved PNG.
+- `screenshot --crop-on <selector>` captures a fresh full snapshot of the same screen and crops the saved PNG to the frame the selector resolves to. The selector must resolve to exactly one framed node; the result carries a `warnings` entry when the frame is clipped to the image. Currently accepted on iOS simulators and Android emulators — every other target is refused before any device work, and the flag cannot be combined with `--overlay-refs` or `--fullscreen` because both move the captured frame away from the snapshot viewport the crop is measured against.
 - `screenshot --normalize-status-bar` temporarily normalizes iOS simulator status-bar chrome for deterministic screenshot baselines; ordinary screenshots leave the simulator's current chrome visible.
 - `screenshot --scale <factor> --overlay-refs` writes a smaller image and draws refs for that final image size; avoid very small scales when text, icons, or labels need to remain readable.
 - `diff screenshot` compares the current live screenshot to `--baseline`, or compares `--baseline` to an optional saved `current.png` path without requiring an active session. Its text output reports ranked changed regions with screen-space rectangles, changed-pixel counts, and each region's share of the diff; JSON also includes normalized rectangles. The earlier best-effort `ocr` and `nonTextDeltas` analyzers are retired; their optional result fields remain for source compatibility but are no longer emitted, so use the baseline/current images and diff artifact with vision for qualitative interpretation. It writes a diff PNG with a light grayscale current-screen context, red-tinted changed pixels, and outlined changed regions when `--out` is provided. Live iOS simulator diffs normalize status-bar chrome by default; use `screenshot --normalize-status-bar` when capturing reusable baselines.
