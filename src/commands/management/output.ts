@@ -225,6 +225,7 @@ export const managementCliOutputFormatters = {
   artifacts: resultOutput(artifactsCliOutput),
   open: resultOutput(openCliOutput),
   close: resultOutput(closeCliOutput),
+  crash: messageOutput,
   install: resultOutput(deployCliOutput),
   reinstall: resultOutput(deployCliOutput),
   'install-from-source': resultOutput(installFromSourceCliOutput),

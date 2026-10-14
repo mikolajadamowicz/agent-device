@@ -91,6 +91,10 @@ const audioQueryUnavailable = unavailableFact(
   'unsupported-platform-leaf',
   'the stateless audio page probe is a web-session operation; Apple targets use the host capture.',
 );
+const crashUnavailable = unavailableFact(
+  'unsupported-platform-leaf',
+  'crash raises an app crash through am crash and is supported only on Android emulators and devices driven over local adb.',
+);
 const perfUnavailable = unavailableFact(
   'unsupported-device-backend',
   'perf requires an Apple simulator, macOS device, or CoreDevice-backed physical Apple device.',
@@ -309,6 +313,7 @@ export function createApplePlatformRuntime(host: PlatformRuntimeHost): PlatformR
         ...elementTextRuntimeOperationFacts({ readTextAtPoint: appleElementTextFact(device) }),
         ...appleNavigationFacts(device),
         ...appleFoldableFacts(device),
+        crashApplication: crashUnavailable,
         ...appleSystemFacts(device),
         ...audioProbeRuntimeOperationFacts({
           capture: appleAudioProbeCaptureFact(device),

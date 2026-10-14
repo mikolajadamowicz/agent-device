@@ -217,6 +217,8 @@ test('clipboard, the app switcher, app events, settings and alerts carry no web 
     // A foldable hinge is posed through the host's iOS simulator HID helper; the web target has
     // none.
     'setFoldPose',
+    // `am crash` is an Android shell command; a browser page has no app process to crash.
+    'crashApplication',
     'triggerAppEvent',
     // R58/R59: the retired `settings` and `alert` descriptors declared no web leaf either.
     'setSetting',

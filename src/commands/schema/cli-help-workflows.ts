@@ -112,6 +112,7 @@ Crash symbolication:
     Use logs when you need the lead-up timeline before a failure.
     Use debug symbols when you have crash.ips/crash.log plus a matching dSYM/build directory and need the failing frame.
     Use Xcode/LLDB when you need live state, breakpoints, variables, memory, or stepping.
+    Use crash [app] to make a running Android app crash on purpose for a crash-recovery test (am crash, API 26+, local adb), then relaunch it with open <app>.
   Use debug symbols when you already have an Apple crash artifact and local dSYMs and need the failing code path, not a full log dump:
     agent-device debug symbols --artifact crash.log --dsym MyApp.dSYM --out crash-symbolicated.log
     agent-device debug symbols --artifact crash.ips --search-path ./build --out crash-symbolicated.ips

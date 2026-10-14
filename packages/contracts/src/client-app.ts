@@ -185,6 +185,11 @@ export type AppPushOptions = DeviceCommandBaseOptions & {
   payload: string | JsonObject;
 };
 
+/** `crash`: `app` names the app to crash; the session app when omitted. */
+export type AppCrashOptions = DeviceCommandBaseOptions & {
+  app?: string;
+};
+
 export type AppTriggerEventOptions = DeviceCommandBaseOptions & {
   event: string;
   payload?: JsonObject;

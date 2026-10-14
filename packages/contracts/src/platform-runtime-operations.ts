@@ -28,6 +28,7 @@ import type { KeyboardRuntimeOperations } from './keyboard-runtime.ts';
 import type { ClipboardRuntimeOperations } from './clipboard-runtime.ts';
 import type { SystemButtonRuntimeOperations } from './system-button-runtime.ts';
 import type { AppEventRuntimeOperations } from './app-event-runtime.ts';
+import type { AppCrashRuntimeOperations } from './app-crash-runtime.ts';
 import type { ReadableSetting } from './settings.ts';
 import type { SettingsRuntimeOperations } from './settings-runtime.ts';
 import type { AlertRuntimeOperations } from './alert-runtime.ts';
@@ -82,6 +83,7 @@ export type PlatformRuntimeOperations = AppLogRuntimeOperations &
   ClipboardRuntimeOperations &
   SystemButtonRuntimeOperations &
   AppEventRuntimeOperations &
+  AppCrashRuntimeOperations &
   SettingsRuntimeOperations &
   AlertRuntimeOperations &
   AudioProbeRuntimeOperations &
@@ -119,6 +121,7 @@ export const keyboardEnterUse = defineUse({ required: ['keyboardEnter'] });
 export const appSwitcherRuntimeUse = defineUse({ required: ['appSwitcher'] });
 export const actionButtonRuntimeUse = defineUse({ required: ['actionButton'] });
 export const appEventRuntimeUse = defineUse({ required: ['triggerAppEvent'] });
+export const appCrashRuntimeUse = defineUse({ required: ['crashApplication'] });
 export const settingsRuntimeUse = defineUse({ required: ['setSetting'] });
 export const settingReadUse = defineUse({ required: ['readSetting'] });
 export const alertReadUse = defineUse({ required: ['readAlert'] });

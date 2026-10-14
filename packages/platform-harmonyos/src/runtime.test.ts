@@ -101,6 +101,8 @@ test.each([
   expect(binding.operations.actionButton).toBeUndefined();
   expect(facts.operations.setFoldPose).toMatchObject({ available: false });
   expect(binding.operations.setFoldPose).toBeUndefined();
+  expect(facts.operations.crashApplication).toMatchObject({ available: false });
+  expect(binding.operations.crashApplication).toBeUndefined();
   // Public orientation and TV-remote operations remain unavailable unconditionally.
   expect(facts.operations.setOrientation).toEqual({
     available: false,

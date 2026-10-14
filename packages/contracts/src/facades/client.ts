@@ -1,6 +1,7 @@
 export type {
   AppCloseOptions,
   AppCloseResult,
+  AppCrashOptions,
   AppDeployOptions,
   AppDeployResult,
   AppInstallFromSourceOptions,

@@ -42,6 +42,7 @@ import {
   alertRuntimePlanUses,
   actionButtonRuntimeUse,
   foldRuntimeUse,
+  appCrashRuntimeUse,
   appEventRuntimeUse,
   appStateRuntimeUses,
   appSwitcherRuntimeUse,
@@ -1523,6 +1524,16 @@ export const RAW_COMMAND_DESCRIPTORS = [
     ...GENERIC_MUTATING_COMMAND_TRAITS,
     timeoutPolicy: FOLD_TIMEOUT_POLICY,
     platformExecution: { kind: 'device-runtime', uses: [foldRuntimeUse] },
+  },
+  {
+    name: 'crash',
+    ...(ownerFilesEnabled ? { ownerFiles: ['src/commands/management/app.ts'] as const } : {}),
+    catalog: { group: 'public' },
+    frameworkTier: 'extended',
+    // Admission is the owner's `crashApplication` fact. The crash replaces the app's UI with
+    // whatever the device shows next, so the generic mutating traits' ref-frame invalidation holds.
+    ...GENERIC_MUTATING_COMMAND_TRAITS,
+    platformExecution: { kind: 'device-runtime', uses: [appCrashRuntimeUse] },
   },
   {
     name: 'scroll',

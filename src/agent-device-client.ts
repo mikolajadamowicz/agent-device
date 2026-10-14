@@ -327,6 +327,7 @@ export function createAgentDeviceClient(
           identifiers: { session },
         };
       },
+      crash: async (options = {}) => await executeCommand<CommandResult<'crash'>>('crash', options),
       push: async (options) => await executeCommand<CommandResult<'push'>>('push', options),
       triggerEvent: async (options) =>
         await executeCommand<CommandResult<'trigger-app-event'>>('trigger-app-event', options),

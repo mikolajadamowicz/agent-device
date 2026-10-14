@@ -416,6 +416,7 @@ function webRuntimeFacts(
       ...systemButtonRuntimeOperationFacts({ unsupported: navigationUnavailable }),
       setFoldPose: navigationUnavailable,
       ...appEventRuntimeOperationFacts({ triggerAppEvent: navigationUnavailable }),
+      crashApplication: navigationUnavailable,
       ...settingsRuntimeOperationFacts({
         setSetting: navigationUnavailable,
         readSetting: navigationUnavailable,

@@ -241,6 +241,30 @@ test('Android admits the fold fact on emulators and refuses every other kind', a
   }
 });
 
+test('Android admits the crash fact on emulators and devices and refuses the simulator row', async () => {
+  for (const runtimeDevice of [
+    ANDROID_EMULATOR,
+    { ...ANDROID_EMULATOR, kind: 'device' as const },
+  ]) {
+    const binding = await bindOrdinary(
+      createAndroidPlatformRuntime(androidNavigationHost()),
+      runtimeDevice,
+    );
+    expect(binding.facts.operations.crashApplication).toEqual({ available: true });
+    expect(binding.operations.crashApplication).toEqual(expect.any(Function));
+  }
+  const simulator = await bindOrdinary(createAndroidPlatformRuntime(androidNavigationHost()), {
+    ...ANDROID_EMULATOR,
+    kind: 'simulator' as const,
+  });
+  expect(simulator.facts.operations.crashApplication).toEqual({
+    available: false,
+    reason: 'unsupported-device-kind',
+    hint: 'crash is supported on Android emulators and physical devices.',
+  });
+  expect(simulator.operations.crashApplication).toBeUndefined();
+});
+
 // R55 parity: the retired `clipboard` bucket was `ANDROID_ALL` (emulator/device/unknown) with no
 // Android admission closure, so `cmd clipboard get/set text` is admitted on every real kind and
 // refused only on the synthetic `simulator` row the bucket never listed. (`unknown` is the

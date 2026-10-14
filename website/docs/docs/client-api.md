@@ -245,7 +245,7 @@ Domain client methods:
 
 - `client.devices.list()`, `capabilities()`, `boot()`, `shutdown()`
 - `client.sessions.list()`, `stateDir()`, `close()`, `saveScript()`, `artifacts()`
-- `client.apps.install()`, `reinstall()`, `installFromSource()`, `list()`, `open()`, `close()`, `push()`, `triggerEvent()`
+- `client.apps.install()`, `reinstall()`, `installFromSource()`, `list()`, `open()`, `close()`, `crash()`, `push()`, `triggerEvent()`. `crash({ app })` crashes a running Android app through `am crash` (API 26+, local adb only); iOS and other targets refuse it.
 - `client.materializations.release()`
 - `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease.
 - `client.metro.prepare()`, `reload()`

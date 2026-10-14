@@ -16,6 +16,7 @@ import { createUnavailableRuntimeFactsForTest } from '@agent-device/test-kit/run
 import { makeSession } from './session-factories.ts';
 import { makeSessionStore } from './store-factory.ts';
 import { resolveBoundBackRuntime } from '../../execution/back-runtime.ts';
+import { resolveBoundCrashRuntime } from '../../execution/crash-runtime.ts';
 import { resolveBoundFocusRuntime } from '../../execution/focus-runtime.ts';
 import { resolveBoundFoldRuntime } from '../../execution/fold-runtime.ts';
 import { resolveBoundGestureRuntime } from '../../core/gesture-runtime.ts';
@@ -106,6 +107,12 @@ export const conformedRuntimeBindings = {
   fold: {
     resolve: async (device, bindings) =>
       refusable(await resolveBoundFoldRuntime({ device, positionals: ['open'], ...bindings })),
+  },
+  crash: {
+    resolve: async (device, bindings) =>
+      refusable(
+        await resolveBoundCrashRuntime({ device, positionals: ['com.example.app'], ...bindings }),
+      ),
   },
   focus: {
     resolve: async (device, bindings) =>

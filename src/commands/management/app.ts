@@ -1,4 +1,5 @@
 import { PUBLIC_COMMANDS } from '@agent-device/command-registry/catalog';
+import type { CommandResultMap } from '@agent-device/command-registry/command-result';
 import type { AppCloseOptions, AppOpenOptions } from '@agent-device/contracts/client';
 import { SESSION_SURFACES } from '@agent-device/contracts/session';
 import type { CommandSchemaOverride } from '@agent-device/command-registry/command-schema';
@@ -6,9 +7,11 @@ import { assertResolvedAppsFilter } from './app-inventory-contract.ts';
 import {
   booleanField,
   booleanSchema,
+  constSchema,
   enumField,
   integerField,
   jsonSchemaField,
+  objectSchema,
   optionField,
   stringArrayField,
   stringField,
@@ -16,6 +19,7 @@ import {
 } from '../command-input.ts';
 import { commonInputFromFlags, direct, optionalString } from '../cli-grammar/common.ts';
 import type { CliReader, CommandInput, DaemonWriter } from '../cli-grammar/types.ts';
+import type { JsonSchema } from '../command-contract.ts';
 import { METRO_RELOAD_FLAGS } from '@agent-device/command-registry/flag-groups';
 import { defineCommandFacet } from '../family/types.ts';
 import { defineFieldCommandMetadata } from '../field-command-contract.ts';
@@ -95,6 +99,24 @@ const closeCommandMetadata = defineFieldCommandMetadata(
   },
 );
 
+const crashCommandDescription = `Crash the named app, or the session app when app is omitted, so a test can check crash recovery and relaunch. Android only, on emulators and devices driven over local adb: runs am crash on the app's package, which delivers a crash the app handles through its own uncaught-exception path, then returns once the crashed process is gone. Requires Android 8.0 (API 26) or newer; an older device fails with UNSUPPORTED_OPERATION and details.reason android-api-level-unsupported, and nothing falls back to force-stop or kill. An app with no running process fails with COMMAND_FAILED and details.reason app-not-running; a crashed process still running after 5s (a crash dialog holding it, or a blocked main thread) fails with COMMAND_FAILED and details.reason crash-exit-unconfirmed. iOS, other platforms, and WebDriver or Limrun backends refuse with UNSUPPORTED_OPERATION. Refs from before the crash are stale: relaunch the app with open and take a new snapshot.`;
+
+const crashCommandMetadata = defineFieldCommandMetadata('crash', crashCommandDescription, {
+  app: stringField('Optional app to crash: name or package; defaults to the session app.'),
+});
+
+/**
+ * This family's advertised MCP `outputSchema`s, projected into the command map by
+ * `src/mcp/command-output-schemas.ts`. Non-strict, so additive response fields keep validating.
+ */
+export const APP_COMMAND_OUTPUT_SCHEMAS = {
+  // packages/contracts/src/app-crash-runtime.ts
+  crash: objectSchema(
+    { action: constSchema('crash'), appBundleId: stringSchema(), message: stringSchema() },
+    ['action', 'appBundleId', 'message'],
+  ),
+} satisfies Pick<Record<keyof CommandResultMap, JsonSchema>, 'crash'>;
+
 // The flat metro hint flags fold into the `runtime` object open already accepts.
 function toAppOpenOptions(
   input: AppOpenOptions & {
@@ -136,6 +158,11 @@ const closeCliSchema = {
   allowedFlags: ['saveScript', 'force', 'shutdown'],
 } as const satisfies CommandSchemaOverride;
 
+const crashCliSchema = {
+  positionalArgs: ['app?'],
+  allowedFlags: [],
+} as const satisfies CommandSchemaOverride;
+
 const appsCliReader: CliReader = (_positionals, flags) => ({
   ...commonInputFromFlags(flags),
   appsFilter: assertResolvedAppsFilter(flags.appsFilter),
@@ -171,9 +198,17 @@ const closeCliReader: CliReader = (positionals, flags) => ({
   force: flags.force,
 });
 
+const crashCliReader: CliReader = (positionals, flags) => ({
+  ...commonInputFromFlags(flags),
+  app: positionals[0],
+});
+
 const appsDaemonWriter: DaemonWriter = direct(PUBLIC_COMMANDS.apps);
 const openDaemonWriter: DaemonWriter = direct(PUBLIC_COMMANDS.open, openPositionals);
 const closeDaemonWriter: DaemonWriter = direct(PUBLIC_COMMANDS.close, (input) =>
+  optionalString(input.app),
+);
+const crashDaemonWriter: DaemonWriter = direct(PUBLIC_COMMANDS.crash, (input) =>
   optionalString(input.app),
 );
 
@@ -221,6 +256,19 @@ export const closeCommandFacet = defineCommandFacet({
   cliReader: closeCliReader,
   daemonWriter: closeDaemonWriter,
   cliOutputFormatter: managementCliOutputFormatters.close,
+});
+
+export const crashCommandFacet = defineCommandFacet({
+  name: 'crash',
+  text: {
+    summary: 'Crash an Android app over local adb to test crash recovery',
+  },
+  metadata: crashCommandMetadata,
+  run: (client, input) => client.apps.crash(input),
+  cliSchema: crashCliSchema,
+  cliReader: crashCliReader,
+  daemonWriter: crashDaemonWriter,
+  cliOutputFormatter: managementCliOutputFormatters.crash,
 });
 
 function withoutApp(input: AppCloseOptions & { shutdown?: boolean }): {

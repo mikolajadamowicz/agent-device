@@ -202,6 +202,12 @@ test.each([
       hint: 'trigger-app-event is not supported on Vega OS.',
     });
     expect(binding.operations.triggerAppEvent).toBeUndefined();
+    expect(binding.facts.operations.crashApplication).toMatchObject({
+      available: false,
+      reason: 'unsupported-platform-leaf',
+      hint: 'crash is not supported on Vega OS.',
+    });
+    expect(binding.operations.crashApplication).toBeUndefined();
     expect(binding.facts.operations.setSetting).toMatchObject({
       available: false,
       reason: 'unsupported-platform-leaf',

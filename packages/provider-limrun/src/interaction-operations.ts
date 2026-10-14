@@ -318,6 +318,17 @@ export function limrunFoldOperationFacts() {
   return Object.freeze({ setFoldPose: LIMRUN_FOLD_UNAVAILABLE });
 }
 
+/** `crash` runs `am crash` through the local Android owner's adb; no Limrun leg implements it. */
+export const LIMRUN_CRASH_UNAVAILABLE = unavailableFact(
+  'unsupported-provider-mode',
+  'crash runs am crash through the local Android adb owner; it is not supported on Limrun-provided devices.',
+);
+
+/** The crash refusal both Limrun legs share. */
+export function limrunCrashOperationFacts() {
+  return Object.freeze({ crashApplication: LIMRUN_CRASH_UNAVAILABLE });
+}
+
 /**
  * `trigger-app-event` is the one system leaf both direct-session legs genuinely serve: each
  * implements `open`, and a deep link is exactly what that method routes (`openUrl` on iOS, the

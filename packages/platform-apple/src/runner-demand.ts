@@ -52,6 +52,8 @@ const APPLE_SIMULATOR_OPERATION_HOSTS: Readonly<
   setSetting: 'simulator',
   readSetting: 'simulator',
   setFoldPose: 'simulator',
+  // Refused on every Apple target; classified only so the record stays total.
+  crashApplication: 'simulator',
   // Observation: the AX bridge presents regular and raw trees; custom actions need XCTest.
   captureSnapshot: 'simulator',
   captureSnapshotWithoutActiveApp: 'simulator',

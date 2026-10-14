@@ -613,6 +613,21 @@ agent-device trigger-app-event screenshot_taken '{"source":"qa"}'
 - Needs an active session or a device selector (`--platform`, `--device`, `--udid`, `--serial`). On iOS physical devices, open the app in the session first.
 - Set the URL template with `AGENT_DEVICE_APP_EVENT_URL_TEMPLATE`, or per platform with `AGENT_DEVICE_IOS_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_MACOS_APP_EVENT_URL_TEMPLATE`, or `AGENT_DEVICE_ANDROID_APP_EVENT_URL_TEMPLATE`. Placeholders are `{event}`, `{payload}`, and `{platform}`, for example `myapp://agent-device/event?name={event}&payload={payload}`.
 
+## App crash (crash recovery)
+
+```bash
+agent-device open com.example.player --platform android
+agent-device crash com.example.player
+agent-device open com.example.player
+```
+
+- `crash [app]` crashes the named app, or the session app when `app` is omitted, so a test can check crash recovery and relaunch behavior. It is a real crash: `am crash <package>` makes the app's main thread throw, so the app's own crash handlers run. It never falls back to `am force-stop` or `am kill`, which end the process without a crash.
+- Android only, on emulators and devices driven over local adb. It needs Android 8.0 (API 26) or newer, the first release whose `am` has a `crash` subcommand; an older device fails with `UNSUPPORTED_OPERATION` and `details.reason` `android-api-level-unsupported`.
+- The app must be running: `am crash` reports success even when no process matches, so a stopped app fails with `COMMAND_FAILED` and `details.reason` `app-not-running` instead.
+- `am crash` only schedules the crash, so `crash` returns once the crashed process is gone. A process still running after 5 seconds fails with `COMMAND_FAILED` and `details.reason` `crash-exit-unconfirmed`: a crash dialog keeps the process until it is dismissed, and an app whose main thread is blocked never handles the crash.
+- iOS, macOS, tvOS, web, Linux, HarmonyOS, Vega, and the WebDriver (Appium) and Limrun backends refuse it with `UNSUPPORTED_OPERATION`.
+- The response is `{ action: 'crash', appBundleId, message }`. Refs from before the crash are stale: relaunch with `open <app>` and take a new snapshot.
+
 ## Settings helpers
 
 ```bash

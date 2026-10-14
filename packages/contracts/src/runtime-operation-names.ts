@@ -31,6 +31,7 @@ export const RUNTIME_OPERATION_NAMES = [
   'clearRuntimeHints',
   'closeApplication',
   'configureProviderPortReverse',
+  'crashApplication',
   'deployApp',
   'deployMaterializedApp',
   'dismissAlert',

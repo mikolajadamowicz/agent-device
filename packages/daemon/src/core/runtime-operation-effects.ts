@@ -38,6 +38,7 @@ export const RUNTIME_OPERATION_EFFECTS: Readonly<
   clearRuntimeHints: 'mutates',
   closeApplication: 'mutates',
   configureProviderPortReverse: 'repeatable',
+  crashApplication: 'mutates',
   deployApp: 'mutates',
   deployMaterializedApp: 'mutates',
   dismissAlert: 'mutates',

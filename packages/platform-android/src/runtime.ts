@@ -1,3 +1,4 @@
+import type { CrashApplicationInput } from '@agent-device/contracts/app-crash-runtime';
 import type { EnsureReadyInput } from '@agent-device/contracts/device-readiness-runtime';
 import type { NetworkDumpInput } from '@agent-device/contracts/network-runtime';
 import type {
@@ -139,6 +140,11 @@ const snapshotCustomActionsUnavailable = unavailableFact(
 const viewportUnavailable = unavailableFact(
   'unsupported-platform-leaf',
   'viewport resizes web targets only (--platform web).',
+);
+/** `am crash` needs a real adb device; the synthetic `simulator` row has none. */
+const crashKindUnavailable = unavailableFact(
+  'unsupported-device-kind',
+  'crash is supported on Android emulators and physical devices.',
 );
 const audioQueryUnavailable = unavailableFact(
   'unsupported-platform-leaf',
@@ -346,6 +352,9 @@ export function createAndroidPlatformRuntime(host: PlatformRuntimeHost): Platfor
         // The deep link opens through `am start`, admitted wherever the retired `ANDROID_ALL`
         // bucket admitted it.
         ...appEventRuntimeOperationFacts({ triggerAppEvent: androidTouchFact(device) }),
+        // The API level `am crash` needs is not in `DeviceInfo`; the operation reads it and
+        // refuses an older build with a typed `UNSUPPORTED_OPERATION`.
+        crashApplication: device.kind === 'simulator' ? crashKindUnavailable : available,
         // Settings run over adb (`appops`, `settings put`, `pm clear`, …) on every real kind, so
         // both cells are the retired `ANDROID_ALL` bucket verbatim: the same `settings get`/`put`
         // pair that writes a value reads it back.
@@ -461,6 +470,15 @@ export function createAndroidPlatformRuntime(host: PlatformRuntimeHost): Platfor
             device: request.device,
             signal: request.scope.signal,
           }),
+          ...whenAdmitted(facts.operations.crashApplication, () => ({
+            crashApplication: async (input: CrashApplicationInput) => {
+              request.scope.signal.throwIfAborted();
+              const { crashAndroidApp } = await import('./app-crash.ts');
+              return await crashAndroidApp(request.device, input, {
+                signal: request.scope.signal,
+              });
+            },
+          })),
           ensureReady: async (input: EnsureReadyInput) =>
             await ensureAndroidReady(
               host,
