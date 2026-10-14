@@ -1,10 +1,10 @@
 # BrowserStack
 
-Use BrowserStack App Automate for hosted Android and iOS WebDriver sessions.
+Use BrowserStack App Automate to run agent-device on hosted Android and iOS devices over WebDriver. You need a BrowserStack account with App Automate access.
 
-## Credentials and connection
+## Set credentials and connect
 
-Set BrowserStack credentials in a non-interactive environment:
+Export your BrowserStack credentials, for example from CI secrets:
 
 ```bash
 export BROWSERSTACK_USERNAME=...
@@ -21,9 +21,11 @@ agent-device connect browserstack \
   --provider-app bs://app-id
 ```
 
-`--provider-app` accepts a BrowserStack app reference such as `bs://...`, an HTTP(S) app URL, or an existing local app path. BrowserStack uploads a local path when it creates the hosted session.
+`--provider-app` accepts a BrowserStack app reference such as `bs://...`, an HTTP(S) app URL, or an existing local app path. agent-device uploads a local path when it creates the hosted session.
 
-During `connect`, agent-device verifies the BrowserStack credentials and the exact device/OS pair. It checks a `bs://` reference against recent uploads and confirms that a local artifact exists before saving its absolute path. A public URL stays configured and BrowserStack validates it when the session starts. `open` still needs the app's installed package or bundle identifier, not its upload name.
+`connect` verifies the BrowserStack credentials and the exact device/OS pair. It checks a `bs://` reference against recent uploads, and confirms that a local app file exists before saving its absolute path. A public URL is saved as-is; BrowserStack validates it when the session starts. `open` takes the app's installed package or bundle identifier, not its upload name.
+
+If you change credentials while the daemon runs, see [Change credentials while the daemon runs](/agent-device/docs/device-clouds.md#change-credentials-while-the-daemon-runs).
 
 Optional labels:
 
@@ -39,6 +41,7 @@ Optional device features:
 --provider-device-orientation portrait   # or landscape        (alias --device-orientation)
 --provider-geo-location US                                   # (alias --geo-location)
 --provider-timezone New_York                                 # (alias --timezone)
+--provider-appium-version 3.2.0                              # (alias --appium-version)
 --provider-language Fr                                       # (alias --language)
 --provider-locale Fr                                         # (alias --locale)
 --provider-network-profile 4g-lte-advanced-good              # (alias --network-profile)
@@ -46,13 +49,14 @@ Optional device features:
 --provider-no-resign-app                                     # iOS only
 ```
 
-BrowserStack receives these values in `bstack:options` when it creates the hosted session.
+agent-device sends these values to BrowserStack as `bstack:options` capabilities when it creates the hosted session.
 
-- The orientation applies when the session starts. An activity without a fixed orientation, such as a Chrome Custom Tab hosting OAuth, can still open in landscape. Run `agent-device orientation portrait` after launching it when needed.
+- The orientation applies when the session starts. An activity without a fixed orientation, such as a Chrome Custom Tab hosting OAuth, can still open in landscape. Run `agent-device orientation portrait` after it opens if you need portrait.
+- `--provider-appium-version` pins the Appium server BrowserStack runs for the session. Without it, BrowserStack runs its default Appium 1.x, and `mobile:` commands such as `deepLink` and `pressButton` need Appium 2.x or newer.
 - `--provider-network-profile` and `--provider-custom-network` are mutually exclusive.
-- `--provider-no-resign-app` applies to iOS only. BrowserStack re-signs uploaded iOS apps with its provisioning profile, which strips entitlements; opt out when testing entitlement-dependent features such as push notifications.
+- `--provider-no-resign-app` applies to iOS only. BrowserStack re-signs uploaded iOS apps with its provisioning profile, which strips entitlements. Pass this flag when you test features that need entitlements, such as push notifications.
 
-## CLI workflow
+## Run a session from the CLI
 
 ```bash
 export BROWSERSTACK_USERNAME=...
@@ -74,11 +78,11 @@ agent-device artifacts --json
 agent-device disconnect
 ```
 
-For MCP-only use, run `connect` in the same effective state directory before starting `agent-device mcp`. MCP exposes `open`, `snapshot`, `click`, `close`, and `artifacts`, but not provider `connect` commands.
+To drive BrowserStack only through MCP, see [Use a provider only through MCP](/agent-device/docs/device-clouds.md#use-a-provider-only-through-mcp).
 
-## Node.js client
+## Use the Node.js client
 
-Use direct client configuration when the Node process manages BrowserStack credentials and selectors rather than a saved CLI connection profile:
+Configure the client directly when your Node.js process manages the BrowserStack credentials and selectors instead of a saved CLI connection profile:
 
 ```ts
 import { createAgentDeviceClient } from 'agent-device';
@@ -109,14 +113,10 @@ if (providerSessionId) {
 }
 ```
 
-## Artifacts and troubleshooting
+## Get artifacts and troubleshoot
 
-After `close`, BrowserStack can return session video, Appium logs, device logs, dashboard URLs, and public URLs. Run `agent-device artifacts --json`, or look up a previous session explicitly:
+After `close`, BrowserStack can return session video, Appium logs, device logs, dashboard URLs, and public URLs. The provider session ID is the WebDriver session ID. See [Retrieve artifacts after close](/agent-device/docs/device-clouds.md#retrieve-artifacts-after-close).
 
-```bash
-agent-device artifacts <webdriver-session-id> --provider browserstack --json
-```
+BrowserStack errors distinguish rejected credentials, an unavailable device/OS pair, a missing `bs://` upload, and a missing local app file.
 
-BrowserStack errors distinguish rejected credentials, an unavailable device/OS pair, a missing `bs://` upload, and a missing local artifact. If artifact lookup is pending immediately after `close`, retry it. BrowserStack may still be finalizing video and log URLs.
-
-On hosted WebDriver sessions, `fill` checks that the field received focus before it sends keys. If it cannot confirm focus, it fails without typing. Use `snapshot -i` to confirm the target. If the driver cannot expose focus at all, use `press <target>` followed by `type <text>`. That sends text without confirming the destination.
+To enter text, see [Fill text on hosted WebDriver sessions](/agent-device/docs/device-clouds.md#fill-text-on-hosted-webdriver-sessions).

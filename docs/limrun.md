@@ -1,21 +1,56 @@
 # Limrun
 
-Use Limrun for direct remote iOS simulators and Android emulators. Limrun does not use local or physical-device selectors such as `--udid`, `--serial`, or `--device`.
+Use Limrun to run agent-device on remote iOS simulators and Android emulators. You need a Limrun API key, or the URL and token of an instance someone else created. Limrun does not use local or physical-device selectors such as `--udid`, `--serial`, or `--device`.
 
-## Credentials and connection
+## Set credentials and connect
 
-Set a Limrun API key in a non-interactive environment. `LIMRUN_REGION` optionally selects a region.
+Export your Limrun API key, for example from CI secrets. Set `LIMRUN_REGION` to pick a region.
 
 ```bash
 export LIMRUN_API_KEY=...
 agent-device connect limrun --platform android
 ```
 
-Pass `android` or `ios` to select the instance type. `connect` verifies the selected service without creating an instance.
+`--platform android` or `--platform ios` selects the instance type. `connect` checks the credentials for that platform without creating an instance.
 
-## CLI workflow
+When you create an instance through agent-device, the creation request sends `User-Agent: agent-device-cli/<version>` so Limrun can attribute it to agent-device for revenue sharing.
 
-A new Limrun instance does not contain your app. Run `install <package-or-bundle-id> <app-path-or-url>` before `open`. The install command allocates the instance when needed, so you do not need to run `devices` first.
+## Drive an existing instance
+
+An agent in a sandbox can drive an instance that someone else created, such as the instance behind a live preview, without your organization's API key. Create the instance where the API key lives, then give the sandbox that instance's URL and token from its `status`:
+
+| Platform | Environment variables                                                                                                                                  |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| iOS      | `LIM_IOS_INSTANCE_URL` (`status.apiUrl`), `LIM_IOS_INSTANCE_TOKEN` (`status.token`)                                                                    |
+| Android  | `LIM_ANDROID_INSTANCE_URL` (`status.apiUrl`), `LIM_ANDROID_INSTANCE_TOKEN` (`status.token`), `LIM_ANDROID_INSTANCE_ADB_URL` (`status.adbWebSocketUrl`) |
+
+The `lim` CLI reads the same variables, so one set works for both tools. Set all of a platform's variables or none. With a partial set, `connect` fails, and the daemon disables Limrun and records `provider_runtime_skipped` in `daemon.log`.
+
+```bash
+export LIM_IOS_INSTANCE_URL=...
+export LIM_IOS_INSTANCE_TOKEN=...
+
+agent-device connect limrun --platform ios
+agent-device open com.example.app
+agent-device snapshot -i
+agent-device disconnect
+```
+
+`connect` checks the instance credentials. agent-device never creates or deletes that instance: `disconnect` leaves it running, and its owner deletes it. When a platform's instance variables are set, they take precedence over `LIMRUN_API_KEY` for that platform.
+
+On an attached Android instance, agent-device does not replace an existing port reverse mapping. If the owner already maps a device port, such as `tcp:8081` for their Metro server, a reverse to that port fails and the owner's mapping stays in place. The error has `details.reason: 'android_port_reverse_rebind_refused'` when `adb reverse --list` shows the mapping; otherwise it is a plain ADB failure.
+
+If your shell's account variables, or its instance variables for the platform you lease, differ from the ones the daemon started with, the first `install` or `open` refuses before it creates or attaches to an instance. See [Change credentials while the daemon runs](/agent-device/docs/device-clouds.md#change-credentials-while-the-daemon-runs).
+
+`install`, and `apps` before the first `open`, need `LIMRUN_API_KEY` because they use Limrun asset storage. After `open`, `apps` lists the apps installed on the instance without the key. Install your app before you hand over the instance. From the Node.js runtime, `getDeviceSession(device).installRemoteApp(url)` installs from a signed asset URL without the API key.
+
+## Keep idle sessions alive
+
+Limrun ends an instance after its inactivity timeout, which an idle session can reach while a model thinks between steps. Set `LIMRUN_KEEP_ALIVE=1` (or `true`) to ping the instance every 30 seconds while a session is open. Keep-alive is off by default. In the Node.js runtime, pass `keepAlive: true`.
+
+## Run a session from the CLI
+
+A new Limrun instance does not contain your app. Run `install <package-or-bundle-id> <app-path-or-url>` before `open`. `install` allocates the instance when needed, so you do not need to run `devices` first.
 
 ```bash
 export LIMRUN_API_KEY=...
@@ -29,15 +64,19 @@ agent-device close
 agent-device disconnect
 ```
 
-Limrun Android uses the direct ADB tunnel. Normal Android helper-backed snapshots, installs, and port reverse flow are available, including the usual Android reverse setup for a local Metro server.
+On Android, agent-device connects to Limrun over an ADB tunnel. Snapshots use the Android snapshot helper, installs upload the app through Limrun asset storage, and port reverse runs over ADB, including the usual reverse setup for a local Metro server.
 
-Limrun iOS uses the direct Limrun iOS client. It supports app lifecycle commands, snapshots, screenshots, taps, text input, scrolling, and app installation. It cannot reverse a remote device port to a local host port. For iOS Metro or React DevTools, use a publicly reachable HTTPS endpoint or bridge URL instead of a local-only address.
+On iOS, agent-device supports app lifecycle commands, snapshots, screenshots, taps, text input, scrolling, the home button, clipboard read and write, and app installation. `open --launch-args` relaunches the app with those arguments through simctl. iOS cannot reverse a remote device port to a local host port, so for Metro or React DevTools use a publicly reachable HTTPS endpoint or bridge URL instead of a local-only address.
 
-For MCP-only use, run `connect` in the same effective state directory before starting `agent-device mcp`. MCP exposes operational tools but not provider `connect` commands.
+On iOS, `settings` supports `appearance`, `permission`, `location`, and `clear-app-state`, with the same arguments as a local simulator. `clear-app-state` resets the app's data container through Limrun's soft reset. That reset relaunches the app once before agent-device stops it, so the app may run once after its data is cleared. `reset-keychain`, `wifi`, `airplane`, `faceid`, `touchid`, and `text-size` are unsupported, and you cannot read back any iOS setting.
 
-## Node.js runtime
+On iOS, `fill` taps the target, waits for that field to take text-entry focus, and only then types. Apps that never report a globally focused element, such as Flutter forms, still fill and report `textEntryReadiness: "focused-element"`. If the tap does not focus a field, `fill` fails with `text_entry_focus_not_observed` instead of typing into an unknown field. Use `type` to send text to whichever field already has focus.
 
-The first-party agent-device-cloud bridge can use agent-device's Limrun runtime:
+To drive Limrun only through MCP, see [Use a provider only through MCP](/agent-device/docs/device-clouds.md#use-a-provider-only-through-mcp). Limrun returns no provider artifacts, so `artifacts` has nothing to fetch.
+
+## Embed the Node.js runtime
+
+A Node.js bridge, such as agent-device-cloud, can embed agent-device's Limrun runtime:
 
 ```ts
 import { LimrunRuntime } from 'agent-device/limrun';
@@ -51,8 +90,10 @@ const runtime = new LimrunRuntime({
 });
 ```
 
-After allocating a lease, an embedding bridge can call `runtime.getDeviceSession(device)` for the allocated device's reusable semantic capabilities. The facade includes app inventory, foreground state where Limrun exposes it, key input, bounded log reads, recording, remote asset installation, and the existing interactor. Android also exposes agent-device's `AndroidAdbProvider` abstraction for helpers and reversible port forwarding. iOS exposes a typed `simctl` execution handle for bridge-owned runner lifecycle and launch policy. Raw Limrun clients remain private to the provider runtime.
+To drive existing instances, pass `instances: { ios: { apiUrl, token } }` (Android also takes `adbUrl`), with or without `apiKey`. The runtime never creates or deletes instances for a platform listed there.
 
-## Artifacts and troubleshooting
+After allocating a lease, call `runtime.getDeviceSession(device)` to get the allocated device's capabilities: app inventory, foreground state where Limrun exposes it, key input, bounded log reads, recording, remote asset installation, and the interactor. On Android it also exposes agent-device's `AndroidAdbProvider` for helpers and reversible port forwarding. On iOS it exposes a typed `simctl` execution handle so your bridge can own runner lifecycle and launch policy. The runtime does not expose raw Limrun clients.
 
-Limrun does not currently expose provider artifacts through `agent-device artifacts`. If connect fails, check `LIMRUN_API_KEY` and the optional `LIMRUN_REGION`.
+## Get artifacts and troubleshoot
+
+`agent-device artifacts` does not return provider artifacts for Limrun. If `connect` fails, check `LIMRUN_API_KEY` and the optional `LIMRUN_REGION`. For an existing instance, check its URL and token variables, and that the instance is still running.
