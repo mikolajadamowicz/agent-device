@@ -293,6 +293,12 @@ const SETTINGS_APP_NOT_INSTALLED_HINT =
 export const SETTINGS_APP_NOT_PACKAGE_REASON = 'setting_app_not_package';
 
 /**
+ * The reason `settings talkback` refuses a target that carries no TalkBack build: the recovery is
+ * installing one (or choosing an image that ships it), so a driver can branch on it.
+ */
+export const SETTINGS_TALKBACK_NOT_INSTALLED_REASON = 'talkback_not_installed';
+
+/**
  * Resolves the app an app-scoped mutation lands on through the owner's own app resolution, ahead of
  * anything that reaches the device. A failed resolution therefore dispatched nothing, and an app that
  * resolves to no installed app answers `app_not_installed` rather than reaching the device as a
@@ -321,6 +327,7 @@ export async function resolveSettingsApp<Resolved>(
 const SETTINGS_WIFI_USAGE = '<wifi|airplane|location> <on|off>';
 const SETTINGS_LOCATION_SET_USAGE = 'location set <lat> <lon>';
 const SETTINGS_ANIMATIONS_USAGE = 'animations <on|off>';
+const SETTINGS_TALKBACK_USAGE = 'talkback <on|off>';
 const SETTINGS_APPEARANCE_USAGE = `appearance <${APPEARANCE_ACTIONS.join('|')}>`;
 const SETTINGS_FACEID_USAGE = 'faceid <match|nonmatch|enroll|unenroll>';
 const SETTINGS_TOUCHID_USAGE = 'touchid <match|nonmatch|enroll|unenroll>';
@@ -338,12 +345,13 @@ const SETTINGS_PERMISSION_USAGE = `permission <${PERMISSION_ACTIONS.join('|')}> 
  * refused there), so it stays a literal while the accepted names come from the vocabulary.
  */
 export const SETTINGS_MACOS_PERMISSION_USAGE = `permission <grant|reset> <${MACOS_PERMISSION_TARGETS.join('|')}>`;
-const SETTINGS_MACOS_SUPPORTED_MESSAGE = `macOS supports only settings ${SETTINGS_APPEARANCE_USAGE} and settings ${SETTINGS_MACOS_PERMISSION_USAGE}. wifi|airplane|location|animations|text-size remain unsupported on macOS.`;
+const SETTINGS_MACOS_SUPPORTED_MESSAGE = `macOS supports only settings ${SETTINGS_APPEARANCE_USAGE} and settings ${SETTINGS_MACOS_PERMISSION_USAGE}. wifi|airplane|location|animations|talkback|text-size remain unsupported on macOS.`;
 
 export const SETTINGS_USAGE_OVERRIDE = [
   `settings ${SETTINGS_WIFI_USAGE}`,
   `settings ${SETTINGS_LOCATION_SET_USAGE}`,
   `settings ${SETTINGS_ANIMATIONS_USAGE}`,
+  `settings ${SETTINGS_TALKBACK_USAGE}`,
   `settings ${SETTINGS_APPEARANCE_USAGE}`,
   `settings ${SETTINGS_TEXT_SIZE_USAGE}`,
   `settings ${SETTINGS_FACEID_USAGE}`,
@@ -355,7 +363,7 @@ export const SETTINGS_USAGE_OVERRIDE = [
   `settings ${SETTINGS_MACOS_PERMISSION_USAGE}`,
 ].join(' | ');
 
-export const SETTINGS_INVALID_ARGS_MESSAGE = `settings requires ${SETTINGS_WIFI_USAGE}, ${SETTINGS_LOCATION_SET_USAGE}, ${SETTINGS_ANIMATIONS_USAGE}, ${SETTINGS_APPEARANCE_USAGE}, ${SETTINGS_TEXT_SIZE_USAGE}, ${SETTINGS_FACEID_USAGE}, ${SETTINGS_TOUCHID_USAGE}, ${SETTINGS_FINGERPRINT_USAGE}, ${SETTINGS_CLEAR_APP_STATE_USAGE}, ${SETTINGS_RESET_KEYCHAIN_USAGE}, ${SETTINGS_PERMISSION_USAGE}, or ${SETTINGS_MACOS_PERMISSION_USAGE}`;
+export const SETTINGS_INVALID_ARGS_MESSAGE = `settings requires ${SETTINGS_WIFI_USAGE}, ${SETTINGS_LOCATION_SET_USAGE}, ${SETTINGS_ANIMATIONS_USAGE}, ${SETTINGS_TALKBACK_USAGE}, ${SETTINGS_APPEARANCE_USAGE}, ${SETTINGS_TEXT_SIZE_USAGE}, ${SETTINGS_FACEID_USAGE}, ${SETTINGS_TOUCHID_USAGE}, ${SETTINGS_FINGERPRINT_USAGE}, ${SETTINGS_CLEAR_APP_STATE_USAGE}, ${SETTINGS_RESET_KEYCHAIN_USAGE}, ${SETTINGS_PERMISSION_USAGE}, or ${SETTINGS_MACOS_PERMISSION_USAGE}`;
 
 export function isMacOsSettingSupported(setting: string): boolean {
   const normalized = setting.trim().toLowerCase();

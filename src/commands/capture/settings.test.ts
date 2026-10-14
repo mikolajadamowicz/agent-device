@@ -230,6 +230,23 @@ describe('settings CLI permission vocabulary', () => {
     ).toThrow(/names two apps: com.example.app and com.example.other/);
   });
 
+  test('reads a talkback toggle and writes it positionally with no request input', () => {
+    const input = settingsCliReader(['talkback', 'on'], flags());
+    expect(input).toEqual({ setting: 'talkback', state: 'on' });
+    expect(settingsDaemonWriter(input)).toMatchObject({
+      command: 'settings',
+      positionals: ['talkback', 'on'],
+    });
+    expect(settingsDaemonWriter(input).input).toBeUndefined();
+  });
+
+  test('refuses a talkback state outside on|off', () => {
+    expectInvalidArgs(
+      () => settingsCliReader(['talkback', 'toggle'], flags()),
+      'Invalid settings arguments.',
+    );
+  });
+
   test('omits the request input when no app is named', () => {
     expect(
       settingsDaemonWriter(settingsCliReader(['animations', 'off'], flags())).input,

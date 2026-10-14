@@ -397,7 +397,7 @@ test('settings on macOS rejects wifi before dispatch with explicit subset guidan
       /permission <grant\|reset> <accessibility\|screen-recording\|input-monitoring>/,
     );
     expect(response.error.message).toMatch(
-      /wifi\|airplane\|location\|animations\|text-size remain unsupported on macOS/i,
+      /wifi\|airplane\|location\|animations\|talkback\|text-size remain unsupported on macOS/i,
     );
   }
 });

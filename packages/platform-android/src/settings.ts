@@ -118,6 +118,13 @@ export async function setAndroidSetting(
       }
       return { scale, keys: [...ANDROID_ANIMATION_SCALE_SETTINGS] };
     }
+    case 'talkback': {
+      const enabled = parseSettingState(state);
+      // Loaded on the call rather than at module evaluation because `mechanics.ts` re-exports this
+      // dispatcher and its eager closure is held at its merge-base size (`eager-closure-budgets`).
+      const { setAndroidTalkBack } = await import('./settings-talkback.ts');
+      return await setAndroidTalkBack(device, enabled);
+    }
     case 'appearance': {
       const target = await resolveAndroidAppearanceTarget(device, state);
       await runAndroidShell(device, ['cmd', 'uimode', 'night', target === 'dark' ? 'yes' : 'no']);

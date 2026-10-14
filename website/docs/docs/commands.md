@@ -625,6 +625,8 @@ agent-device settings location off
 agent-device settings location set 37.3349 -122.009
 agent-device settings animations off
 agent-device settings animations on
+agent-device settings talkback on
+agent-device settings talkback off
 agent-device settings text-size
 agent-device settings text-size large
 agent-device settings text-size accessibility-extra-large
@@ -664,6 +666,7 @@ Platform support:
 Device settings:
 
 - `settings animations off|on` (Android) sets the window, transition, and animator scales. Turn animations off to stabilize runs with heavy animation, and back on afterward.
+- `settings talkback on|off` (ADB-backed Android) turns the TalkBack screen reader on or off. `on` adds the installed TalkBack service (Google's Android Accessibility Suite or Samsung's build) to the secure `enabled_accessibility_services` list and sets `accessibility_enabled`; `off` removes every TalkBack build's entry and lowers `accessibility_enabled` once no service is left, so a service another tool enabled survives both and a target carrying both builds never runs two screen readers. The response reports `talkback` (`enabled` or `disabled`), the `service` component, and `enabledAccessibilityServices`. A target without an enabled TalkBack package, such as a plain AOSP emulator image, refuses with `UNSUPPORTED_OPERATION` and `error.details.reason: talkback_not_installed` without changing anything; Google APIs images ship it. A list that already reads as requested is not rewritten, so repeating the command does not rebind the other services. iOS simulators have no VoiceOver, so every other target, hosted WebDriver Android sessions included, refuses the setting. Android suppresses other accessibility services while a UiAutomation connection is held, so TalkBack feedback pauses while the agent-device snapshot helper session is connected and resumes once that session closes; the setting itself stays enabled throughout.
 - `settings airplane on|off` (Android) needs the connectivity service's `cmd connectivity airplane-mode` command, available from Android 11. It reports the resulting `airplaneMode`; a build without that command fails with `UNSUPPORTED_OPERATION` without changing anything. Connectivity takes a moment to settle, so poll the app rather than asserting offline behavior immediately.
 - `settings text-size` reads the current size; `settings text-size <category>` sets one: `extra-small`, `small`, `medium`, `large`, `extra-large`, `extra-extra-large`, `extra-extra-extra-large`, `accessibility-medium`, `accessibility-large`, `accessibility-extra-large`, `accessibility-extra-extra-large`, or `accessibility-extra-extra-extra-large`. It works on iPhone and iPad simulators and on Android; every other target refuses both read and write. The read reports `category` and the target's own `platformValue` (iOS may capitalize it, for example `extra-Small`).
 - Android has only a font-scale multiplier, mapped so `large` is `1.0` and `accessibility-extra-extra-extra-large` is `3.2`. A value between rungs reads as the nearest category, with the exact multiplier in `platformValue`; an unset scale reads as `large`.

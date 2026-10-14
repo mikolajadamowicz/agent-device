@@ -77,6 +77,7 @@ const SETTINGS_FORMS = [
   '<wifi|airplane|location> <on|off>',
   'location set <lat> <lon>',
   'animations <on|off>',
+  'talkback <on|off>',
   'appearance <light|dark|toggle>',
   `text-size [${TEXT_SIZE_LADDER.join('|')}]`,
   'faceid <match|nonmatch|enroll|unenroll>',
@@ -148,7 +149,7 @@ describe('settings usage and error strings', () => {
     expect(getUnsupportedMacOsSettingMessage('wifi')).toBe(
       'Unsupported macOS setting: wifi. macOS supports only settings appearance <light|dark|toggle> ' +
         'and settings permission <grant|reset> <accessibility|screen-recording|input-monitoring>. ' +
-        'wifi|airplane|location|animations|text-size remain unsupported on macOS.',
+        'wifi|airplane|location|animations|talkback|text-size remain unsupported on macOS.',
     );
   });
 

@@ -58,6 +58,15 @@ export type SettingsUpdateOptions =
       setting: 'animations';
       state: 'on' | 'off';
     })
+  /**
+   * The TalkBack screen reader, ADB-backed Android only: `on` adds the installed TalkBack service
+   * to the target's enabled accessibility services and `off` removes every TalkBack build again,
+   * leaving every other enabled service in place. A target without TalkBack refuses with `talkback_not_installed`.
+   */
+  | (DeviceCommandBaseOptions & {
+      setting: 'talkback';
+      state: 'on' | 'off';
+    })
   | (DeviceCommandBaseOptions & {
       setting: 'appearance';
       state: 'light' | 'dark' | 'toggle';

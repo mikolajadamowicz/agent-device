@@ -309,7 +309,7 @@ test('setIosSetting rejects unsupported macOS wifi setting with explicit subset 
       assert.match((error as AppError).message, /Unsupported macOS setting: wifi/i);
       assert.match(
         (error as AppError).message,
-        /wifi\|airplane\|location\|animations\|text-size remain unsupported on macOS/i,
+        /wifi\|airplane\|location\|animations\|talkback\|text-size remain unsupported on macOS/i,
       );
       return true;
     },
