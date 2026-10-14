@@ -50,6 +50,16 @@ export const ANDROID_FOLD_RUNTIME_CONTRACT_EVIDENCE: AndroidContractEvidence =
     [C.fold],
     'Android admits the fold fact on emulators and refuses every other kind',
   );
+export const ANDROID_CRASH_CONTRACT_EVIDENCE: AndroidContractEvidence =
+  defineAndroidContractEvidence(
+    'packages/platform-android/src/app-crash.test.ts',
+    [C.crash],
+    'crashes the running package with am crash and returns once its process is gone',
+  );
+export const APPLE_CRASH_DENIAL_EVIDENCE: RepositoryEvidence = {
+  path: 'packages/platform-apple/src/runtime.test.ts',
+  test: 'refuses the crash fact for the %s leaf and binds no crash operation',
+};
 export const ANDROID_VIEWPORT_RUNTIME_CONTRACT_EVIDENCE: AndroidContractEvidence =
   defineAndroidContractEvidence(
     'packages/daemon/src/execution/__tests__/viewport-runtime.test.ts',

@@ -16,11 +16,13 @@ import {
 import {
   ANDROID_ACTION_BUTTON_RUNTIME_CONTRACT_EVIDENCE,
   ANDROID_APPLICATION_LIFECYCLE_CONTRACT_EVIDENCE,
+  ANDROID_CRASH_CONTRACT_EVIDENCE,
   ANDROID_FOLD_RUNTIME_CONTRACT_EVIDENCE,
   ANDROID_HOVER_RUNTIME_CONTRACT_EVIDENCE,
   ANDROID_TV_REMOTE_RUNTIME_CONTRACT_EVIDENCE,
   ANDROID_VIEWPORT_RUNTIME_CONTRACT_EVIDENCE,
   APPLE_ACTION_BUTTON_FACT_EVIDENCE,
+  APPLE_CRASH_DENIAL_EVIDENCE,
   APPLE_HOVER_DENIAL_EVIDENCE,
   APPLE_NAVIGATION_FACTS_EVIDENCE,
   LINUX_HOVER_DENIAL_EVIDENCE,
@@ -1359,6 +1361,37 @@ const COMMAND_COVERAGE_DECLARATIONS = {
       LINUX_RUNTIME_EVIDENCE.path,
       LINUX_RUNTIME_EVIDENCE.test,
       'the exact-owner runtime fact refuses a hinge pose on the Linux desktop',
+    ),
+  },
+  [C.crash]: {
+    androidEmulator: androidEmulator.contract(
+      ANDROID_CRASH_CONTRACT_EVIDENCE,
+      'am crash reaches the running package once the API level admits it; API 25 and a stopped app are refused',
+    ),
+    iosSimulator: iosSimulator.contract(
+      APPLE_CRASH_DENIAL_EVIDENCE.path,
+      APPLE_CRASH_DENIAL_EVIDENCE.test,
+      'the exact-owner runtime fact refuses crash on the iOS simulator leaf',
+    ),
+    macos: macos.contract(
+      APPLE_CRASH_DENIAL_EVIDENCE.path,
+      APPLE_CRASH_DENIAL_EVIDENCE.test,
+      'the exact-owner runtime fact refuses crash on the macOS host leaf',
+    ),
+    tvos: tvos.contract(
+      APPLE_CRASH_DENIAL_EVIDENCE.path,
+      APPLE_CRASH_DENIAL_EVIDENCE.test,
+      'the exact-owner runtime fact refuses crash on the tvOS leaf',
+    ),
+    web: web.contract(
+      WEB_SYSTEM_SURFACE_DENIAL_EVIDENCE.path,
+      WEB_SYSTEM_SURFACE_DENIAL_EVIDENCE.test,
+      'the exact-owner runtime fact refuses crash on the web target',
+    ),
+    linux: linux.contract(
+      LINUX_RUNTIME_EVIDENCE.path,
+      LINUX_RUNTIME_EVIDENCE.test,
+      'the exact-owner runtime fact refuses crash on the Linux desktop',
     ),
   },
   [C.installFromSource]: {
