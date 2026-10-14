@@ -1,6 +1,6 @@
 import type { Platform, PublicPlatform } from '@agent-device/kernel/device';
 import type { SnapshotNode } from '@agent-device/kernel/snapshot';
-import { isNodeEditable, isNodeVisible, roleSpellingsOfNode } from './node.ts';
+import { isNodeEditable, isNodeEnabled, isNodeVisible, roleSpellingsOfNode } from './node.ts';
 import { extractNodeText } from '@agent-device/contracts/snapshot';
 import { normalizeText } from './find.ts';
 import type { Selector, SelectorTerm } from './parse.ts';
@@ -44,7 +44,7 @@ function matchesTerm(
     case 'focused':
       return Boolean(node.focused === true) === Boolean(term.value);
     case 'enabled':
-      return Boolean(node.enabled !== false) === Boolean(term.value);
+      return isNodeEnabled(node) === Boolean(term.value);
     case 'hittable':
       return Boolean(node.hittable === true) === Boolean(term.value);
     default:

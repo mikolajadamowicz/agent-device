@@ -7,6 +7,8 @@ export const IS_PREDICATES = [
   'editable',
   'selected',
   'focused',
+  'enabled',
+  'disabled',
   'text',
 ] as const;
 

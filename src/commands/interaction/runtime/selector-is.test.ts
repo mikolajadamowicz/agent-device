@@ -412,6 +412,40 @@ test('runtime is absent refuses depth and scope before capture with typed invali
   assert.equal(captures, 0);
 });
 
+test('runtime is disabled passes for a disabled control and is enabled fails with typed evidence', async () => {
+  const snapshot = makeSnapshotState([
+    {
+      index: 0,
+      depth: 0,
+      type: 'XCUIElementTypeButton',
+      identifier: 'submit',
+      label: 'Submit',
+      enabled: false,
+    },
+  ]);
+  const device = createSelectorDevice(snapshot);
+
+  const disabled = await device.selectors.is({
+    session: 'default',
+    predicate: 'disabled',
+    selector: 'id=submit',
+  });
+  assert.equal(disabled.predicate, 'disabled');
+  assert.equal(disabled.pass, true);
+
+  await assert.rejects(
+    device.selectors.is({ session: 'default', predicate: 'enabled', selector: 'id=submit' }),
+    (error: unknown) => {
+      assert.ok(error instanceof AppError);
+      assert.equal(error.code, 'COMMAND_FAILED');
+      assert.equal(error.details?.reason, 'predicate_failed');
+      assert.equal(error.details?.predicate, 'enabled');
+      assert.match(String(error.details?.predicateDetails), /"enabled":false/);
+      return true;
+    },
+  );
+});
+
 // Regression: admission normalizes a predicate's case, and every branch below it has to read
 // the ADMITTED value. Reading `options.predicate` instead let an uppercase predicate past the
 // gate and then evaluated it against lower-case branches — `EXISTS` skipped its own branch and

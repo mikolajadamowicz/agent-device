@@ -2,7 +2,13 @@ import assert from 'node:assert/strict';
 import { test } from 'vitest';
 import { createSnapshotVisibility } from '@agent-device/contracts/snapshot';
 import type { SnapshotNode } from '@agent-device/kernel/snapshot';
-import { evaluateIsPredicate, normalizeIsPositionals } from './predicates.ts';
+import { matchesSelector } from './match.ts';
+import { parseSelectorChain } from './parse.ts';
+import {
+  evaluateIsPredicate,
+  IS_PREDICATE_USAGE_HINT,
+  normalizeIsPositionals,
+} from './predicates.ts';
 import { formatRole } from '@agent-device/kernel/snapshot';
 
 test('normalizeIsPositionals keeps canonical predicate-first arguments untouched', () => {
@@ -37,6 +43,14 @@ test('normalizeIsPositionals rotates the selector-first form to predicate-first'
     'visible=true',
   ]);
   assert.deepEqual(normalizeIsPositionals(['label=Play', 'focused']), ['focused', 'label=Play']);
+  assert.deepEqual(normalizeIsPositionals(['label=Submit', 'enabled']), [
+    'enabled',
+    'label=Submit',
+  ]);
+  assert.deepEqual(normalizeIsPositionals(['label=Submit', 'disabled']), [
+    'disabled',
+    'label=Submit',
+  ]);
 });
 
 test('normalizeIsPositionals leaves unparseable arguments untouched', () => {
@@ -260,6 +274,63 @@ test('editable predicate follows a published editable fact and infers from type 
   );
   assert.equal(editableAt({ type: 'android.widget.EditText' }), true);
   assert.equal(editableAt({ type: 'com.example.RichEditor' }), false);
+});
+
+test.each([
+  { platform: 'android', type: 'android.widget.Button' },
+  { platform: 'ios', type: 'XCUIElementTypeButton' },
+] as const)(
+  'enabled and disabled predicates agree with the enabled= selector key ($platform)',
+  ({ platform, type }) => {
+    const [enabledKey] = parseSelectorChain('enabled=true').selectors;
+    assert.ok(enabledKey);
+    const verdicts = (enabled: boolean | undefined) => {
+      const node: SnapshotNode = {
+        index: 0,
+        ref: 'e1',
+        type,
+        kind: formatRole(type),
+        label: 'Submit',
+        ...(enabled === undefined ? {} : { enabled }),
+      };
+      const evaluate = (predicate: 'enabled' | 'disabled') =>
+        evaluateIsPredicate({
+          predicate,
+          node,
+          visibility: createSnapshotVisibility([node]),
+          platform,
+        });
+      return {
+        enabled: evaluate('enabled'),
+        disabled: evaluate('disabled'),
+        selectorMatches: matchesSelector(node, enabledKey, platform),
+      };
+    };
+
+    const enabled = verdicts(true);
+    assert.equal(enabled.enabled.pass, true);
+    assert.equal(enabled.disabled.pass, false);
+    assert.equal(enabled.selectorMatches, true);
+    assert.match(enabled.disabled.details, /"enabled":true/);
+
+    const disabled = verdicts(false);
+    assert.equal(disabled.enabled.pass, false);
+    assert.equal(disabled.disabled.pass, true);
+    assert.equal(disabled.selectorMatches, false);
+    assert.match(disabled.enabled.details, /"enabled":false/);
+
+    const unreported = verdicts(undefined);
+    assert.equal(unreported.enabled.pass, true);
+    assert.equal(unreported.disabled.pass, false);
+    assert.equal(unreported.selectorMatches, true);
+  },
+);
+
+test('the usage hint names every predicate that doubles as a boolean selector key', () => {
+  assert.match(
+    IS_PREDICATE_USAGE_HINT,
+    / visible\|hidden\|editable\|selected\|focused\|enabled double as selector keys/,
+  );
 });
 
 /** One capture whose two rows share a label: one on screen, one below the fold. */

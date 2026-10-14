@@ -31,6 +31,8 @@ const EXPECTED_IS_PREDICATES = [
   'editable',
   'selected',
   'focused',
+  'enabled',
+  'disabled',
   'text',
 ] as const;
 
@@ -102,6 +104,20 @@ const CASES: readonly {
     positionals: ['id="gone"', 'absent'],
     expect: 'accept',
     predicate: 'absent',
+  },
+  // `enabled` is also a boolean selector key, so the trailing token must still be read as
+  // the predicate rather than swallowed into the selector.
+  {
+    name: 'enabled predicate after selector',
+    positionals: ['id="submit"', 'enabled'],
+    expect: 'accept',
+    predicate: 'enabled',
+  },
+  {
+    name: 'disabled predicate after selector',
+    positionals: ['id="submit"', 'disabled'],
+    expect: 'accept',
+    predicate: 'disabled',
   },
   { name: 'unknown predicate', positionals: ['shiny', 'id="ok"'], expect: 'refuse' },
   { name: 'no predicate at all', positionals: [], expect: 'refuse' },

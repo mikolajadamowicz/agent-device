@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 import { test } from 'vitest';
 import { attachRefs, formatRole, type SnapshotNode } from '@agent-device/kernel/snapshot';
 import { normalizeType } from '@agent-device/contracts/snapshot';
-import { isNodeEditable, roleSpellingsOfNode } from './node.ts';
+import { isNodeEditable, isNodeEnabled, roleSpellingsOfNode } from './node.ts';
 
 function bareNode(type: string): SnapshotNode {
   return { index: 0, ref: 'e1', type, kind: formatRole(type) };
@@ -152,6 +152,12 @@ test('the window IS normalizeType: drift in the owner moves the window and the r
       assert.deepEqual(spellings, [kind], `spurious window entry for ${type}`);
     }
   }
+});
+
+test('isNodeEnabled is false only for a published enabled: false', () => {
+  assert.equal(isNodeEnabled({ ...bareNode('android.widget.Button'), enabled: true }), true);
+  assert.equal(isNodeEnabled({ ...bareNode('android.widget.Button'), enabled: false }), false);
+  assert.equal(isNodeEnabled(bareNode('android.widget.Button')), true);
 });
 
 test('isNodeEditable lets a published editable fact decide over the type', () => {

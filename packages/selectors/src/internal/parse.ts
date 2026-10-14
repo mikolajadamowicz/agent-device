@@ -54,6 +54,9 @@ const ALL_KEYS = new Set<SelectorKey>([...TEXT_KEYS, ...BOOLEAN_KEYS]);
 /** Selector key names accepted on the left of `key=value`, for error messages. */
 export const SELECTOR_KEY_NAMES: readonly SelectorKey[] = [...ALL_KEYS];
 
+/** Selector keys that take a boolean and may be written bare (`visible` means `visible=true`). */
+export const BOOLEAN_SELECTOR_KEY_NAMES: readonly SelectorKey[] = [...BOOLEAN_KEYS];
+
 // Role/element-type words that show up as accessibility roles, not selector keys (e.g. the
 // `button` in `button="Push Article"`). Superset of the ROLE_LABELS vocabulary in
 // packages/capture-kit/src/snapshot/snapshot-lines.ts (plus a few common role words like list/tab/alert/dialog/header,

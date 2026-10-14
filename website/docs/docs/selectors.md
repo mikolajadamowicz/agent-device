@@ -95,6 +95,9 @@ Boolean keys: `visible`, `hidden`, `editable`, `selected`, `focused`, `enabled`,
 so a custom text view can match and a read-only field cannot. Without the fact it is inferred from
 the element type. A disabled element is never editable.
 
+`enabled=false` matches, `is enabled` fails, and `is disabled` passes only when the snapshot reports
+the element as disabled. An element whose snapshot does not report the fact counts as enabled.
+
 Quoting and alternatives:
 
 - Quote values that contain spaces, with double or single quotes: `label="Sign in"`. Escape a quote
