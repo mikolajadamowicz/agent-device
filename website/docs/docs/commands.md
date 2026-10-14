@@ -181,7 +181,7 @@ agent-device close --platform web
 ```
 
 - `web setup` installs a pinned `agent-browser` backend into the agent-device state directory (`--state-dir`, `AGENT_DEVICE_STATE_DIR`) and reuses it when present. Run it before first use and in CI bootstrap: web commands never install the backend themselves and use only that managed install. `web doctor` verifies it.
-- Supported: URL open, snapshot refs, `get text/attrs`, `is visible/hidden/exists/absent/focused/text`, `find text/selector`, click/press, hover, fill/type, wait, `network dump`, `audio probe`, screenshot, close, and replay scripts made from those commands.
+- Supported: URL open, snapshot refs, `get text/attrs`, `is visible/hidden/exists/absent/focused/enabled/disabled/text`, `find text/selector`, click/press, hover, fill/type, wait, `network dump`, `audio probe`, screenshot, close, and replay scripts made from those commands.
 - `hover <@ref|selector|x y>` moves the pointer without pressing so hover-gated UI (row toolbars, menus) appears. Add `--settle` to read what it revealed; on web, `--settle` needs a selector or coordinate target because web refs carry no geometry.
 - `audio probe start [durationSeconds] [bucketMs]` samples HTML media elements into RMS/peak dBFS buckets; see [Debugging & Profiling](/docs/debugging-profiling#audio-probes).
 - Not supported: tab/window/devtools control, network routing/interception/HAR, cookies/storage, downloads/uploads, arbitrary page scripting, multi-page orchestration, and raw browser diagnostics. Use `agent-browser` directly for those.
@@ -507,11 +507,13 @@ agent-device is absent 'label="Loading..."'
 agent-device is hidden 'text="Loading..."'
 agent-device is editable 'id="email"'
 agent-device is selected 'label="Wi-Fi"'
+agent-device is disabled 'id="submit"'
 agent-device is text 'id="greeting"' "Welcome back"
 ```
 
 - `is` evaluates UI predicates against a selector expression and exits non-zero on failure. It takes selectors, not refs like `@e3`, and the same snapshot flags as `click`, `fill`, `get`, and `wait`.
-- Supported predicates are `visible`, `hidden`, `exists`, `absent`, `editable`, `selected`, `focused`, and `text`.
+- Supported predicates are `visible`, `hidden`, `exists`, `absent`, `editable`, `selected`, `focused`, `enabled`, `disabled`, and `text`.
+- `is disabled` passes only when the snapshot reports the element as disabled, the state snapshot text marks `[disabled]`. An element whose snapshot does not report the fact counts as enabled, the same answer the `enabled=true` selector key gives, so `is enabled` alone cannot prove a backend read the state. To wait for a control to become enabled, use `wait 'id="submit" enabled=true'`.
 - `is visible` passes when the element is in the visible viewport, or has no rect of its own but sits inside a visible ancestor. `is exists` only checks that the selector matches.
 - `is text <selector> <value>` compares the element's text with the value. `wait text` checks that text is present, not that it can be tapped.
 - `is absent` passes only when the selector has zero matches in one readable, complete, settled, unscoped, full-depth capture. It does not mean hidden: `--scope` and `--depth` are rejected, and sparse, unreadable, truncated, or unsettled captures fail.

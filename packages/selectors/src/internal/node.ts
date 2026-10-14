@@ -9,11 +9,19 @@ export function isNodeVisible(node: SnapshotNode): boolean {
 }
 
 /**
+ * False only for a published `enabled: false`. An absent fact reads as enabled, as the snapshot
+ * `disabled` marker does, because some producers publish the fact only for disabled nodes.
+ */
+export function isNodeEnabled(node: SnapshotNode): boolean {
+  return node.enabled !== false;
+}
+
+/**
  * False for a disabled node. Otherwise the node's published `editable` fact decides, and the
  * platform type decides only when the snapshot carries no such fact.
  */
 export function isNodeEditable(node: SnapshotNode, platform: Platform | PublicPlatform): boolean {
-  if (node.enabled === false) return false;
+  if (!isNodeEnabled(node)) return false;
   return node.editable ?? isFillableType(node.type ?? '', platform);
 }
 

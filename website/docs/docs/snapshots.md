@@ -351,6 +351,10 @@ On iOS, the Apple runner, Simulator accessibility bridge, Appium, and Limrun pub
 `checked`, `password`, and `editable` facts when available. macOS runner snapshots publish the
 same native facts.
 
+- `enabled` is `false` for a control the app has disabled, such as a submit button that stays
+  greyed out until a form is valid. Snapshot text marks the node `[disabled]`, and `is enabled`,
+  `is disabled`, and an `enabled=` selector all read it. An absent field reads as enabled, because
+  some producers report the fact only for disabled nodes.
 - `selected` is the accessibility selected state an app sets on a control — the active bottom-tab or
   segmented-control item, or the chosen row of a list. Android reports it explicitly as `true` or
   `false`; an older helper APK omits the field, which means the answer is unavailable rather than

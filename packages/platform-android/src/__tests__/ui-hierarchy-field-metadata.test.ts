@@ -38,6 +38,26 @@ test('selection offsets survive on a read-only selectable node (independent of e
   });
 });
 
+test.each([false, true])(
+  'the native enabled attribute survives snapshot presentation, and its absence stays unknown (raw=%s)',
+  (raw) => {
+    const tree = parseUiHierarchyTree(`<hierarchy>
+    <node class="android.widget.Button" resource-id="on" text="On" bounds="[0,0][200,100]"
+      clickable="true" visible-to-user="true" enabled="true" />
+    <node class="android.widget.Button" resource-id="off" text="Off" bounds="[0,100][200,200]"
+      clickable="true" visible-to-user="true" enabled="false" />
+    <node class="android.widget.Button" resource-id="unreported" text="Unreported"
+      bounds="[0,200][200,300]" clickable="true" visible-to-user="true" />
+  </hierarchy>`);
+    const { nodes } = buildUiHierarchySnapshot(tree, undefined, { raw });
+    const byId = (id: string) => nodes.find((node) => node.identifier === id);
+    expect(byId('on')?.enabled).toBe(true);
+    expect(byId('off')?.enabled).toBe(false);
+    expect(byId('unreported')).toBeDefined();
+    expect(JSON.parse(JSON.stringify(byId('unreported')))).not.toHaveProperty('enabled');
+  },
+);
+
 test('missing native field metadata remains unknown instead of becoming false or zero', () => {
   const tree = parseUiHierarchyTree(`<hierarchy><node class="android.widget.EditText"
     resource-id="field" bounds="[0,0][200,100]" focusable="true" /></hierarchy>`);
