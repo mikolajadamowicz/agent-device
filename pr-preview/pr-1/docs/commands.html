@@ -9,7 +9,7 @@
 <script defer src="/agent-device/pr-preview/pr-1/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/pr-preview/pr-1/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/pr-preview/pr-1/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/pr-preview/pr-1/static/js/index.4b0bb52885.js"></script>
+<script defer src="/agent-device/pr-preview/pr-1/static/js/index.5cef42dda1.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -610,7 +610,7 @@ restart; reconnect and take the hold again. See <a href="/agent-device/pr-previe
 <li><code>app_not_installed</code> (<code>APP_NOT_INSTALLED</code>): the app resolves to nothing installed.</li>
 <li><code>session_app_required</code>: no session app and none named. Run <code>open &lt;app&gt;</code>, or name the app.</li>
 <li><code>setting_app_not_package</code> (<code>INVALID_ARGS</code>, Android): the name is an intent alias such as <code>settings</code>, not a package.</li>
-<li><code>setting_app_not_consumed</code>: the change is device-wide and cannot take an app: <code>location set</code>, the Android <code>location on|off</code> toggle, and macOS permissions.</li>
+<li><code>setting_app_not_consumed</code>: the change is device-wide and cannot take an app: <code>location set</code>, the Android <code>location on|off</code> toggle, macOS permissions, and <code>mobile-data</code>.</li>
 </ul>
 </li>
 <li>iOS targets: <code>all</code>, <code>camera</code>, <code>microphone</code>, <code>photos</code> (<code>full</code> or <code>limited</code>), <code>contacts</code>, <code>contacts-limited</code>, <code>notifications</code>, <code>calendar</code>, <code>location</code>, <code>location-always</code>, <code>media-library</code>, <code>motion</code>, <code>reminders</code>, <code>siri</code>. The simulator decides which it can change; one it refuses fails with <code>UNSUPPORTED_OPERATION</code> naming it. On current runtimes that is <code>notifications</code>, which <code>all</code> also leaves untouched.</li>
