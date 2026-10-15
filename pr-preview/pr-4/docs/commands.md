@@ -581,7 +581,8 @@ agent-device uninstall com.example.app --platform ios
 
 - `uninstall <app>` removes an installed app, for example to start a test from a clean "app not installed" state before a fresh install from a build or a store.
 - `<app>` is resolved against the apps installed on the device now, the same way `settings` resolves `--app`: on iOS by bundle id, then display name; on Android by package name, then by a name that is a substring of exactly one installed package.
-- A package name or bundle id that is not installed succeeds without changing the device and reports `wasInstalled: false`. Any other name that matches nothing installed fails with `APP_NOT_INSTALLED`, so a typo is not mistaken for a clean state. A removed app reports `wasInstalled: true` with its `appId`. An ambiguous name, or an Android intent alias such as `settings`, fails with `INVALID_ARGS`.
+- A package name or bundle id that is not installed succeeds without removing anything and reports `wasInstalled: false`; on iOS any dotted target counts as a bundle id. Any other name that matches nothing installed fails with `APP_NOT_INSTALLED`, so a typo is not mistaken for a clean state. A removed app reports `wasInstalled: true` with its `appId`. An ambiguous name, or an Android intent alias such as `settings`, fails with `INVALID_ARGS`.
+- Like `install`, it first boots a shut-down simulator or emulator, and it expires the session's `@ref`s.
 - Supports Android emulators and devices over ADB, iOS simulators (`simctl uninstall`), and CoreDevice-backed iOS physical devices (`devicectl device uninstall app`). It is unsupported on XCTest-backed iOS devices, macOS, HarmonyOS, web, Linux, Vega, and Appium, WebDriver, or Limrun provider sessions.
 
 ## App install from source URL

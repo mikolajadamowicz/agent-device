@@ -9,7 +9,7 @@
 <script defer src="/agent-device/pr-preview/pr-4/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/pr-preview/pr-4/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/pr-preview/pr-4/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/pr-preview/pr-4/static/js/index.403c11d4d3.js"></script>
+<script defer src="/agent-device/pr-preview/pr-4/static/js/index.8337e55e12.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -510,7 +510,8 @@ restart; reconnect and take the hold again. See <a href="/agent-device/pr-previe
 <ul>
 <li><code>uninstall &lt;app&gt;</code> removes an installed app, for example to start a test from a clean &quot;app not installed&quot; state before a fresh install from a build or a store.</li>
 <li><code>&lt;app&gt;</code> is resolved against the apps installed on the device now, the same way <code>settings</code> resolves <code>--app</code>: on iOS by bundle id, then display name; on Android by package name, then by a name that is a substring of exactly one installed package.</li>
-<li>A package name or bundle id that is not installed succeeds without changing the device and reports <code>wasInstalled: false</code>. Any other name that matches nothing installed fails with <code>APP_NOT_INSTALLED</code>, so a typo is not mistaken for a clean state. A removed app reports <code>wasInstalled: true</code> with its <code>appId</code>. An ambiguous name, or an Android intent alias such as <code>settings</code>, fails with <code>INVALID_ARGS</code>.</li>
+<li>A package name or bundle id that is not installed succeeds without removing anything and reports <code>wasInstalled: false</code>; on iOS any dotted target counts as a bundle id. Any other name that matches nothing installed fails with <code>APP_NOT_INSTALLED</code>, so a typo is not mistaken for a clean state. A removed app reports <code>wasInstalled: true</code> with its <code>appId</code>. An ambiguous name, or an Android intent alias such as <code>settings</code>, fails with <code>INVALID_ARGS</code>.</li>
+<li>Like <code>install</code>, it first boots a shut-down simulator or emulator, and it expires the session&#x27;s <code>@ref</code>s.</li>
 <li>Supports Android emulators and devices over ADB, iOS simulators (<code>simctl uninstall</code>), and CoreDevice-backed iOS physical devices (<code>devicectl device uninstall app</code>). It is unsupported on XCTest-backed iOS devices, macOS, HarmonyOS, web, Linux, Vega, and Appium, WebDriver, or Limrun provider sessions.</li>
 </ul>
 <h2 class="rp-toc-include" id="app-install-from-source-url"><a href="#app-install-from-source-url" class="rp-header-anchor rp-link" aria-hidden="true">#</a>App install from source URL</h2>
