@@ -128,6 +128,8 @@ const DRIVEN_COMMANDS: Record<string, DriveSpec> = {
   [PUBLIC_COMMANDS.appSwitcher]: () => one(),
   [PUBLIC_COMMANDS.actionButton]: () => one(),
   [PUBLIC_COMMANDS.fold]: () => one(['open']),
+  // Android-only: reaches the runtime-fact refusal on Apple; the error must not leak either.
+  [PUBLIC_COMMANDS.crash]: () => one(['com.apple.Preferences']),
 
   // -- orchestration (drive to an error response; still scanned) --
   [PUBLIC_COMMANDS.artifacts]: () => one(),

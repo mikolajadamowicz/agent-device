@@ -1,6 +1,6 @@
 import { defineCommandFamilyFromFacets } from '../family/types.ts';
 import { artifactsCommandFacet } from './artifacts.ts';
-import { appsCommandFacet, closeCommandFacet, openCommandFacet } from './app.ts';
+import { appsCommandFacet, closeCommandFacet, crashCommandFacet, openCommandFacet } from './app.ts';
 import { deviceManagementCommandFacets } from './device.ts';
 import { doctorCommandFacet } from './doctor.ts';
 import { installManagementCommandFacets } from './install.ts';
@@ -20,6 +20,7 @@ export const managementCommandFamily = defineCommandFamilyFromFacets({
     sessionCommandFacet,
     openCommandFacet,
     closeCommandFacet,
+    crashCommandFacet,
     viewportCommandFacet,
     ...installManagementCommandFacets,
     ...pushManagementCommandFacets,

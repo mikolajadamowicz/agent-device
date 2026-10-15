@@ -222,6 +222,12 @@ const foldUnavailable = unavailableFact(
   'fold runs a HID helper through simctl spawn inside a foldable iPhone simulator on the daemon host; a WebDriver backend has no such simulator.',
 );
 
+/** `crash` runs `am crash` through the local Android adb owner; no WebDriver backend implements it. */
+const crashUnavailable = unavailableFact(
+  'unsupported-provider-mode',
+  'crash runs am crash through the local Android adb owner; it is not supported on WebDriver backends such as Appium.',
+);
+
 /**
  * The WebDriver interactor supplies no alert members at all: ADR 0019 keeps a stub that throws
  * `unsupported` out of an interactor, and the provider's capability map declares
@@ -486,6 +492,7 @@ function webDriverFacts(
     return createUnavailablePlatformRuntimeFacts(device, options.owner, {
       ...createFullyUnavailablePlatformRuntimeFacts(inactiveSession),
       fold: foldUnavailable,
+      crash: crashUnavailable,
     });
   }
   const deployment = options.deployment?.fact(device) ?? deploymentUnavailable;
@@ -509,6 +516,7 @@ function webDriverFacts(
     clipboard: clipboardUnavailable,
     systemButton: systemButtonUnavailable,
     fold: foldUnavailable,
+    crash: crashUnavailable,
     triggerAppEvent: appEventUnavailable,
     settings: settingsUnavailable,
     readAlert: alertUnavailable,
@@ -620,6 +628,7 @@ function webDriverFacts(
         appSwitcher: declared('appSwitcher', appSwitcherUnavailable),
       }),
       setFoldPose: foldUnavailable,
+      crashApplication: crashUnavailable,
       // The deep link opens through the same reachable interactor `open` every lifecycle command
       // drives on this provider.
       ...appEventRuntimeOperationFacts({

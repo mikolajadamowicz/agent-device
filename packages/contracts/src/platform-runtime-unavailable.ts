@@ -64,6 +64,7 @@ export type UnavailablePlatformRuntimeFacts = Readonly<{
   clipboard: RuntimeOperationUnavailability;
   systemButton: RuntimeOperationUnavailability;
   triggerAppEvent: RuntimeOperationUnavailability;
+  crash: RuntimeOperationUnavailability;
   /**
    * One cell for both settings halves: an owner that names no settings surface here refuses the
    * write and the read alike, and an owner whose two halves genuinely differ (the Apple leaf, whose
@@ -125,6 +126,7 @@ const UNAVAILABLE_CELLS = {
   clipboard: true,
   systemButton: true,
   triggerAppEvent: true,
+  crash: true,
   settings: true,
   readAlert: true,
   awaitAlert: true,
@@ -249,6 +251,7 @@ export function createUnavailablePlatformRuntimeFacts(
       ...clipboardRuntimeOperationFacts({ unsupported: frozen.clipboard }),
       ...systemButtonRuntimeOperationFacts({ unsupported: frozen.systemButton }),
       ...appEventRuntimeOperationFacts({ triggerAppEvent: frozen.triggerAppEvent }),
+      crashApplication: frozen.crash,
       ...settingsRuntimeOperationFacts({
         setSetting: frozen.settings,
         readSetting: frozen.settings,

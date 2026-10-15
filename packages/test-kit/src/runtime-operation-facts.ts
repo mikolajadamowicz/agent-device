@@ -69,6 +69,7 @@ export const unavailableDeploymentSnapshotAndShutdownOperationFacts = Object.fre
   ...systemButtonRuntimeOperationFacts({ unsupported: unavailable }),
   setFoldPose: unavailable,
   triggerAppEvent: unavailable,
+  crashApplication: unavailable,
   setSetting: unavailable,
   readSetting: unavailable,
   readAlert: unavailable,

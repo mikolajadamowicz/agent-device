@@ -40,6 +40,10 @@
       "types": "./src/android-system-surface-disclosure.ts",
       "default": "./src/android-system-surface-disclosure.ts"
     },
+    "./app-crash-runtime": {
+      "types": "./src/app-crash-runtime.ts",
+      "default": "./src/app-crash-runtime.ts"
+    },
     "./app-deployment-runtime": {
       "types": "./src/app-deployment-runtime.ts",
       "default": "./src/app-deployment-runtime.ts"

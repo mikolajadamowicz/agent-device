@@ -58,6 +58,7 @@ import type {
   AlertCommandOptions,
   AppCloseOptions,
   AppCloseResult,
+  AppCrashOptions,
   AppDeployOptions,
   AppDeployResult,
   AppInstallFromSourceOptions,
@@ -222,6 +223,7 @@ export type AgentDeviceClient = {
     list: (options?: AppListOptions) => Promise<string[]>;
     open: (options: AppOpenOptions) => Promise<AppOpenResult>;
     close: (options?: AppCloseOptions) => Promise<AppCloseResult>;
+    crash: (options?: AppCrashOptions) => Promise<CommandResult<'crash'>>;
     push: (options: AppPushOptions) => Promise<CommandResult<'push'>>;
     triggerEvent: (options: AppTriggerEventOptions) => Promise<CommandResult<'trigger-app-event'>>;
   };

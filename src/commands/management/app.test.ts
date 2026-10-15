@@ -9,7 +9,7 @@ import { parseArgs } from '../../cli/parser/args.ts';
 import { createAgentDeviceClient } from '../../agent-device-client.ts';
 import type { DaemonRequest, DaemonResponse } from '@agent-device/kernel/contracts';
 import { readMetroSessionHints, writeMetroSessionHints } from '../../metro/metro-session-hints.ts';
-import { openCommandFacet } from './app.ts';
+import { crashCommandFacet, openCommandFacet } from './app.ts';
 import { mkdtempForTestSync } from '@agent-device/test-kit/tmp-dir';
 import {
   closeLoopbackServer,
@@ -46,6 +46,27 @@ function createOpenClient(params: { stateDir: string; session: string; sessionRe
   );
   return { client, calls };
 }
+
+describe('crash command', () => {
+  test.each([
+    [['crash', 'com.example.player'], ['com.example.player']],
+    [['crash'], []],
+  ])('%j sends the named app, or none for the session app', async (argv, positionals) => {
+    const parsed = parseArgs(argv, { strictFlags: true });
+    const stateDir = tempStateDir();
+    try {
+      const { client, calls } = createOpenClient({ stateDir, session: 'crash-recovery' });
+      await crashCommandFacet.definition.invoke(
+        client,
+        crashCommandFacet.cliReader(parsed.positionals, parsed.flags),
+      );
+      expect(calls).toHaveLength(1);
+      expect(calls[0]).toMatchObject({ command: 'crash', positionals });
+    } finally {
+      rmSync(stateDir, { recursive: true, force: true });
+    }
+  });
+});
 
 describe('open startup budget', () => {
   test('open --timeout projects the startup budget onto the daemon request', async () => {

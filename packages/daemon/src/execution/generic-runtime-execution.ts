@@ -104,6 +104,19 @@ export async function resolveGenericRuntimeExecution(
         platformServices: params.platformServices,
         bindDevice: params.bindDevice,
       });
+    case 'crash': {
+      // Deferred like screenshot's leaf, so the crash module stays out of the daemon's startup
+      // closure (eager-closure budgets).
+      const { resolveBoundCrashRuntime } = await import('./crash-runtime.ts');
+      return await resolveBoundCrashRuntime({
+        device: params.session.device,
+        positionals: params.req.positionals ?? [],
+        sessionAppBundleId: params.session.appBundleId,
+        inspectFacts: params.inspectFacts,
+        platformServices: params.platformServices,
+        bindDevice: params.bindDevice,
+      });
+    }
     case 'tv-remote':
       return await resolveBoundTvRemoteRuntime({
         device: params.session.device,

@@ -2,6 +2,7 @@ import type {
   DiffSnapshotCommandResult,
   ViewportCommandResult,
 } from '@agent-device/contracts/capture';
+import type { CrashCommandResult } from '@agent-device/contracts/app-crash-runtime';
 import type { PrepareCommandResult, PushCommandResult } from '@agent-device/contracts/command';
 import type {
   AppStateCommandResult,
@@ -65,6 +66,7 @@ export interface CommandResultMap {
   boot: BootCommandResult;
   click: ClickCommandResponseData;
   clipboard: ClipboardCommandResult;
+  crash: CrashCommandResult;
   diff: DiffSnapshotCommandResult;
   doctor: DoctorCommandResult;
   fill: FillCommandResponseData;

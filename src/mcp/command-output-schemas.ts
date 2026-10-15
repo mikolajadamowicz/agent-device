@@ -12,6 +12,7 @@ import { DIFF_COMMAND_OUTPUT_SCHEMAS } from '../commands/capture/diff.ts';
 import { WAIT_COMMAND_OUTPUT_SCHEMAS } from '../commands/capture/wait.ts';
 import { PREPARE_COMMAND_OUTPUT_SCHEMAS } from '../commands/management/prepare.ts';
 import { DOCTOR_COMMAND_OUTPUT_SCHEMAS } from '../commands/management/doctor.ts';
+import { APP_COMMAND_OUTPUT_SCHEMAS } from '../commands/management/app.ts';
 import { DEVICE_MANAGEMENT_COMMAND_OUTPUT_SCHEMAS } from '../commands/management/device.ts';
 import { PUSH_MANAGEMENT_COMMAND_OUTPUT_SCHEMAS } from '../commands/management/push.ts';
 import { VIEWPORT_COMMAND_OUTPUT_SCHEMAS } from '../commands/management/viewport.ts';
@@ -190,6 +191,7 @@ const BASE_COMMAND_OUTPUT_SCHEMAS = {
   ...WAIT_COMMAND_OUTPUT_SCHEMAS,
   ...PREPARE_COMMAND_OUTPUT_SCHEMAS,
   ...DOCTOR_COMMAND_OUTPUT_SCHEMAS,
+  ...APP_COMMAND_OUTPUT_SCHEMAS,
   ...DEVICE_MANAGEMENT_COMMAND_OUTPUT_SCHEMAS,
   ...PUSH_MANAGEMENT_COMMAND_OUTPUT_SCHEMAS,
   ...VIEWPORT_COMMAND_OUTPUT_SCHEMAS,

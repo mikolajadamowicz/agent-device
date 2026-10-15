@@ -1134,10 +1134,8 @@ function createStubClient(params: {
           session: 'default',
           identifiers: { session: 'default' },
         })),
-      close: async () => ({
-        session: 'default',
-        identifiers: { session: 'default' },
-      }),
+      close: async () => ({ session: 'default', identifiers: { session: 'default' } }),
+      crash: unexpectedCommandCall,
       push: unexpectedCommandCall,
       triggerEvent: unexpectedCommandCall,
     },

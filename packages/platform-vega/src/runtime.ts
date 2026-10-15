@@ -157,6 +157,10 @@ const clipboardUnavailable = unavailableFact(
   'unsupported-platform-leaf',
   'clipboard is not supported on Vega OS.',
 );
+const crashUnavailable = unavailableFact(
+  'unsupported-platform-leaf',
+  'crash is not supported on Vega OS.',
+);
 const backUnavailable = unavailableFact(
   'unsupported-device-kind',
   'back currently supports only Vega Virtual Devices.',
@@ -200,6 +204,7 @@ function vegaFacts(device: DeviceInfo): RuntimeFacts<PlatformRuntimeOperations> 
     systemButton: systemButtonUnavailable,
     fold: foldUnavailable,
     triggerAppEvent: appEventUnavailable,
+    crash: crashUnavailable,
     settings: settingsUnavailable,
     readAlert: alertUnavailable,
     awaitAlert: alertUnavailable,
