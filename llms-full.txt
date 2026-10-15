@@ -1360,16 +1360,14 @@ await client.command.fold({
 
 `fold` accepts either `pose` or `keyframes`. Keyframes use linear interpolation at roughly 60 updates per second; repeat an angle to hold it. Timestamps must start at zero and increase strictly, with 2–64 frames and a final timestamp no greater than 60,000ms. Angles must be finite and between 0° and 180°. The final timestamp bounds motion, excluding helper preparation and final hinge verification. A custom final angle is verified within 0.5°; interior angles must also settle. Cancellation stops the motion at its current angle. Re-snapshot afterwards, including after interrupted motion. Android emulators accept `pose` only.
 
-`press`, `click`, and `longpress` take `readinessTimeoutMs`. With it, the command waits up to that many milliseconds for a target that is not on screen yet, then performs the requested interaction. Without it, the command looks once and fails at once, which is the right choice for an agent that most often misses because the selector is wrong. Use it in scripted flows, where a step can run before the screen finishes rendering:
+`press`, `click`, and `longpress` do not wait for a missing target to appear. When a screen is still loading, wait for its landmark before interacting:
 
 ```ts
-await client.interactions.press({
-  selector: 'label="Continue"',
-  readinessTimeoutMs: 2_000,
-});
+await client.command.wait({ text: 'Continue', timeoutMs: 5_000 });
+await client.interactions.press({ selector: 'label="Continue"' });
 ```
 
-The wait is capped at 2 seconds and covers only a target that has not appeared. When the target is still missing after the wait, the error carries `error.details.readiness` with `waitedMs`, `polls`, and `end` (`expired` or `stalled`). A capture that shows an empty accessibility tree ends the wait at once with `capture_sparse` and `readiness.end: sparse`. When the command had to wait and then succeeded, the result carries `data.readiness` with `polls` and `waitedMs`. A command that found its target on the first look has no `readiness` field. A covered, off-screen, or ambiguous target fails at once, and a screen that stays unreadable for the whole wait fails with its own error; neither carries `readiness`. `readinessTimeoutMs` is not an MCP tool argument and has no CLI flag.
+If the wait times out, check the selector and app state with a fresh snapshot. A covered, off-screen, or ambiguous target still fails the interaction.
 
 Vega OS client support is VVD-only and covers device discovery, app open/close, `back`, `home`, and `tvRemote`. Physical Fire TV, capture, selector, install, logging, and performance methods report unsupported for Vega targets.
 
@@ -1400,7 +1398,7 @@ Domain client methods:
 - `client.sessions.list()`, `stateDir()`, `close()`, `saveScript()`, `artifacts()`
 - `client.apps.install()`, `reinstall()`, `installFromSource()`, `list()`, `open()`, `close()`, `push()`, `triggerEvent()`
 - `client.materializations.release()`
-- `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease.
+- `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease. Pass `leaseId` (16 to 128 hex characters) to `allocate()` to name a new lease with an id the daemon has never issued, or to get back your live lease with that id when you retry with the same tenant, run, client, lease backend, and provider (and no device, or the leased one), then use the returned `leaseId`: a run that already holds a lease gets that one back, and an older daemon mints its own.
 - `client.metro.prepare()`, `reload()`
 - `client.capture.snapshot()`, `screenshot()`, `diff()`
 - `client.interactions.click()`, `press()`, `longPress()`, `swipe()`, `pan()`, `drag()`, `fling()`, `swipeGesture()`, `focus()`, `type()`, `fill()`, `scroll()`, `pinch()`, `rotateGesture()`, `transformGesture()`, `get()`, `is()`, `find()`
@@ -1414,6 +1412,8 @@ Domain client methods:
 `client.devices.list()` returns `AgentDeviceDevice` entries. Their optional `model` and `osVersion` fields describe the hardware and OS when discovery reports them; see [Device discovery](/agent-device/docs/commands.md#device-discovery) for the sources.
 
 `client.capture.snapshot()` carries an optional `viewport: { width, height }` beside `nodes`: the box those rects are measured in, in the same coordinate space and orientation. Scale and clip against it instead of inferring the screen from the largest rect. When no box was measured, the field is absent rather than zero; see [Coordinates and viewport](/agent-device/docs/snapshots.md#coordinates-and-viewport) for what each producer answers with.
+
+It also carries an optional `presentedSurface: 'presented' | 'absent' | 'unknown'` on iOS captures: whether the capture saw a modal presentation over your app's content. `'absent'` is a reading that was earned, so it is safe to act on; `'unknown'` says the capture could not tell and is not `'absent'`. The field is absent on other platforms. See [Presented surface](/agent-device/docs/snapshots.md#presented-surface).
 
 `client.observability.events({ cursor, limit })` reads the session event timeline as paged JSON entries. Use `nextCursor` from the previous page to continue from the daemon-owned `events.ndjson` file without replaying already uploaded/displayed events. Cursors are absolute and survive the file's size rotation; a cursor older than the retained window rejects with `COMMAND_FAILED`, `details.reason: "EVENT_LOG_CURSOR_EXPIRED"`, and `details.earliestCursor` to resume from.
 The timeline leaves out user-entered content such as typed text, selector values, and payloads; see [Sessions](/agent-device/docs/sessions.md#find-a-sessions-logs-and-artifacts) for what it keeps.
@@ -1593,7 +1593,7 @@ agent-device daemon stop --clean
 Boot and shut down:
 
 - `boot` gets the selected target ready without launching an app. It needs an active session or a device selector. You mainly need it when `open` fails because no simulator or emulator is booted.
-- Android: `boot --platform android --device <avd-name>` launches that emulator with a window; add `--headless` to launch it without one.
+- Android: `boot --platform android --device <avd-name>` launches that emulator with a window; add `--headless` to launch it without one. On macOS the window opens behind the focused app, which keeps focus (also when `open` boots a stopped AVD). This is best-effort: the emulator can still take focus if the focused app cannot be read, or if its window appears after the startup budget runs out.
 - `shutdown` turns off the selected Apple simulator or Android emulator. It refuses the active session's device; use `close --shutdown` to end the session and turn the device off.
 - `--timeout <ms>` on `boot`, `open <app>`, and `prepare ios-runner` is the startup budget for booting an iOS Simulator or Android emulator (for `prepare ios-runner`, shared with runner preparation). A never-booted iOS Simulator can take several minutes. When the budget runs out, the command fails with `error.details.reason: boot_timeout` and the device keeps booting, so a retry finds it further along. See [Sessions](/agent-device/docs/sessions.md#wait-for-a-slow-or-busy-device).
 
@@ -1618,6 +1618,7 @@ Open apps and links:
 - `open --platform macos --surface app|frontmost-app|desktop|menubar` selects the macOS session surface; `app` is the default when you name an app. See [Desktop targets](#desktop-targets). `--save-script` records the surface so `replay` reopens it; with no surface given, replay opens an app session.
 - Android React Native: `open --relaunch` needs an installed package name. Install or reinstall the APK first; `open <apk|aab> --relaunch` is rejected. For Metro-backed JS changes, run `metro reload` before reaching for `open <app> --relaunch`.
 - Android (adb): an intent target such as `open settings` records the package that opened as `appBundleId`. `open settings --relaunch` stops and restarts that app. If the intent matches more than one activity, `--relaunch` fails.
+- Android (ADB): `close` force-stops the app, then checks for 2 seconds that it has left the foreground and for 2 more that its process has exited. If either check window ends first, `close` fails with `details.reason: android-app-close-timeout` and `details.phase` set to `foreground` or `process`; apps Android restarts at once, such as the launcher, fail this way.
 
 iOS Simulator launch behavior:
 
@@ -1724,6 +1725,7 @@ agent-device devices --platform android --android-device-allowlist emulator-5554
 - If the selected Xcode can't resolve a scoped simulator for the Apple runner, the runner start fails with `details.reason: "simulator_set_destination_not_found"`, naming the set and, when known, the Xcode version.
 - `--android-device-allowlist <serials>` limits Android discovery and selection to comma- or space-separated serials.
 - Set the same scopes with the `iosSimulatorDeviceSet` and `androidDeviceAllowlist` config keys, or `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`. CLI flags override environment values, except under a `strip` session lock, which ignores conflicting per-call selectors.
+- Start the daemon with `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET=<path>` to scope every iOS simulator request to one simulator set. A request without `--ios-simulator-device-set` uses that set, so iOS physical devices are not listed on that daemon. A request naming a different path string, including the same path with a trailing slash, fails with `INVALID_ARGS` and `details.reason: "ios_simulator_device_set_outside_daemon_set"`. macOS and other non-iOS requests ignore the set, and the host Mac stays listed. A daemon that the CLI starts inherits the CLI's environment, so later CLI calls with a different value still use the first value until the daemon restarts.
 - Scope applies before `--device`, `--udid`, and `--serial`, so an out-of-scope selector fails with `DEVICE_NOT_FOUND`.
 - On macOS, daemon startup removes any symlink at `~/Library/Developer/XCTestDevices`, including one you made yourself (for example to move it to another volume), and restores `XCTestDevices.agent-device-backup` when it exists. A symlinked `XCTestDevices` is not supported. Only the link is removed, never the directory it points to; `daemon.log` records each step and any failed restore, which doesn't stop the daemon.
 
@@ -2738,7 +2740,7 @@ Only the variables below, and those documented on command pages, are supported. 
 | Category                            | Env vars                                                                                                                                                                                                                                                                                                                     | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CLI defaults and config             | `AGENT_DEVICE_HOME`, `AGENT_DEVICE_CONFIG`, `AGENT_DEVICE_SESSION`, `AGENT_DEVICE_PLATFORM`, `AGENT_DEVICE_SCREENSHOT_SCALE`, `AGENT_DEVICE_SESSION_LOCK`, `AGENT_DEVICE_DAEMON_BASE_URL`, `AGENT_DEVICE_DAEMON_AUTH_TOKEN`, `AGENT_DEVICE_CLOUD_BASE_URL`                                                                   | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Device scoping                      | `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`                                                                                                                                                                                                                                                                                      | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Device scoping                      | `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`, `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET`                                                                                                                                                                                                                                             | Public. `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET` is read by the daemon: every iOS simulator request that names no `--ios-simulator-device-set` uses that set, so iOS physical devices are not listed, and a request naming a different path string fails with `INVALID_ARGS` (`details.reason: "ios_simulator_device_set_outside_daemon_set"`). macOS and non-iOS requests ignore it. A daemon started by the CLI inherits the CLI's value; restart the daemon after changing it.                                                                                                                     |
 | Android test IME                    | `AGENT_DEVICE_TEST_IME`                                                                                                                                                                                                                                                                                                      | Public. Same setting as `--test-ime` / `--no-test-ime` on `open`, `test`, and `replay`; see known limitations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | Local daemon storage                | `AGENT_DEVICE_STATE_DIR`                                                                                                                                                                                                                                                                                                     | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Metro and install helpers           | `AGENT_DEVICE_METRO_BEARER_TOKEN`, `AGENT_DEVICE_BUNDLETOOL_JAR`                                                                                                                                                                                                                                                             | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -3934,7 +3936,11 @@ agent-device disconnect
 
 `--daemon-auth-token <token>` works instead of the environment variable, but it authenticates only the command you pass it to. Later commands need the token again through the environment variable, a `daemonAuthToken` entry in your remote config profile, or the flag on each command.
 
-`connect proxy` stores the proxy profile and client identity. `open` leases the device for you, and the lease expires after five minutes without commands. A lease allocated directly over the RPC without `ttlMs` gets the daemon's one-minute inactivity default instead. Either window starts when allocation completes, not when it was requested. `close` releases the active session and its device lease, unless the lease was allocated with `retainOnClose`; only `leases.release`, expiry, or daemon shutdown ends that one. `disconnect` clears local connection state.
+`connect proxy` stores the proxy profile and client identity. `open` leases the device for you, and the lease expires after five minutes without commands. A lease allocated directly over the RPC without `ttlMs` gets the daemon's one-minute inactivity default instead. Either window starts when allocation completes, not when it was requested. `close` releases the active session and its device lease, unless the lease was allocated with `retainOnClose`; only `leases.release`, expiry, or daemon shutdown ends that one. The reply to any request that closed a session lists the leases it ended in `endedLeases`, as `{ leaseId, outcome: 'released' }`. This covers `close`, a `batch` with a close step, and a `replay` or `test` script that closes, as well as the session cleanup `test` runs after each script. A successful reply has the field in `data`, and a failed one has it in `error.details`. A gateway in front of the daemon reads the lease end from that reply. When the reply names the stored lease, the CLI forgets it, so the next `open` leases a device again. `disconnect` clears local connection state.
+
+Without `--udid` or `--serial`, `open` does not pick the device on the agent machine: it sends `--platform`, `--target`, and `--device` with the lease request, the daemon behind the proxy picks a matching device, and later commands use the device the lease names. The device therefore does not need to exist before `open`, which lets a service in front of the daemon create or choose it at that point. While that lease is active, an `open` that names a different device is refused instead of running on the leased one; close the session first, or run `connect --force` to start over. An existing lease that names no device, such as one supplied through `leaseId`, is refused with reason `LEASE_SCOPE_MISMATCH` and left active.
+
+`open` names each new lease with an id it makes (32 lowercase hex characters) and sends it with the allocation, so a host in front of the daemon knows the lease id before the daemon allocates. A direct `agent_device.lease.allocate` RPC can pass `leaseId` (16 to 128 hex characters) the same way; repeating the id of a live lease returns that lease when the retry carries the same tenant, run, client, lease backend, and provider, and either names no device or the device the lease binds, so a retry after a lost reply does not allocate a second one. A retry without `ttlMs` keeps the lease's window. A retry that changes any of those fields is refused like any other reused id. The id identifies the lease: one run can hold several leases. Any other id this daemon has already given a lease, active or ended, is refused with `INVALID_ARGS` and reason `LEASE_ID_IN_USE`, and without one the daemon makes the id. Use the id the reply carries: a run that already holds a lease gets that lease back, and an older daemon ignores the requested id.
 
 Several agents can share one proxy when each follows the same `connect proxy`, `open`, commands, `close`, and `disconnect` flow. A busy device error means another agent holds the device until it closes its session or its lease expires.
 
@@ -4083,6 +4089,8 @@ These rules apply to requests made under the lease. To refuse requests that name
 start the daemon with a policy that requires one (`leases.require`, below). The proxy token is shared
 by every client of the proxy, so a host serving several clients through one proxy authenticates each
 client itself and sets each request's tenant, session isolation, and lease before forwarding it.
+Embedding `@agent-device/proxy` with its `authenticate` option does the tenant and session
+isolation part: the proxy sends each client's requests as the tenant `authenticate` returns. A tenant id is 1-128 letters, numbers, dots, underscores or hyphens; any other id fails the request with a 500. On `/rpc` the proxy accepts only `agent_device.command` and the `agent_device.lease.*` methods, and refuses others with a 401. Upload tickets carry the client's own `authorization` and `x-agent-device-token` headers, or the `uploadHeaders` that `authenticate` returns, and never the daemon's token.
 
 ## Restrict what clients can do
 
@@ -4248,18 +4256,15 @@ agent-device replay ~/.agent-device/sessions/e2e-2026-02-09T12-00-00-000Z.ad --s
 
   Earlier `close` actions still run. `test` does not accept the flag because each suite attempt
   cleans up its own session.
-- `press`, `click`, and `longpress` steps wait up to 2 seconds for their target to appear before
-  they fail, so a step recorded against a screen that was still loading passes once the target
-  shows up. The wait covers only a target that is not on screen yet: a target that is covered,
-  off-screen, or matched by more than one element fails at once, as it does live. The replay output
-  does not show the wait for a step that passed; run with `--debug` to see it in the diagnostics.
-- When the target never appears, replay stops with `REPLAY_DIVERGENCE`, and
-  `error.details.readiness` says how long the step waited and how many times it looked (`waitedMs`,
-  `polls`, `end`). For a step recorded with a target annotation (the `# agent-device:target-v1`
+- `press`, `click`, and `longpress` steps do not wait for a missing target to appear. If a screen
+  needs time to load, add an explicit wait before the interaction, such as
+  `wait 'label="Continue"' 5000`.
+  Covered, off-screen, and ambiguous targets fail as they do in live commands.
+- When the target is missing, replay stops with `REPLAY_DIVERGENCE`.
+  For a step recorded with a target annotation (the `# agent-device:target-v1`
   line above it), `error.details.divergence.kind` is `selector-miss` and the step is never sent.
   For a step without an annotation, `error.details.reason` is `selector_not_found`, as for a live
-  command. If the app shows an empty accessibility tree during that wait, `error.details.reason`
-  is `capture_sparse` instead; take a snapshot to see where the app is.
+  command.
 - A step whose read names one element (`is` with a predicate other than `exists`/`absent`, or
   `get attrs`) that reaches dispatch with an ambiguous selector fails with `AMBIGUOUS_MATCH` as
   the divergence cause — the same code the live command reports, so an ambiguous recorded
@@ -4553,11 +4558,10 @@ Passing `--plan-digest` that no longer matches the current script — because yo
     which repeats until the element is actually on screen.
 - A `press` or `click` step fails because its target was not found, but the element is on the
   screenshot:
-  - A `selector-miss` divergence, or `error.details.readiness.end: expired`, means the element was
-    not in the accessibility tree for the whole 2-second wait: the selector is wrong for this
-    build, or the element is not exposed to accessibility. `readiness.end: sparse` means the app
-    showed an empty tree: the screen was mid-transition or the app had left. Add a `wait` step for
-    a landmark on the new screen before the press.
+  - A `selector-miss` divergence means the target was absent from the captured accessibility
+    tree. Check the selector for this build and whether the app exposes the element to
+    accessibility. Add a `wait` step for a landmark on a loading screen before
+    the press.
 
 
 
@@ -4590,7 +4594,7 @@ Keep the target binding, such as `--platform ios`, on the `replay` or `test` com
 
 - Flows: `launchApp` (with `clearState`, `permissions`, and Apple-only launch arguments; `permissions` apply after state clearing but before launch, and a `launchApp` without `permissions` touches nothing — there is no silent `all: allow` default); `setPermissions` (mid-flow permission grants, denials, and resets; `all` resolves in the backend — one simctl call on iOS, the declared permissions on Android — with specific entries overriding after it); `runFlow` file/inline; `runFlow.when` and `repeat.while` conditions (`platform`, `visible`, `notVisible`, and `true`, all re-evaluated before every `repeat` iteration); `onFlowStart`/`onFlowComplete`; `repeat` with `times`, `while`, or both; and retry.
 - Interactions: `tapOn`, `doubleTapOn`, `longPressOn`, `inputText` on the focused element, `eraseText`, `openLink`, `hideKeyboard`, basic `pressKey`, and `back`; selector targets poll until available and support recursive `index`, `childOf`, `above`, `below`, `leftOf`, `rightOf`, `containsChild`, `containsDescendants`, points, and `optional`; outer command labels are metadata, not target selectors.
-- Assertions and navigation: `assertVisible`, `assertNotVisible`, `assertTrue` (literal values and `${VAR}` lookups only; `""`, `"false"`, `"0"`, `"null"`, and `"undefined"` are falsy, everything else is truthy), `extendedWaitUntil`, `scroll`, `scrollUntilVisible`, absolute/percentage/target `swipe`, `takeScreenshot`, `waitForAnimationToEnd`, `clearState`, and `stopApp`.
+- Assertions and navigation: `assertVisible`, `assertNotVisible`, `assertTrue` (literal values and `${VAR}` lookups only; `""`, `"false"`, `"0"`, `"null"`, and `"undefined"` are falsy, everything else is truthy), `extendedWaitUntil`, `scroll`, `scrollUntilVisible`, absolute/percentage/target `swipe`, `takeScreenshot`, `waitForAnimationToEnd`, `clearState`, `stopApp`, and `killApp` (system-initiated process death: `am kill` on ADB-backed Android devices, which refuse a foreground target with `android-kill-requires-background-app` — background the app first, for example `pressKey: Home` — and fail a target whose process survives with `android-kill-process-survived`; iOS, Limrun, and WebDriver-provider backends run it as `stopApp`).
 - Scripts: ordered `runScript` file/env scripts with `http.post`, `json`, and `output` variables; `evalScript` inline expressions run flow-scoped JavaScript and write `output.*` leaves for later steps.
 
 ## Boundaries
@@ -5250,6 +5254,31 @@ snapshot was taken on instead of guessing it from the largest rect.
   separate.
 
 For Android pixel units and density, see [Android node metadata](#android-node-metadata).
+
+## Presented surface
+
+`snapshot --json` reports `presentedSurface` — whether the capture saw a modal presentation over your
+app's own content: `"presented"`, `"absent"`, or `"unknown"`. Read it instead of counting windows in
+the tree to work out whether a sheet or alert was up.
+
+- `"presented"` means the capture saw the presentation directly — a dimming view, an alert's own
+  view classes, or an element typed as a sheet, drawer, alert, or dialog.
+- `"absent"` is an earned answer, not a default. The capture checked every window it read and each
+  one held only its own content. This is the answer you can act on, for example to confirm a tap
+  dismissed a sheet.
+- `"unknown"` means the capture could not tell, and it is not a hedge — it says the capture lacks the
+  evidence absence needs. Absence is only reachable from a capture that reads UIKit class names, so a
+  screen served by a backend that publishes none answers `"unknown"` even when nothing is presented.
+  That is the private accessibility backend (`snapshotQuality.backend: "private-ax"`, which `--actions`
+  asks for) and an Appium or Limrun tree. Never treat `"unknown"` as `"absent"`.
+- A physical iOS device has one capture backend, and it publishes no class names, so there the answer
+  is `"presented"` or `"unknown"` and never `"absent"`.
+- The field is absent entirely when the platform publishes no reading at all: Android, web, Linux,
+  and macOS captures.
+
+The answer describes the screen, not the view of it you asked for, so `--raw`, `-i`, `-d`, and
+`--scope` all report the same value for one screen. Use `-i` or a `--scope` to keep the output small
+and still trust the answer.
 
 ## iOS capture behavior
 

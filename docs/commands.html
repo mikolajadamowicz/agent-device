@@ -9,7 +9,7 @@
 <script defer src="/agent-device/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/static/js/index.8ae8c924be.js"></script>
+<script defer src="/agent-device/static/js/index.873a2631dc.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -66,7 +66,7 @@
 <p>Boot and shut down:</p>
 <ul>
 <li><code>boot</code> gets the selected target ready without launching an app. It needs an active session or a device selector. You mainly need it when <code>open</code> fails because no simulator or emulator is booted.</li>
-<li>Android: <code>boot --platform android --device &lt;avd-name&gt;</code> launches that emulator with a window; add <code>--headless</code> to launch it without one.</li>
+<li>Android: <code>boot --platform android --device &lt;avd-name&gt;</code> launches that emulator with a window; add <code>--headless</code> to launch it without one. On macOS the window opens behind the focused app, which keeps focus (also when <code>open</code> boots a stopped AVD). This is best-effort: the emulator can still take focus if the focused app cannot be read, or if its window appears after the startup budget runs out.</li>
 <li><code>shutdown</code> turns off the selected Apple simulator or Android emulator. It refuses the active session&#x27;s device; use <code>close --shutdown</code> to end the session and turn the device off.</li>
 <li><code>--timeout &lt;ms&gt;</code> on <code>boot</code>, <code>open &lt;app&gt;</code>, and <code>prepare ios-runner</code> is the startup budget for booting an iOS Simulator or Android emulator (for <code>prepare ios-runner</code>, shared with runner preparation). A never-booted iOS Simulator can take several minutes. When the budget runs out, the command fails with <code>error.details.reason: boot_timeout</code> and the device keeps booting, so a retry finds it further along. See <a href="/agent-device/docs/sessions#wait-for-a-slow-or-busy-device" class="rp-link">Sessions</a>.</li>
 </ul>
@@ -91,6 +91,7 @@
 <li><code>open --platform macos --surface app|frontmost-app|desktop|menubar</code> selects the macOS session surface; <code>app</code> is the default when you name an app. See <a href="#desktop-targets" class="rp-link">Desktop targets</a>. <code>--save-script</code> records the surface so <code>replay</code> reopens it; with no surface given, replay opens an app session.</li>
 <li>Android React Native: <code>open --relaunch</code> needs an installed package name. Install or reinstall the APK first; <code>open &lt;apk|aab&gt; --relaunch</code> is rejected. For Metro-backed JS changes, run <code>metro reload</code> before reaching for <code>open &lt;app&gt; --relaunch</code>.</li>
 <li>Android (adb): an intent target such as <code>open settings</code> records the package that opened as <code>appBundleId</code>. <code>open settings --relaunch</code> stops and restarts that app. If the intent matches more than one activity, <code>--relaunch</code> fails.</li>
+<li>Android (ADB): <code>close</code> force-stops the app, then checks for 2 seconds that it has left the foreground and for 2 more that its process has exited. If either check window ends first, <code>close</code> fails with <code>details.reason: android-app-close-timeout</code> and <code>details.phase</code> set to <code>foreground</code> or <code>process</code>; apps Android restarts at once, such as the launcher, fail this way.</li>
 </ul>
 <p>iOS Simulator launch behavior:</p>
 <ul>
@@ -180,6 +181,7 @@ restart; reconnect and take the hold again. See <a href="/agent-device/docs/remo
 <li>If the selected Xcode can&#x27;t resolve a scoped simulator for the Apple runner, the runner start fails with <code>details.reason: &quot;simulator_set_destination_not_found&quot;</code>, naming the set and, when known, the Xcode version.</li>
 <li><code>--android-device-allowlist &lt;serials&gt;</code> limits Android discovery and selection to comma- or space-separated serials.</li>
 <li>Set the same scopes with the <code>iosSimulatorDeviceSet</code> and <code>androidDeviceAllowlist</code> config keys, or <code>AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST</code>. CLI flags override environment values, except under a <code>strip</code> session lock, which ignores conflicting per-call selectors.</li>
+<li>Start the daemon with <code>AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET=&lt;path&gt;</code> to scope every iOS simulator request to one simulator set. A request without <code>--ios-simulator-device-set</code> uses that set, so iOS physical devices are not listed on that daemon. A request naming a different path string, including the same path with a trailing slash, fails with <code>INVALID_ARGS</code> and <code>details.reason: &quot;ios_simulator_device_set_outside_daemon_set&quot;</code>. macOS and other non-iOS requests ignore the set, and the host Mac stays listed. A daemon that the CLI starts inherits the CLI&#x27;s environment, so later CLI calls with a different value still use the first value until the daemon restarts.</li>
 <li>Scope applies before <code>--device</code>, <code>--udid</code>, and <code>--serial</code>, so an out-of-scope selector fails with <code>DEVICE_NOT_FOUND</code>.</li>
 <li>On macOS, daemon startup removes any symlink at <code>~/Library/Developer/XCTestDevices</code>, including one you made yourself (for example to move it to another volume), and restores <code>XCTestDevices.agent-device-backup</code> when it exists. A symlinked <code>XCTestDevices</code> is not supported. Only the link is removed, never the directory it points to; <code>daemon.log</code> records each step and any failed restore, which doesn&#x27;t stop the daemon.</li>
 </ul>
