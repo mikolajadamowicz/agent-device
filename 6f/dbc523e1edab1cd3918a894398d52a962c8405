@@ -1,0 +1,58 @@
+packages/platform-android/src/__tests__/sample-until-settled.test.ts
+  s_7e8455800df9b3::t_0c8da1468da2c2 1-43
+packages/daemon/src/execution/handlers/snapshot-settings.ts
+  s_7e8455800df9b3::t_9f47c21d89f542 357-364
+  s_7e8455800df9b3::t_de55dfa84fc8bd 343-352,355-356,365
+packages/platform-android/src/__tests__/settings.test.ts
+  s_7e8455800df9b3::t_9f47c21d89f542 564-571
+  s_7e8455800df9b3::t_693566dfc7488e 496,498,501-502,505-506,508,513-515,518,531-532,534,550-557,559-561,572-573,576-578,582-583,585,589-593,599-604,606-607,611,613-614,624-625,627,633,638-652,655,658,665
+packages/platform-android/src/settings.ts
+  s_7e8455800df9b3::t_8c120b5fbfbcdd 26-27
+  s_7e8455800df9b3::t_752c41e70bdbcb 327-340
+  s_7e8455800df9b3::t_39390b24005bdb 298,303-305,313,315-316,318,351-353,357,366
+packages/contracts/src/settings.ts
+  s_7e8455800df9b3::t_9f47c21d89f542 228-230
+  s_7e8455800df9b3::t_c438ed61353316 227,231,399,402,421,432,434,437
+packages/platform-android/src/alert.ts
+  s_7e8455800df9b3::t_d97fa763b3235e 20
+  s_7e8455800df9b3::t_c968216235d4fc 136-146
+  s_7e8455800df9b3::t_38099279aa1ec1 157-161
+packages/platform-android/src/sample-until-settled.ts
+  s_7e8455800df9b3::t_94c0be34deff77 1-21
+CHANGELOG.md
+  s_7e8455800df9b3::t_8264a1ae911156 5
+packages/contracts/src/client-settings.ts
+  s_7e8455800df9b3::t_1b9159d3adb2b0 36-37
+packages/contracts/src/settings.test.ts
+  s_7e8455800df9b3::t_53ef39ce0bc942 361-362
+packages/daemon/src/execution/handlers/__tests__/snapshot-settings-handler.test.ts
+  s_7e8455800df9b3::t_6fc3014459c2ff 412-413
+packages/platform-apple/src/core/__tests__/settings-leaf.test.ts
+  s_7e8455800df9b3::t_3a83880c80b8e6 7,53-57
+packages/platform-apple/src/core/app-settings.ts
+  s_7e8455800df9b3::t_26d53de67a8fd2 66
+packages/platform-apple/src/core/settings-leaf.ts
+  s_7e8455800df9b3::t_0e801e1221990c 1,19
+packages/provider-limrun/src/ios-settings.ts
+  s_7e8455800df9b3::t_5d7105661429cb 1
+src/commands/capture/settings.ts
+  s_7e8455800df9b3::t_f31c088e58fd26 110
+website/docs/docs/commands.md
+  s_7e8455800df9b3::t_69a67fa2dd0e0c 670-672
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6fdbc523e1edab1cd3918a894398d52a962c8405",
+  "prompts": {},
+  "sessions": {
+    "s_7e8455800df9b3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b4ed6b3b-0bca-408d-9fec-cc68698dd034",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
