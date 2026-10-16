@@ -1,0 +1,2637 @@
+packages/platform-apple/src/interactions.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9-10,17,25,27-28,33,633
+packages/platform-apple/src/runner/__tests__/runner-session-lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 535
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/RunnerTests+SnapshotCapturePlan.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 89-92,96-99,101-102,110-111,589,767
+packages/provider-webdriver/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18
+packages/daemon/src/execution/interaction/internal/__tests__/find-touch-runtime-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4,14
+packages/daemon/src/server/http/http-authorization.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-keep-session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+scripts/fuzz/envelope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 96
+packages/maestro/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+scripts/layering/contracts-exports.snapshot.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 104,120
+src/__tests__/agent-device-client-snapshot-presented-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-106
+.github/workflows/ci.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 25-26,28-29,33-35,39-40,42,75-102,104,106,108,110-117,119-131,133,135,138-139,144,151-165,254,256,258-260,262,264
+docs/adr/0007-remote-device-leases.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 56-78
+packages/command-registry/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 98-100
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-error-projection.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,10,38-40
+scripts/coverage-crap/run.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9-14,21-22,36-38,89-91,93,96,99-112,170-172,219,237,257,278,294-295,312-313,334-335,353-354,368-369,378-395,398-399,408-442,446,448,453,456-495,498,504,507-509,511-513,519,522-529,534-535,538-558,560-561,567,570-585,589-591,617-618,634-635
+  s_1458c003fd3ca4::t_a4da733bbb0bf0 8
+packages/daemon/src/server/__tests__/request-router-custom-action-flags.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/resources/device/device-claim-conflict.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,14
+packages/daemon/src/sessions/handlers/session-appstate-apple-session.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+CONTRIBUTING.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 96-100,104-109,142-144,149,152,154,234-237,248-283
+packages/provider-limrun/src/app-log-descriptor.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-session-address.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,10,40-42
+packages/daemon/src/__tests__/support/platform-services-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,85
+scripts/gate/workflows.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 224-246,317-351
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-observation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/provider-testmu/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/server/http/daemon-runtime-metadata-ownership.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,12-18,28-46,234,247
+packages/daemon/src/execution/__tests__/screenshot-crop.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/execution/interaction/internal/__tests__/find-single-bind.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/execution/generic-settle.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4,21,24,26,90,94-104
+  s_1458c003fd3ca4::t_f40cf014db704e 105-106
+packages/daemon/src/server/__tests__/resumable-upload-range.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/sessions/__tests__/replay-repair/session-replay-repair-loop.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/sessions/server/daemon-idle-reap.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+scripts/__tests__/fallow-fixture-policy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon-contracts/src/session-repair-tombstone.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/maestro/src/index.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 22,26-30,33-34
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-suite.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4
+packages/daemon/src/server/__tests__/human-control-http.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/daemon/src/core/runtime-admission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-6,40-41,77-81
+packages/daemon/src/sessions/__tests__/session-idle-activity.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 33
+packages/platform-android/src/__tests__/touch-helper-session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 21
+scripts/__tests__/build-package-xcuitest.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/execution/interaction/internal/find-production-route.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-10,15-18,24,27-32,60-61,63-64,66-78,80-88,91,94,99,102,105,110,116-120,127-132,138,141-146,152
+packages/daemon/src/sessions/__tests__/replay-target/session-replay-dispatch-selector-miss.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 23-28,115
+packages/maestro/src/replay-backend/session-replay-maestro-request.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-8,41,44
+packages/platform-apple/src/runner/__tests__/runner-swift-settlement-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 40
+packages/host-kit/src/internal/retry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 193-218
+packages/provider-limrun/src/ios-settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,6-14,27-34,52
+packages/provider-webdriver/src/browserstack-profile-fields.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,6,20
+packages/proxy/src/daemon-proxy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-7,255-581
+packages/daemon-contracts/src/session-artifact-paths.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,78-104
+packages/capture-kit/src/snapshot/__tests__/ios-snapshot-runtime-presentation-once.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,9-10
+packages/daemon/src/execution/interaction/internal/interaction-touch-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-android/src/alert.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9,136-139,142,157-163
+packages/capture-kit/src/ios-snapshot-engine/semantic-index-presentation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon-contracts/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,8,47-58,67-70,75-77
+packages/replay-port/src/script-source-bundle.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/capture-kit/src/observe-until.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 23,65,97,140,149,159-160,170,175,185,190
+packages/selectors/src/internal/parse.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-error-precedence.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8,307-410
+  s_1458c003fd3ca4::t_b2f3e87f426c40 411
+packages/replay-port/src/daemon-port/session-test-shard-devices.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,8,99-100
+packages/capture-kit/src/ios-snapshot-engine/rows.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/execution/__tests__/offscreen-target-probe.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/daemon/src/execution/handlers/snapshot-settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,6,9,12-16,26,32,41-45,47,50,67-68,72-76,80-83,85,95,99-109,112,121-126,146,183,192-193,206,226,239,256-257,261,269,273,276,279,287
+docs/adr/0032-layering-graph-engine.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 88-89
+scripts/layering/daemon-platform-boundary.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9,95,272-273,275
+packages/daemon/src/__tests__/support/command-surface-override-fake.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-67
+packages/daemon/src/sessions/session-observability/__tests__/application.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4
+packages/daemon/src/index.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-11
+packages/contracts/src/backend.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 46
+packages/daemon/src/execution/interaction/internal/interaction-touch-fill.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-11,16,21-22,24-25,29-30,33,35,43-44,50,54,56-60,62-74,143-144,194,196,203,211
+packages/platform-harmonyos/src/runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 161-164,254-256
+packages/daemon/src/sessions/__tests__/replay-target/session-replay-scenario.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3,6,37,39,51
+packages/proxy/src/daemon-proxy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17-18,32-51,60-74,88-102,178-179,182-190,204-273,319,321-322,326,338,377,379,382,391,402,404-407,412-416,421-431,459-461,466,557,564,587,590,635,641,645-662,672-681,746-757,759-760
+  s_1458c003fd3ca4::t_858a64f8a0dba6 758,761
+packages/daemon/src/execution/screenshot-runtime-binding.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/execution/interaction/internal/interaction-gesture-drag.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-10,12-13,18,66-67
+packages/daemon/src/execution/interaction/internal/interaction-touch-press.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/proxy/README.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-9,93-131,138-139
+packages/daemon/src/sessions/handlers/__tests__/session-device-status-response.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/capture-kit/src/snapshot-baseline.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-38
+packages/replay-port/src/daemon-port/command-types.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-6,8,57-61,69-75
+scripts/__tests__/vitest-slow-test-reporter.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+scripts/layering/tracked-sources.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 78-94,96-101
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-ended-lease.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-14,16-21,24-32,34-46,48-62,64-73,75,78-82,84-85,87,90-91,93-101,104-115,117,119,121-122,125-128,130-140,142-147
+packages/replay-port/src/daemon-port/session-replay-action-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,144
+packages/capture-kit/src/capture-admission/app-log-resource-store.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-7
+packages/daemon-contracts/src/device-claim-recovery.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,5-6
+packages/daemon/src/execution/handlers/react-native.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/core/__tests__/runtime-session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/daemon/src/__tests__/support/command-surface-fake.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-65
+packages/contracts/src/replay.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 280-281
+packages/daemon/src/sessions/handlers/__tests__/lease.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-10,60-79,118-145,455-593
+packages/test-kit/src/index.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-95
+packages/platform-apple/src/snapshot-source/tree.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,655-691
+  s_1458c003fd3ca4::t_16b1568ea8b9f0 692
+packages/provider-limrun/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 20
+packages/daemon/src/sessions/__tests__/session-teardown-budget.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+.github/workflows/linux.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,33
+packages/platform-android/src/runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 52,73-76,355-359,361-369
+  s_1458c003fd3ca4::t_55ead986cf7b0a 360
+packages/platform-apple/src/alert.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 90,101,105,157
+packages/daemon/src/__tests__/support/unavailable-device-runtime-gateway.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/capture-kit/src/recording/video.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-9,57-63
+  s_1458c003fd3ca4::t_67c2d995ebeb82 64
+packages/platform-android/src/readiness/runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 50-54
+scripts/layering/package-boundaries-facade.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 48,107,135,140
+android/snapshot-helper/src/main/java/com/callstack/agentdevice/snapshothelper/AccessibilityTreeCapture.java
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13-14,103-121,126,130,135,138-153,155,185
+packages/daemon/src/sessions/session-lifecycle/internal/inventory.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,9-13,25,29,33-36,219-220
+packages/daemon/src/execution/ref-positionals.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/capture-kit/src/snapshot-state.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13,59-63,101
+packages/daemon/src/execution/interaction/internal/interaction-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/proxy/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-inventory-harmonyos.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4,17
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-foreground.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,16
+scripts/mutation/ownership.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19,89
+packages/daemon/src/server/http/daemon-runtime-lease-expiry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-118
+packages/command-registry/src/registry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1864,1904,2007
+packages/platform-web/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18-19
+packages/capture-kit/src/provider-app-log.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-206
+packages/daemon/src/sessions/session-replay-coordinator.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+scripts/layering/daemon-process-reach.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,36-44,47,56
+packages/replay-port/src/daemon-port/session-replay-divergence.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19,24
+scripts/layering/test-kit-isolation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-220
+packages/daemon/src/__tests__/support/session-teardown.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/core/session-idle-tombstone.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/kernel/src/record-presented-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-78
+scripts/fuzz/arbitraries.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/daemon/src/sessions/handlers/__tests__/session-script-publication.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 22
+packages/selectors/src/selector-pipeline.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 510,709
+.github/workflows/agent-guidance.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 32-36
+packages/daemon-contracts/src/daemon-shutdown-report.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/server/http/daemon-runtime-composition.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-9,11-17,19-20,22,24-25,37-100,103-105,107,117-118,120,131-134,136,142,186,188,201
+packages/daemon/src/execution/interaction/internal/find-ambiguous-match.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-9,13-35,58,92,147,174,213,243
+android/snapshot-helper/src/main/java/com/callstack/agentdevice/snapshothelper/TouchCommandHandler.java
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17-18
+packages/daemon/src/execution/request-dispatch-disclosure.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,10
+src/__tests__/cli-diagnostics.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+packages/daemon/src/resources/device/__tests__/device-claims.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12-14,16-21,25
+packages/daemon/src/server/response-views.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,37
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-capabilities-install-projection.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+packages/daemon/src/server/__tests__/request-execution-scope-open-device-wait.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13
+packages/daemon-contracts/src/device-claim-paths.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-4,6,8-11,13-19,21
+packages/platform-apple/src/lifecycle.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 155-158
+packages/daemon/src/resources/lease-registry-scope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9,24-25,339,342
+packages/platform-android/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19
+packages/daemon/src/sessions/handlers/session-runtime-command.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3
+packages/daemon/src/server/__tests__/http-server-artifacts.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,16,18
+packages/daemon/src/sessions/__tests__/replay-repair/session-replay-repair-acceptance.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/daemon/src/execution/interaction/internal/interaction-flags.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/maestro/src/replay-backend/__tests__/replay-maestro-backend.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,7-24
+packages/daemon/src/execution/selector-runtime-target-evidence.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-13,15-22,26-35,44,46-48,51-117,125-126,137-140,151,159-162,171,210,226,232,241-244,270-273,287-290,321-324
+packages/daemon/src/sessions/session-observability/internal/__tests__/session-logs.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,14-17
+README.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 121
+packages/daemon/src/sessions/handlers/session-app-deployment.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,22
+packages/daemon/src/server/__tests__/http-server-rpc-admission.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6-12
+packages/daemon/src/sessions/session-lifecycle/internal/session-open-execution-relaunch.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-17,19,25,33-58,60,63-104,110-112,116,119,122,124-125,127,129,131,133,136-205,207-215,218-227,229-235,238-247,249-255
+apple/snapshot-presentation/Tests/AgentDeviceSnapshotPresentationTests/SnapshotPresentedSurfaceTests.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-97
+packages/daemon/src/execution/handlers/session-selector-dispatch.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5
+packages/replay-port/src/daemon-port/replay-backend-host.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-31
+packages/test-kit/src/target-classification-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,4,7,80-85
+packages/daemon/src/server/__tests__/request-execution-scope-lease-expiry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/core/__tests__/capture-disclosure-target-activation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/execution/interaction/internal/__tests__/find-handler-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3
+packages/capture-kit/src/ios-snapshot-engine/engine.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16,53-60,64-73
+  s_1458c003fd3ca4::t_24f1d862e34168 74-75
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-without-session-mode.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,4-11,13,15-25,27-30,32,34-41,43-45,47-48,52,55,57-59,61,65-76,80-87
+packages/daemon/src/sessions/session-lifecycle/internal/session-open-execution.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-4,19,61-62,66-70
+packages/daemon/src/sessions/handlers/record-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,21,42,50-56,173,213-236,245,249-250
+src/__tests__/cli-replay-script-sources.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13
+packages/daemon/src/sessions/handlers/record-runtime-response.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/execution/interaction/internal/interaction-touch-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-8,14-15,17-18,22,43,55-59,92-93,95,103,106-111,119,124,127-128
+packages/daemon/src/sessions/handlers/__tests__/lease-artifacts.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,9
+packages/daemon-contracts/src/daemon-registration.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+android/snapshot-helper/src/main/java/com/callstack/agentdevice/snapshothelper/AccessibilityNodeReads.java
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-34
+packages/contracts/src/client-capture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7,82-88
+packages/daemon/src/server/__tests__/http-server-rpc-unowned-failure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5
+packages/provider-limrun/src/snapshot.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-12,16-21,64,78-87,93,97-110,114
+packages/maestro/src/replay-backend/session-replay-maestro-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16,18-19,26-27,30,42-43,70-73,76,87,94,106,113,138,140,147,165,171,178,190,198,203,210,216-219,229,243,251-254,292,300,318
+packages/daemon/src/sessions/snapshot-quality-latch.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/server/http/daemon-runtime-rpc-flow-failure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,17-18,34-35,98,100-101
+packages/daemon-contracts/src/device-claim-reconciliation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,9-10
+scripts/mutation/run.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 81-84,120,166,183,614,654-655,665-679,690,692,694,699,706-707,742
+packages/test-kit/src/dispatch-disclosure.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 40-41,45-46,51-52,58,60
+packages/daemon/src/__tests__/support/snapshot-runtime-fixture.ts
+  s_1458c003fd3ca4::t_1b9c8ac9d01487 183
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 165,168,171-182,184-231,270
+packages/contracts/src/client-gesture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 28-29,43,57,64
+packages/daemon/src/sessions/__tests__/replay-repair/session-replay-repair-empty-tail.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 27-33,94,565,578,651
+examples/README.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+.github/workflows/android.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,34
+scripts/layering/check.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 63-67,117,142-148,155,451-454,541-542,605,616-624,637-640
+packages/command-registry/src/owner-files.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,50-73
+  s_1458c003fd3ca4::t_f488b8b9b561f6 74
+packages/maestro/src/replay-backend/__tests__/session-replay-maestro-request.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,105-117
+scripts/mutation/selection.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 57,66,105,107-108,117-131
+  s_1458c003fd3ca4::t_5447fe6ba8a5a2 132
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-remote-evalscript.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+src/__tests__/cli-session-state-dir.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+CHANGELOG.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-10
+packages/replay-port/src/daemon-port/session-replay-runtime-engine-adapter.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-7,12,22-23,198-201,203-215,272
+packages/daemon/src/resources/__tests__/app-log-resource-recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,15-19
+packages/daemon/src/__tests__/support/command-surface-fake.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,67-122
+packages/daemon/src/server/__tests__/http-server-rpc.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5-6
+packages/daemon/src/sessions/handlers/__tests__/session-appstate-input.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18
+packages/daemon-contracts/src/device-claim-reconciliation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,13-18
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/server/__tests__/request-finalization.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5
+packages/daemon/src/execution/interaction/internal/interaction-response.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+src/__tests__/cli-react-devtools-session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,18,65-67,76
+packages/platform-android/src/__tests__/emulator-lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13,15
+packages/platform-apple/src/core/__tests__/app-launch-close-quit.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-80
+packages/daemon/src/sessions/snapshot-command-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,33
+packages/platform-android/src/__tests__/settings.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-4,383
+packages/daemon/src/server/http/daemon-metadata-loss.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-suite-infrastructure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,10
+src/__tests__/cli-capture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+scripts/mutation/coverage-reporter.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/maestro/src/internal/program-ir-command-parser.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13,131,462-471
+src/__tests__/cli-startup-import-closure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24-41,123,145
+packages/daemon/src/server/http/server-lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,8
+packages/daemon/src/sessions/handlers/session-appstate-device-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/request-handler-chain.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13,19,43,164
+packages/daemon/src/sessions/handlers/__tests__/snapshot.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 113
+packages/capture-kit/src/provider-app-log-poller.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-6,8,14,19-21,29,36-39,49,51-53,62-65,72-121,125,129-131,138,142-146,148,151,154-159,164-166,172-173,176-206,209,211-245,247-249,252-256
+packages/platform-android/src/__tests__/snapshot-capture-failure-reason.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6-9,12
+packages/daemon/src/execution/interaction/internal/interaction-settle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,4-6,8,14-16,21,27-32,40-41,106-183,194-195,298,348-349,362,437,474,516,582,613,639,665
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-lifecycle-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7,9,23-27,61,71,182-229,261-426
+docs/agents/test-audit.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 27
+packages/daemon/src/sessions/__tests__/snapshot-custom-actions-platform-guard.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24
+packages/daemon/src/resources/__tests__/app-log-session-resource.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/contracts/src/platform-runtime-operations.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 31,764-766,768-769,782-784
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-execution-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9,11-12,64,69,74,79,672-856
+packages/provider-limrun/src/connection-verification.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 45,67,76,91,124-132
+packages/capture-kit/src/recording/__tests__/overlay.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 30-34,37,65-69,71-75,111-113,128-132,145-150,163-167,171-176,187-191,205-220,236-238,253-257,264-266,279-283,288-290,294-314
+  s_1458c003fd3ca4::t_6f2b2489c002d4 315
+packages/contracts/src/__tests__/lease-scope.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,14,135,272-290
+  s_1458c003fd3ca4::t_4a34642b6bec76 291
+packages/daemon/src/execution/__tests__/screenshot-crop-target.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+src/__tests__/cli-auth-diagnostics.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+.github/workflows/pr-cancel-on-close.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-44
+docs/agents/testing.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 26,35-36,69-77,113-114,123,126-127,147
+packages/contracts/src/snapshot-visibility-viewport.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,12,18,25-28
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-chrome-filter.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/replay-port/src/daemon-port/test-command-flag-policy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-4,6-26,29-33,35-54,56,58-63
+packages/maestro/src/replay-backend/session-replay-maestro-response.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-10,14,45,55,66
+scripts/layering/package-boundaries-dev-dependencies.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-5,12,15-30,32-41,43,45-49,51-59,63-89
+packages/daemon/src/sessions/__tests__/replay-repair/session-replay-repair-transaction.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+packages/daemon/src/server/__tests__/session-idle-expiry-harness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,17,137
+packages/daemon/src/sessions/handlers/__tests__/session-relaunch-guards.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,10,14,16,149-237
+packages/daemon/src/execution/handlers/snapshot-alert.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16,29
+packages/replay-port/src/daemon-port/replay-backend-failure.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,9-10,21-22,24-32,34,48,57-70,78,82,108,110,112,114
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/RunnerTests+Models.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 441-445
+src/__tests__/cli-exit-paths.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17
+scripts/fuzz/validation-arbitraries-maestro.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 25-26
+packages/daemon/src/sessions/session-lifecycle/internal/session-close-script.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6
+packages/daemon/src/server/http/http-server-disconnect.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,7,12,140
+scripts/layering/daemon-client-entry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-5,7,12-13,16-26,28-52,56-58
+packages/daemon/src/server/http/daemon-runtime-owner-lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-97
+packages/daemon/src/resources/device/device-claim-admission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+scripts/layering/session-authority-overlay.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 34,42,48,50,61,69,78,88,96,101
+packages/daemon/src/server/__tests__/request-router-replay-env.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-runner.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16
+packages/capture-kit/src/app-log-session-artifacts.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10,22
+packages/platform-apple/src/open-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 114,122-124,180
+pnpm-workspace.yaml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/daemon/src/core/session-runtime-admission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/capture-kit/src/recording/__tests__/overlay-host-support.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,5-8,10
+packages/daemon/src/core/generic-leaf-execution.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,5
+packages/daemon/src/sessions/session-lifecycle/internal/session-close-runtime-admission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-android/src/__tests__/app-parsers.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-7,39-70
+packages/replay-port/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 43-46,143-145
+packages/provider-webdriver/src/platform-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 629-631
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-teardown-resources.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7-9,13,17-19,189-251,295
+packages/daemon/src/execution/interaction/internal/interaction-ios-tap-outcome.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-5,13,17-20,27,32-33,38-45,68,76,93-94,579,838,872
+packages/replay-port/src/daemon-port/__tests__/test-command-remote-artifacts.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 20-22,76
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-shutdown.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6,68-72
+packages/daemon/src/execution/interaction/internal/interaction-touch-press.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-10,15,23-24,26-28,32-33,67,180,185,195,200
+packages/replay-port/src/daemon-port/session-replay-dispatch-narrowing.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+AGENTS.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 94-100,120
+packages/daemon/src/execution/selector-match-errors.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/provider-limrun/src/session-allocation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 71-87,89,114-129,131
+packages/daemon/src/sessions/session-lifecycle/internal/session-open-state.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/sessions/handlers/session-replay-command.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 30,195-205
+packages/capture-kit/src/snapshot/snapshot-freshness/recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-6
+packages/daemon/src/core/ios-app-session-hint.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/device-selection/src/__tests__/dispatch-resolve.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,99-102,602-660
+  s_1458c003fd3ca4::t_7c23d44ad07a80 661
+packages/capture-kit/src/observe-until.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-4,11-13,33,41-44,47,53,90,112,124,133-138,140-146,148-149,163-164
+packages/daemon/src/server/__tests__/request-router-response-level.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 43
+packages/daemon/src/execution/interaction/internal/interaction-android-escape-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,5,7-14,16-35,37-39,41-44,46-48,50-54,56-59,62
+packages/contracts/src/platform-runtime-unavailable.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 66,246-247
+packages/daemon/src/server/__tests__/request-save-script-transports.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,31,37,39
+packages/daemon/src/server/http/daemon-shutdown-claims.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/execution/interaction/internal/interaction-touch-routing.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-9,18,24-25,32-33,43,86,105,132,174,220,239,249,265,292
+packages/daemon/src/execution/interaction/internal/interaction-touch-direct-ios.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-18,24,29-30,34-35,53,121
+packages/provider-limrun/src/snapshot.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18-50
+packages/replay-port/src/daemon-port/session-replay-target-verification.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 43,48
+packages/maestro/src/internal/runtime-port-commands.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 33,58,86,155-157
+  s_1458c003fd3ca4::t_9e8ef4a2aa600c 158-161
+packages/platform-android/src/mechanics.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 127,263
+scripts/layering/package-export-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-341
+packages/daemon/src/sessions/session-lifecycle/internal/session-close.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6,14,23,121,127-129,160,333,454
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-artifact-ledger.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+packages/daemon/src/sessions/__tests__/replay-runtime/application.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12,15
+packages/daemon/src/__tests__/support/store-factory.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/contracts/src/client-lease.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24-32,41-46
+packages/platform-apple/src/core/__tests__/app-launch-open.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,21,23,27
+packages/ad-replay/src/internal/runtime-port-types.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 226-228
+package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,155,163,174,182,197-198,320
+packages/contracts/src/gesture-plan-pointers.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,15
+packages/daemon/src/server/http/daemon-runtime-artifacts.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-68
+packages/platform-apple/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19
+packages/daemon/src/core/__tests__/session-script-writer.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17
+packages/daemon/src/sessions/handlers/__tests__/session-doctor-app-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-6
+packages/capture-kit/src/recording/video.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,122,125,134
+  s_1458c003fd3ca4::t_ef7dd74436111e 135-136
+packages/daemon/src/execution/handlers/__tests__/snapshot-settings-handler.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 107,230,232-235,237-245,248-252,255,312,315,338,555
+  s_1458c003fd3ca4::t_76897fae025d2c 640-683
+packages/platform-android/src/fill-verification.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,61-68
+packages/daemon/src/core/__tests__/screen-recording-resource-recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10-13
+packages/kernel/src/errors-code-policy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+packages/platform-android/src/settings-permission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-11
+packages/provider-limrun/src/connection-verification.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,23,43
+packages/capture-kit/src/provider-app-log-poller.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8,10-15,17,19-23,26-31,34-39,46-49,63,67-68,83,89,105,111,120-122,124,126-127,129,137,178
+packages/daemon/src/execution/interaction/internal/interaction-target-evidence.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-247
+packages/daemon/src/sessions/handlers/__tests__/session-boot-shutdown-device-claims.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,16,23-26,30
+scripts/layering/package-boundaries.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 37,49,115-116,126-129,477-479,511,535,671-673,676-677,681,765-767
+packages/daemon/src/core/__tests__/daemon-policy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/platform-apple/src/core/__tests__/screenshot-simulator-capture.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-153
+packages/daemon/src/sessions/handlers/session-batch.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3
+packages/daemon/src/__tests__/support/application-lifecycle-runtime-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 79-81
+packages/daemon/src/__tests__/support/lifecycle-operations-spy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,4-6,9-12,14-26
+packages/replay-port/src/daemon-port/__tests__/session-test-source-discovery-inspection.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-6,10
+packages/daemon-contracts/src/daemon-diagnostics-scope.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/sessions/handlers/session-runtime-port-reverse.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5
+packages/capture-kit/src/snapshot/__tests__/ios-snapshot-runtime-presented-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-69
+packages/daemon/src/server/__tests__/replay-device-selection.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/maestro/test/conformance/expected-divergence.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 136-141
+packages/daemon/src/resources/device/__tests__/device-claim-settlement.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-11,14-19
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-publication.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-suite.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 41
+packages/daemon/src/sessions/handlers/session-appstate.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-resource-cleanup.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/maestro/src/daemon-port/__tests__/daemon-runtime-port.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 182-222
+packages/platform-apple/src/core/__tests__/app-resolution-display-name.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-121
+packages/capture-kit/src/snapshot/ios-snapshot-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 58
+packages/replay-port/src/daemon-port/session-replay-runtime-plan.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,9
+packages/daemon/src/core/__tests__/snapshot-capture.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,14,153-218
+packages/platform-apple/src/lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 597,635,646,670,720,741,781,786,816-817,864-865,887,952,969
+scripts/coverage-crap/run.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-6,9-13,40-46,49-53,97-100,103-112,114-142,149-152,156,158-170,175-179,182,186-191,198,202-203,258,260-261
+packages/platform-android/src/__tests__/app-lifecycle-close.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-294
+packages/daemon/src/core/request-ended-leases.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-41
+packages/maestro/src/internal/__tests__/program-ir-parser.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 674-694
+packages/platform-android/src/__tests__/app-lifecycle-kill.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-5,7-8,10-13,15-20,22-26,34-136,138-154,156-176,178-179,181,184-298
+packages/daemon/src/sessions/__tests__/replay-runtime/replay-command-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3,32,37
+packages/daemon/src/server/replay-device-selection.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+apple/snapshot-presentation/Sources/AgentDeviceSnapshotPresentation/SnapshotPresentedSurface.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-37
+packages/platform-apple/src/runner/__tests__/host-setup.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+server.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10,15
+src/__tests__/cli-agent-cdp-session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/platform-web/src/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 401-405
+packages/kernel/src/errors-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-13
+scripts/__tests__/release-plan.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 43,45,48-49,141
+packages/daemon/src/sessions/session-observability/internal/session-audio.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 23,26-30
+packages/daemon/src/__tests__/support/handlers/snapshot-handler.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+scripts/coverage-crap/patches.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 81-83,88-92,94-96,108,110,123-127,129-130,133-134,141,143
+docs/agents/pull-requests.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19-20,27,34-35
+packages/daemon-contracts/src/device-claim-record.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/test-kit/src/device-claim-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5-15
+packages/kernel/src/snapshot.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 390-403,754-760
+  s_1458c003fd3ca4::t_d3a4c47a82c3a2 389
+packages/platform-android/src/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,10,64-68,272-279,281
+packages/daemon/src/execution/interaction/internal/interaction-touch-direct-ios.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/capture-kit/src/capture-admission/app-log-resource-recovery.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15,17-18
+packages/daemon/src/server/__tests__/atomic-publish-ownership.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-save-script.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,6,10-11,16,63-129
+  s_1458c003fd3ca4::t_57e9dc494121fc 130-131
+skills/android-emulator/SKILL.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 30
+packages/daemon/src/server/request-router.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-4,23-24,32,94,137-138,140,143,168,170,172,183-186,357,359-362
+packages/daemon/src/__tests__/support/handlers/session-command-harness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 30
+packages/daemon/src/resources/app-log.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/replay-port/src/daemon-port/__tests__/test-command-nested-flags.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+contracts/fixtures/runner-requests.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-5,10-47,50-65,67-72
+packages/platform-android/src/network/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 198-202
+packages/daemon/src/server/__tests__/request-router-apps-admission.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/daemon/src/server/__tests__/host-lease-http.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7,26,33,104-129
+packages/daemon/src/server/http/daemon-runtime-recording-teardown.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-8,42,80
+packages/daemon/src/server/__tests__/response-views.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,74-83
+  s_1458c003fd3ca4::t_b0117e913b360a 84-85
+packages/platform-apple/src/runner/__tests__/runner-lifecycle-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/command-registry/src/__tests__/registry-platform-execution.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3,5-9
+docs/adr/0026-scroll-clip-authority.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 107
+scripts/gate/workflows.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 39,183-187,201-203,209
+packages/daemon/src/sessions/session-observability/internal/session-observability.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,35,40-44
+packages/daemon/src/execution/handlers/__tests__/session-selector-dispatch.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 34
+packages/maestro/src/replay-backend/__tests__/session-replay-maestro-failure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-117
+packages/platform-apple/src/system/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,127-158,165-173
+  s_1458c003fd3ca4::t_48d5c868c89fb5 174-175
+packages/contracts/src/facades/client.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 69
+scripts/layering/package-boundaries.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5,22,27-30,35-45,60-61,64-70,125-134,162-175,182-188,198,200,223-225,227,231-243,253-255,261-264,274-278,280-293,356-357,362,365,391-392,441
+packages/platform-apple/src/core/settings-text-size.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13,15
+packages/daemon/src/core/interaction/internal/types.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/contracts/src/device-readiness-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 41
+packages/daemon/src/sessions/handlers/__tests__/session-device-claims.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-7,34,48-51,306-338
+  s_1458c003fd3ca4::t_bafe44a6150fb1 339-340
+packages/platform-apple/src/launch-confirmation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,18,23-24,64,85,111,310-314,366-488,490,492-493,504,509,524,528,537-538,579
+packages/daemon/src/execution/interaction/internal/interaction-touch-android-freshness.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-9,14-16,49-50,80,96,111-112,155,171,219,222,237,290
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/UnitTests/RunnerTests+SnapshotCapturePlanTests.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 272-348,356-361,363-364
+scripts/layering/daemon-client-entry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,8,10,12-19,22-23,26-32,35-39,44-45,48-54,58-59,61
+src/commands/capture/settings.test.ts
+  s_1458c003fd3ca4::t_76897fae025d2c 71,74,98-118,184
+  s_1458c003fd3ca4::t_e16ed8132074c5 3,50-52,54,57,61,65,69-70,72-73,77,79-80,178-183,185,209
+packages/maestro/src/replay-backend/replay-maestro-backend.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-6,16-19,21-48
+packages/daemon/src/resources/device/__tests__/device-claim-conflict.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/daemon/src/__tests__/support/session-observability/internal/network-runtime-harness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/platform-apple/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 99-101
+packages/daemon/src/__tests__/support/handlers/session-test-harness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5,85
+packages/provider-webdriver/src/platform-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 414-418
+packages/daemon/src/execution/interaction/internal/find-match-resolution.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12
+packages/daemon/src/__tests__/support/legacy-capture-interactor-resolution.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-26
+packages/daemon/src/server/__tests__/artifact-archive.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/contracts/src/daemon-http.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7,14-15,55-71,120-126
+packages/daemon/src/sessions/handlers/__tests__/record-runtime-start.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,41-57
+  s_1458c003fd3ca4::t_705e0b68f1cb7a 58-60
+packages/maestro/src/daemon-port/__tests__/daemon-runtime-public-operation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 52-67
+packages/daemon/src/execution/android-snapshot-timeout-evidence.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-android/src/window-state.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7-8,14-17,55-62,149-173
+  s_1458c003fd3ca4::t_af8bdca67cb995 174-175
+packages/provider-webdriver/src/webdriver-transport.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/platform-android/src/__tests__/app-lifecycle-open.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/capture-kit/src/recording/overlay.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12,30-33,37-41,69,71,86,107-114,118,157-158,177
+apple/snapshot-presentation/Sources/AgentDeviceSnapshotPresentation/PresentedSurface.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-16
+packages/kernel/src/errors-message.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-existing.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,12,15,18,21-22,148-402
+packages/platform-android/src/lifecycle.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 73-79
+packages/contracts/src/ios-snapshot.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,234-242
+packages/daemon/src/execution/interaction/internal/interaction-touch-response-evidence.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-8,14,19-20,28-29,54,78,112,137,157,180,196,242,266,313,332,364
+packages/daemon/src/sessions/__tests__/replay-repair/session-replay-repair-record-exclusion.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 23
+packages/daemon/src/__tests__/support/application-lifecycle-runtime-harness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/contracts/src/runtime-contract.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,12-33
+  s_1458c003fd3ca4::t_0986627bb0118b 34
+packages/daemon-contracts/src/device-claims.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 44-56
+packages/daemon/src/sessions/handlers/snapshot-scoped-refs.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,5-9,101
+scripts/coverage-crap/stamp.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-370
+src/__tests__/cli-close.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5,7-13,97-235
+packages/daemon/src/server/__tests__/http-server-rpc-lifetime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5,15
+packages/daemon-contracts/src/device-claim-record.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+packages/provider-webdriver/src/aws-device-farm-profile-fields.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-15
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 70
+packages/kernel/src/device.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,248-251,260-343,413-422,425,427-441,443
+packages/daemon/src/sessions/request-admission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-4
+packages/daemon/src/sessions/handlers/__tests__/session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/execution/selector-runtime-get-reads.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-10,12-17,22,24-25,46-47,49-50,81,133,180,223,283,363
+packages/daemon/src/execution/interaction/internal/interaction.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-apple/src/launch-confirmation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11-13,55-57,74,114,128,130,196,199,202-203,208-211
+packages/platform-android/src/emulator-lifecycle.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-4
+src/__tests__/cli-help.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 68-70
+packages/daemon/src/server/__tests__/http-server-rpc-handler-failure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/platform-apple/src/runner/__tests__/snapshot-presentation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 287-314
+packages/platform-apple/src/foldable/fold-helper-cache.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 224
+packages/daemon/src/core/snapshot-capture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14,58-62
+packages/daemon/src/resources/__tests__/lease-registry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,31-197
+packages/replay-port/src/daemon-port/__tests__/test-command-cancellation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+scripts/layering/root-module-zones.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17-18
+packages/daemon/src/server/__tests__/request-execution-scope.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,24
+packages/daemon/src/server/http/daemon-runtime-device-claims.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+android/snapshot-helper/src/main/java/com/callstack/agentdevice/snapshothelper/SnapshotInstrumentation.java
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 150
+packages/daemon/src/server/__tests__/http-server-rpc-invalid-body.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4
+packages/daemon/src/server/request-finalization.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-13
+packages/platform-apple/src/core/__tests__/app-device-io-physical-device.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-10
+packages/provider-limrun/src/app-log-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10-11,33-35,71-73,124-126,542-640
+  s_1458c003fd3ca4::t_9e16bc8c04b80c 641
+packages/daemon/src/server/session-idle-expiry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+scripts/coverage-crap/stamp.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-429
+src/__tests__/cli-remote-diagnostics.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-10,22,24,55
+scripts/__tests__/xctest-selection.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+.github/workflows/docs.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 45-49
+packages/ad-script/src/internal/__tests__/script.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 897
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-fail-fast.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/daemon-contracts/src/device-claim-owner-recovery.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-11
+packages/daemon/src/resources/macos-app-lease.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12
+packages/daemon/src/core/session-store.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-5
+scripts/layering/daemon-layers.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12-13,30-35,108
+packages/daemon/src/resources/session-device-resolution.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7
+packages/daemon/src/sessions/handlers/session-app-source-deployment.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,27
+packages/daemon/src/server/device/__tests__/device-claim-owner-recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-4,9,12
+packages/daemon/src/sessions/handlers/session-shutdown.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+scripts/check-bundle-owner-files.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-6
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-action-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,61-62,83
+packages/provider-limrun/src/interaction-operations.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 21-22,44,118-125,347,352-361,363-385
+  s_1458c003fd3ca4::t_1b9c8ac9d01487 362
+scripts/coverage-crap/model.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 20,88,107,111,120,153,168,277-279,281-282,292-293,317-326,329-332,335-337,340-341,345,348,356-365,368,370,373-374,377-378,380-383,385-388,391-401
+packages/replay-port/src/daemon-port/replay-backend-declarations.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-22
+packages/capture-kit/src/capture-admission/app-log-resource-store.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/handlers/__tests__/session-trigger.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6
+packages/daemon/src/execution/interaction/internal/__tests__/find-target-activation-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/provider-limrun/src/runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 48-49,159-164
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-devices-batch-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,23,28
+packages/replay-port/src/daemon-port/session-replay-divergence-publication.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+.github/workflows/macos.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,53,171,174
+packages/daemon/src/core/__tests__/selector-recording.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16
+packages/daemon/src/execution/wait-current-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,20,100-194
+  s_1458c003fd3ca4::t_85780f35e0a11e 195
+packages/daemon/src/resources/app-log-start-preflight.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-android-occlusion.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/platform-android/src/__tests__/index-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/daemon/src/sessions/handlers/snapshot-handler.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,4-8,20,26,30-31,34,37,63-64,86-87,116,118,145,154-155,179-180,209-210,246-247,260-261,281-282,368-369,384,392-393,403-409,415-416,434-435
+scripts/mutation/test-scope.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/platform-apple/src/runner/__tests__/runner-exchange-response.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-67
+scripts/layering/platform-package-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18,23,70,102,107-113,117-120,155-160,178-181,213-216,218-219,251,264,269,273-274,279,283,288,291-292,325-326,353,386
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-plan.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+examples/test-app/app/perf-lab.tsx
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-9
+packages/platform-apple/src/runner/__tests__/index-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/replay-port/src/daemon-port/__tests__/session-replay-runtime-failure-response.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 87-124
+scripts/layering/platform-package-policy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 300-319,436,446,448-449,451-453,521-545
+  s_1458c003fd3ca4::t_7f11ab74a81c1d 546-547
+scripts/layering/daemon-platform-runtime-inventory.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 62,66,73,130,133,153,156,159
+scripts/layering/process-reach.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-79
+packages/daemon/src/sessions/handlers/session-boot.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/maestro/src/daemon-port/daemon-runtime-port.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 192-195
+packages/daemon/src/sessions/session-observability/internal/__tests__/session-perf-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 22
+packages/platform-android/src/__tests__/alert.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 26-38,111-116,143-162
+packages/daemon/src/execution/selector-runtime-backend.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,19
+packages/daemon/src/sessions/handlers/session-script-publication.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/daemon-contracts/src/device-claim-reboot.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-9
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-failure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,15,38-42,46-47,52-53,55-60,62-66,75-76,300,316-329
+scripts/layering/tracked-sources.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-54
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-inventory-appleos.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,19,29
+packages/capture-kit/src/ios-snapshot-engine/geometry-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12-17,19-67,345,349,352-356,358-549
+packages/provider-limrun/src/client-options.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-10
+packages/daemon/src/sessions/session-lifecycle/__tests__/application.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4
+scripts/layering/daemon-modularity.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10,13,15,87,91,98,100,655-688
+packages/capture-kit/src/snapshot/snapshot-freshness/android.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10-11
+packages/daemon/src/core/__tests__/post-gesture-no-effect-claim.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/core/session-state.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11,125,127
+packages/daemon/src/sessions/__tests__/materialized-path-registry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+android/snapshot-helper/src/main/java/com/callstack/agentdevice/snapshothelper/AccessibilityTreeXml.java
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 120
+packages/daemon/src/execution/__tests__/scroll-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 23-26
+packages/daemon/src/server/__tests__/daemon-runtime-app-log.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,10
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-state.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/contracts/src/daemon-http.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5,11-14,36-49,56-60
+  s_1458c003fd3ca4::t_2ab2cbede01eb4 61
+packages/daemon/src/core/__tests__/post-gesture-stabilization-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+scripts/layering/ratchet-reference.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 25,31,42-45,48-64,70,77-78,95,119-126
+packages/daemon/src/server/__tests__/request-router-error-redaction.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24
+packages/daemon/src/execution/interaction/internal/find.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-6,23,69-70,212,268
+packages/daemon/src/server/request-save-script-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12
+scripts/layering/daemon-layers.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11,38,148-153
+  s_1458c003fd3ca4::t_0aa760f93167a4 154-155
+packages/platform-apple/src/network/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 204-208
+scripts/check-affected/model.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 136
+packages/daemon/src/server/http/http-server-proxy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,22
+packages/provider-webdriver/src/index-profile-fields.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-18
+packages/daemon/src/server/__tests__/request-diagnostics-http.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,14,16
+packages/platform-apple/src/core/app-settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-12,41-59,68,70-72,164-192,309-310,313
+packages/daemon/src/core/device/device-ready.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-5,7-8,13-14,27-28,38,51,61,65,70-79
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-capture-policy.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+docs/adr/0029-daemon-policy.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 50,56
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-failure-response.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+packages/platform-apple/src/core/__tests__/settings-text-size.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/execution/ref-snapshot-flag-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/provider-limrun/src/app-log-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 23-26,29-30,49-57,175-183,185-197,200,251
+packages/provider-webdriver/src/webdriver-orientation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13
+packages/platform-android/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16
+scripts/mutation/sharding.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/core/__tests__/snapshot-runtime-binding.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/capture-kit/src/durable-resource-envelope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/contracts/src/settings.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,8,14,20-24,41-43,45-58,60,63-64,68-82,86-93,97-106,110-126,130-138,141-157,159,161-163,168,172,180,189-195,198-202,205-206,209,211,218-237
+  s_1458c003fd3ca4::t_1b9c8ac9d01487 44,59
+  s_1458c003fd3ca4::t_76897fae025d2c 241
+  s_1458c003fd3ca4::t_b1a91b74f919fd 61-62,239
+packages/contracts/src/application-lifecycle-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 198-202
+packages/contracts/src/platform-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 115-139
+packages/daemon/src/server/http/daemon-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-7,17-20,26-29,32-37,55,100,148,467,470-476,482,526,564,580-591,671-672,772,814,846-847,856
+packages/daemon-contracts/src/device-claim-inspection.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/capture-kit/src/ios-snapshot-engine/engine-eligibility-parity.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/server/http/daemon-runtime-recording-reaper.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,18-19,28-29
+scripts/layering/test-colocation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-165
+packages/daemon/src/sessions/__tests__/session-routing.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+packages/maestro/src/internal/program-ir.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 211-216,296
+packages/contracts/src/snapshot-diagnostics.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/resources/lease-registry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 52-56,82-89,95-96,129-130,135-179,220,620,622,626
+packages/daemon/src/server/__tests__/request-execution-scope-lease-session-end.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4-6,8-20,23-47,49-64,66-67,71,73-80,82,84-85,88-95,97-100,102-106,109-115,117-118,121-159,161-186
+packages/daemon/src/sessions/__tests__/request-handler-catalog.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,34-35
+packages/daemon/src/execution/interaction/internal/interaction-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,12-14,20-24,28-34,39-40,42-46,48-90,94-95,144,195-196,229-230,288-289,345,380,407,419,452
+packages/capture-kit/src/ios-snapshot-engine/engine-properties.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19-20
+packages/daemon/src/execution/wait-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,32
+scripts/check-affected/lockfile-install-sync.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/sessions/session-lifecycle/internal/session-open-foreground.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,8
+packages/daemon/src/resources/__tests__/app-log-start-preflight.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-android/src/app-parsers.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15-21,100-120
+  s_1458c003fd3ca4::t_9b79f935807133 121-125
+packages/daemon/src/server/__tests__/upload.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/maestro/test/conformance/conformance-normalize.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 98,136-137,406,427-428
+packages/daemon/src/resources/__tests__/app-log-files.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5
+packages/platform-apple/src/runner/snapshot-presentation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 25-29,32,56-61,73,97
+packages/daemon/src/execution/interaction/internal/interaction-touch-fill.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/__tests__/open-device-contention-wait.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/platform-apple/src/lifecycle-open-prewarm.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-146
+packages/command-registry/src/wait-positionals.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-runtime-maestro-dispatch.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7-8
+packages/daemon/src/execution/wait-current-surface.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6
+src/commands/capture/settings.ts
+  s_1458c003fd3ca4::t_55ead986cf7b0a 39
+  s_1458c003fd3ca4::t_affb6964cea0a9 3,5-6,9-14,21,35-36,53,58-79,93,95-97,104-109,120-123,125,130,137-138,140-141,144
+packages/daemon/src/sessions/handlers/session-command-input.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,8,13
+packages/contracts/src/settings-catalog.ts
+  s_1458c003fd3ca4::t_55ead986cf7b0a 108-113
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-107,114-189
+packages/daemon/src/server/http/http-instance-precondition.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-script.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17
+packages/daemon/src/execution/interaction/internal/interaction-touch-prepare.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,18-20,24-32,143,148,159-160,193,217,238
+scripts/layering/test-colocation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-24,26-28,30-32,34-37,39-43,46-47,49-99
+packages/daemon/src/sessions/handlers/snapshot-handler-freshness.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,4-7,11,23,99-100,132-133,145-158,160-169,172-175
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-runtime-maestro.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,47-48
+packages/daemon/src/server/__tests__/request-router-developer-dir.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+scripts/__tests__/runner-isolation-diagnostics.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+contracts/fixtures/ios-presented-surface.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-343
+packages/daemon/src/server/__tests__/request-router-events.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/daemon/src/sessions/handlers/lease.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12,26,30,32-33,52,66,94,164-166,181-230
+  s_1458c003fd3ca4::t_c3c501de4d13e3 231
+packages/platform-web/src/__tests__/agent-browser-provider-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8,13
+packages/selectors/src/internal/find-args.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,127-134
+  s_1458c003fd3ca4::t_2b8fe861174d4f 135
+packages/daemon/src/core/__tests__/moving-target-baseline.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 246-269
+packages/platform-vega/src/index.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/platform-apple/src/lifecycle-physical-close.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-4,6-8,10-14,16-24,26-31,34-37,39,41-43,46-59,61-65,68-69
+packages/daemon/src/server/__tests__/request-router-open-claim.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 60,62
+packages/daemon/src/sessions/handlers/__tests__/session-command-replay.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/provider-limrun/src/interaction-operations.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,105-113
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-cwd-scoped-resources.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,17
+packages/daemon/src/sessions/__tests__/replay-target/session-replay-target-verification-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 83,181,184,193-198,201
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-suite-command-video.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,9,16
+packages/daemon/src/sessions/session-observability/internal/session-perf-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,35
+packages/daemon/src/core/__tests__/session-runtime-admission.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/maestro/src/internal/__tests__/runtime-port-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 82
+packages/daemon/src/core/session-tenant-scope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,5-6,8,10-12
+packages/daemon/src/__tests__/support/provider-credentials-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10
+packages/contracts/src/settings-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-4,50-53,57-60,64-65,69-86
+  s_1458c003fd3ca4::t_88672dcb8d5c3a 87
+packages/daemon/src/core/__tests__/request-ended-leases.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-8,10-15,17-49,51,54,56,60-63,67-72,74,76-77,80-81,83-85,87-91,94-102,106-122,124-127,130-142,145
+packages/contracts/src/snapshot-text-semantics.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-18
+packages/daemon/src/sessions/handlers/session-doctor.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/daemon/src/resources/__tests__/app-log-admission-ledger.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-web/src/runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 420-422
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-failure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3
+examples/test-app/README.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 21,238-262
+  s_1458c003fd3ca4::t_cfd720efb50260 263
+packages/daemon/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 54-55
+  s_1458c003fd3ca4::t_24bf194bdc1457 53
+packages/contracts/src/gesture-plan.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,4-7,90-179
+packages/daemon/src/server/http/daemon-shutdown-claims.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,8-11,85,114
+packages/replay-port/src/daemon-port/session-replay-runtime-session.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-4
+packages/daemon-contracts/src/daemon-stop.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,5-7,46
+packages/daemon/src/execution/handlers/__tests__/react-native.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/sessions/handlers/__tests__/session-shutdown.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18
+packages/daemon/src/sessions/handlers/record-trace.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3
+packages/daemon/src/resources/app-log-session-resource.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/daemon/src/server/http/daemon-session-idle-expiry-scheduling.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-runtime.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,4,6
+packages/daemon/src/server/__tests__/request-router-repair-expired.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 27
+packages/platform-apple/src/system/runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13,17,36-47,50,151-180,197
+packages/daemon/src/sessions/handlers/session.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/contracts/src/snapshot-tree.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-65
+packages/daemon/src/sessions/handlers/snapshot-handler-wait.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-3,5-6,10-11,25,33-80,82-86,91,130,146,148-150,160-189,198-205,219,223-230,244,246,248-257
+packages/provider-webdriver/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 31-33
+packages/daemon/src/server/http/daemon-session-idle-expiry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,80,120,298
+packages/replay-port/src/daemon-port/session-replay-video-recording.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+packages/daemon/src/sessions/handlers/__tests__/session-prepare.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12-19,120-305
+  s_1458c003fd3ca4::t_0fc89a799e74dd 306
+.github/workflows/release.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7-8,21-23,40,116-117
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-capabilities.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19
+packages/replay-port/src/daemon-port/native-command.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18,22
+src/__tests__/cli-diff.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+scripts/vitest-coverage-run-stamp-reporter.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-315
+packages/platform-web/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19-21
+.github/workflows/ios.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,65
+packages/daemon/src/core/__tests__/request-dispatch-ledger.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5
+packages/provider-webdriver/src/profile-fields.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-4,35-39
+  s_1458c003fd3ca4::t_29123712d38d6a 40
+scripts/ios-snapshot-benchmark/size-install.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/core/__tests__/session-store.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+packages/command-registry/src/timeout-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 81,84-85
+packages/daemon/src/server/__tests__/request-router-open-harness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/server/http/http-server-boundary-cancellation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,7,12,37
+packages/daemon/src/sessions/handlers/__tests__/trace-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/platform-android/src/lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4,13-22,34,36,48,58,78,113-115,132,155-191,211-218,321-330,435-454,472-498
+packages/test-kit/src/boundary-fault-matrix.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 81,86,91,96,147-149,199
+packages/contracts/src/settings-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,16-47,49
+scripts/coverage-crap/model.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-3,6,199-202,206,210-211,217-220,223-226,230-235,241-242,247-251,259,261-264,266,273-293,295,297,306,404,411-414,416-419,421
+packages/capture-kit/src/recording/__tests__/contact-sheet-frames-host-support.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,4-5,7,9-16,18
+scripts/layering/architecture-ownership.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 114-116,118-122
+packages/daemon/src/__tests__/support/device-claim-store.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5
+packages/daemon/src/core/deferred-interaction-outcome.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7,104-109,116,181
+packages/daemon/src/execution/__tests__/selector-capture-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/__tests__/replay-repair/session-replay-repair.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-script-source.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/selectors/src/selector-pipeline-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19,78-79,110,116
+scripts/__tests__/prepare-publish-assets.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+scripts/check-affected/device-lanes.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 132
+packages/daemon/src/execution/wait-runtime-landmark.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-6,8-11,13-14,17-22,26-28,30-32,34-35,37-38,40-45,47,49-69,72,74-79,102,153-155,157,161-166,169-181,208
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/RunnerTests+Alert.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 41-44
+examples/test-app/src/screens/PerfLabScreen.tsx
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-345
+scripts/ios-snapshot-benchmark/benchmark-config.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/daemon/src/sessions/session-lifecycle/internal/session-open-prepare.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7
+packages/platform-android/src/app-lifecycle.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,26,544-552,555,557,562-572,575-615,619-636,642-647,650-658,669-679,681-684,688,691,694,698-703
+packages/maestro/src/internal/runtime-port-types.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 135
+src/__tests__/cli-react-devtools.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-14,16,19-23,26-30
+packages/capture-kit/src/snapshot-baseline.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-29
+packages/daemon/src/execution/__tests__/scroll-movement.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-10
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-overlay.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/host-kit/src/internal/retry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5,130-209
+packages/daemon/src/core/request-dispatch-ledger.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2
+packages/daemon/src/server/__tests__/request-router-record-flags.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/server/__tests__/resumable-upload.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+packages/replay-port/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 25-26
+packages/daemon/src/core/__tests__/settle-observation-capture.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+packages/daemon/src/resources/__tests__/macos-app-lease.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+packages/daemon/src/server/__tests__/request-router-artifacts-web.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/daemon/src/server/http/http-server.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8,15,74,131
+packages/daemon/src/sessions/lease-lifecycle.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,12,23-24,63-81,84-85,87,90-91,97,101,105-106,155-158,163,165,187,206
+packages/platform-apple/src/os/macos/helper-resolution.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-42
+packages/maestro/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9,22-28
+packages/daemon/src/sessions/handlers/__tests__/install-source.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 29-32
+packages/daemon/src/server/__tests__/request-router-session-address.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,35-36
+packages/daemon/src/server/__tests__/http-server-rpc-validation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7,16,18
+packages/device-selection/src/dispatch-resolve.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,12,209-210
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-close-shutdown-platform.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8,10,301-358
+packages/daemon/src/sessions/handlers/__tests__/session-replay-command.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,15,17-23,66-124
+  s_1458c003fd3ca4::t_fd612f4338a310 125
+packages/daemon/src/__tests__/support/interactor-resolution-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-44
+packages/daemon/src/sessions/snapshot-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13
+scripts/gate/model.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 45,48
+packages/daemon/src/server/http/transport.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5
+src/__tests__/agent-device-client.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 30
+packages/maestro/src/daemon-port/daemon-runtime-public-operation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7,24,54-69,96,101-104,114-115,145-151
+  s_1458c003fd3ca4::t_1107c386423f02 152-154
+packages/maestro/src/replay-backend/session-replay-maestro-failure.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-104
+packages/daemon/src/core/__tests__/request-runtime-binding.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 19
+packages/host-kit/src/retry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+examples/test-app/app/_layout.tsx
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 32
+packages/daemon/src/execution/interaction/internal/interaction-capture-disclosure.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9-14,16-17,19,59,112,172
+packages/platform-apple/src/__tests__/index-runner-requests.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 29
+packages/contracts/src/android-input-ownership.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/capture-kit/src/ios-snapshot-engine/action-shelf.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2
+packages/kernel/src/record.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-8,161-194
+  s_1458c003fd3ca4::t_7c6abc3b005b55 195-196
+packages/replay-port/src/daemon-port/session-test-source-discovery.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 13-14
+scripts/vitest-coverage-run-stamp-reporter.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-148
+src/__tests__/cli-config-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon-contracts/tsconfig.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14,18-19
+packages/maestro/src/internal/__tests__/runtime-port-commands.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 181-199
+packages/daemon/src/__tests__/support/session-factories.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/__tests__/support/touch-forwarding-surface-fake.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-228
+packages/daemon/src/sessions/handlers/human-control.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-inventory-scoped-paths.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7,9
+packages/provider-limrun/src/request-cancellation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+scripts/lib/cli-args.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14-18,23
+packages/daemon/src/core/daemon-request.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,8,11-12,57-61
+packages/platform-apple/src/core/simctl-settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/daemon/src/core/snapshot-session.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-83
+packages/platform-android/src/readiness/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 36,55,68,73,132-146
+  s_1458c003fd3ca4::t_8acc6e8c2f6886 147-148
+packages/replay-port/src/daemon-port/replay-dispatch-envelope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-7
+packages/daemon/src/execution/interaction/internal/interaction-touch-android-readiness-spawns.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-6,15,17-26,28-41,46
+packages/daemon/src/core/session-recovery-hints.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/core/__tests__/recording-gestures.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/contracts/src/lease-scope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5,36,146,190,222-223,225,227-230,309-326,371-381
+  s_1458c003fd3ca4::t_f4305bc881319d 382
+packages/daemon-contracts/src/daemon-stop.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3,6,10-11
+packages/daemon/src/execution/handlers/session-clipboard.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15,29-33
+packages/daemon/src/execution/interaction/internal/interaction-common.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,8-9,11-13,18-19,166,224,299-346
+packages/daemon/src/execution/interaction/internal/interaction-gesture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/contracts/src/client-settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9-11,13,18-38,40,55,76-79
+packages/daemon/src/sessions/handlers/__tests__/record-runtime.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/resources/device/__tests__/device-claim-prune.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-6,12,14,17,34,72,108,180,208
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-runtime-maestro-shell-artifacts.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/contracts/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 431-434,483-486
+src/__tests__/android-snapshot-occlusion-context.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/daemon-contracts/src/session-artifact-paths.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,5-30
+packages/maestro/src/replay-backend/__tests__/session-replay-maestro-observer.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-7,9,19-24,44-52
+packages/daemon/src/resources/__tests__/filesystem-boundary-faults.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,10-13,28-31,33
+packages/daemon-contracts/src/daemon-policy-file.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+scripts/layering/ratchet-reference.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5,55-65,73-74,76-88,90,98-99
+packages/daemon/src/sessions/handlers/__tests__/session-push.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,11,13
+packages/daemon/src/server/__tests__/provider-lease-expiry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/core/__tests__/command-descriptor-ref-frame-effect.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6,13
+packages/daemon/src/server/__tests__/request-router-typed-error.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 39
+packages/maestro/src/replay-backend/replay-maestro-declaration.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-21
+scripts/release-plan.mjs
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 59-60,97,181,230,254
+scripts/layering/project-references.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-6,57,61-86,88-100,166,169-171,173
+packages/daemon/src/execution/selector-runtime-find-read-only.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-3,5-8,12-14,19-22,28-61,121,133,169,176-177,180,185,187,196-199,228
+packages/daemon/src/execution/selector-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6
+packages/daemon/src/server/host-lease-http.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 48,86
+packages/daemon/src/sessions/handlers/session-doctor-warmup.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3,6-9,11,14,27-29,31-33,57,81,92-93,97-99,101-104,106,108-115,117-118,120,123-124,131-136,138-140,143,158-159,172
+packages/daemon/src/execution/__tests__/selector-capture-binding.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/server/http/daemon-runtime-lifecycle-shutdown.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,5,10,13,16-17,28-29,38-39,49-50,54,58-59,69-70,88,92-100,117-142,170-195,223-248,294,302-327,381-385,387-395,412,442,468-493,527-552
+packages/platform-apple/src/runtime.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 28
+packages/provider-limrun/src/app-log-reconnect.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-inventory-apps-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16
+packages/provider-limrun/src/ios-snapshot-adapter.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 172-195
+packages/kernel/src/errors-metadata.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/daemon/src/core/__tests__/snapshot-interactor-capture.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+scripts/__tests__/committed-source-tree.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 160,168-170,174
+scripts/ios-snapshot-benchmark/state-ownership.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/server/http/http-server-resumable-upload.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,10-11,16
+packages/contracts/src/snapshot-scroll.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-17
+packages/capture-kit/src/capture-admission/app-log-durable-resource.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-26
+packages/daemon/src/sessions/session-lifecycle/internal/session-close-lifecycle-teardown.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-14,16,18,23-35,37,41-53,55-56,59,61-62,64,66-67,69-90,92-102,107,109,112-124,126-145,147,149-153,156,158-161,165,168,170-172,174-186,188-189,193-196,199,201-219,222-226,228-234,237,239-240,242-248,251-275,277
+docs/adr/0019-request-bound-platform-runtime.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 204-205,208-209,286-292,851
+packages/daemon/src/execution/interaction/internal/interaction-touch-android-readiness.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/server/http/daemon-runtime-snapshot-shutdown.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7-16,21-22,61
+packages/platform-apple/src/core/__tests__/app-settings.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 40,272
+packages/platform-apple/src/runner/runner-exchange.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 299
+packages/replay-port/src/daemon-port/__tests__/replay-backend-registry.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-3,10-11,36-37,39,42,49
+packages/daemon/src/execution/interaction/internal/interaction-touch-press-admission.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/platform-apple/src/lifecycle-relaunch-close.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-19,23,25-26,28-37,39-66,69-76,78-82,84,86-90,93,95-97,100-102,104-106,109-110,112,115-117,119-121,124-125,127,130,133-136,145,147-157,165-167,169,171-175,177,180-188,190,193-203,205-207,209-213,216
+packages/contracts/src/settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-19,104-105,112-119,201-249,251-252,254-263,265-266,268-362,365-381,386,391,403,416,426-427,439-441,445
+  s_1458c003fd3ca4::t_55ead986cf7b0a 160-165
+packages/capture-kit/src/ios-snapshot-engine/engine.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 400-470,495-540
+  s_1458c003fd3ca4::t_58a73c39919fbc 541
+src/__tests__/cli-client-commands.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 18
+packages/daemon/src/__tests__/support/runtime-binding-conformance.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/server/http/http-authorization.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,10-11,13
+packages/daemon/src/execution/interaction/internal/interaction-touch-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/maestro/src/internal/support-matrix.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/capture-kit/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 21-32,53-56,69-71,97-100,105-128,157-160,185-188,197-200,213-236,253-256,306-307
+packages/daemon/src/__tests__/support/target-evidence-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-44
+packages/daemon/src/sessions/session-observability/internal/__tests__/session-audio.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,13-18
+packages/replay-port/src/daemon-port/replay-backend-registry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,9-13,24-25,29,33-37,40-46,55,58
+packages/platform-android/src/settings.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24-28,40-43,45-55,63-66,95-97,204,233
+  s_1458c003fd3ca4::t_55ead986cf7b0a 44
+scripts/mutation/envelope.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/UnitTests/RunnerTests+AlertTests.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-11
+packages/daemon/src/core/__tests__/config.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+src/__tests__/cli-debug-symbols.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/__tests__/support/daemon-runtime-deps-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-96
+packages/selectors/src/internal/predicates.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,5-11,349-363
+skills/ios-simulator/SKILL.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 30
+packages/daemon/src/sessions/__tests__/replay-target/session-replay-selector-routes.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/core/__tests__/audio-probe-resource-recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16-19
+packages/command-registry/src/flag-definitions-action.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 214
+packages/daemon/src/sessions/handlers/session-device-status-response.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/proxy/src/index.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-7
+packages/daemon/src/server/http/http-server-lease-allocate.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,5,10,19
+scripts/explain-command.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/sessions/handlers/snapshot.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3
+packages/daemon/src/execution/request-generic-dispatch.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7
+packages/daemon/src/sessions/__tests__/replay-divergence/session-replay-divergence-suggestions.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/sessions/session-observability/internal/session-network.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12,17
+packages/daemon/src/execution/interaction/internal/interaction-touch-direct-ios-eligibility.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-9,16-18,25-26,36,58,74,86,116,131,164,208,230
+packages/daemon/src/execution/interaction/internal/interaction-touch-press-admission.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,3-5,7-11,16,22-23,26-27,31-32,54,82,107,143,166,211
+packages/selectors/src/internal/arguments-checks.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 62
+packages/daemon/src/execution/interaction/internal/interaction-touch-android-readiness.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-9,14-16,23,44-45,67-68,101,150,205,265
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/RunnerTests+SystemModal.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 72-82
+packages/daemon/src/execution/selector-runtime-is-reads.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-270
+packages/daemon/src/sessions/handlers/__tests__/session-appstate-device-runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+packages/daemon/src/server/__tests__/application-lifecycle-recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 14
+packages/daemon/src/sessions/handlers/__tests__/record-runtime-stop-recovery.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/daemon/src/sessions/handlers/__tests__/session-boot.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24
+packages/capture-kit/src/ios-snapshot-engine/semantic-index-mapping.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+docs/adr/0033-collocation-decision-table.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 82,121,136-138,148,195-213
+packages/daemon/src/execution/selector-capture-binding.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/test-kit/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,14-16
+packages/daemon/src/execution/interaction/internal/interaction-settle-private-ax-route.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2-7,9-15,17-21,23,50-59,61-79,96-110,113-114
+packages/daemon/src/core/__tests__/request-runtime-binding-router.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11-14
+src/__tests__/cli-device-status.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4-5,8-12,14
+scripts/mutation/workflow.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 61-64,79-93
+  s_1458c003fd3ca4::t_edc15ed996aa77 94-95
+packages/daemon/src/server/http/daemon-runtime-web-close-teardown.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-7,14-21,24,27-29,36,45-48,51,58,63-69,73,76-79,87,91,95-99,102,106,113,116-118
+packages/platform-harmonyos/src/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,139-140
+packages/capture-kit/src/ios-snapshot-engine/projection.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/server/__tests__/request-router-open.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 2,73,80,90-93,104,372-375,396
+packages/daemon/src/execution/interaction/internal/__tests__/interaction-touch-response.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7,88,252,256,259
+packages/provider-limrun/src/client-options.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-27
+.github/workflows/pr-preview.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24
+packages/daemon/src/execution/interaction/internal/interaction-ref-policy.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/contracts/src/interaction.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-6,128-130,132,134,154-160
+packages/contracts/src/gesture-plan-viewport.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,9,17
+packages/daemon/src/execution/__tests__/interaction-get-runtime-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 41
+scripts/ios-snapshot-benchmark/run.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+packages/daemon/src/execution/handlers/__tests__/snapshot-alert.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9
+packages/daemon/src/sessions/session-lifecycle/internal/session-open.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,12,32
+docs/adr/0005-ios-runner-interaction-lifecycle.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 72
+scripts/layering/daemon-modularity.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16,20-21,207-208,212-215,217,220-222,287-290,331
+docs/ios-runner-protocol-optimizations.md
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 31-32
+packages/daemon/src/execution/interaction/internal/interaction-touch-payload.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-8,13,19-20,53-54,88,136,155,170-171,196,233,250,282,317,382
+packages/platform-apple/src/interactor.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 267
+packages/daemon/src/core/snapshot-runtime-binding.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,24
+scripts/depgraph/affected-run.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 22-23,145-157
+packages/daemon/src/server/__tests__/request-router-cost.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 26
+packages/daemon/src/execution/interaction/internal/__tests__/gesture-runtime-bindings.fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17
+scripts/layering/test-kit-isolation.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-178
+packages/daemon/src/sessions/__tests__/install-source-resolution.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7
+android/snapshot-helper/src/main/java/com/callstack/agentdevice/snapshothelper/GestureViewportReader.java
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 61
+packages/daemon/src/sessions/handlers/session-app-deployment-route.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,8
+packages/daemon/src/execution/__tests__/internal-observation.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/sessions/handlers/__tests__/session-reinstall.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6,13
+packages/daemon/src/__tests__/support/touch-interaction-runner.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-5,8-9,19,28,35
+packages/daemon/src/server/request-execution-scope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-9,18,32-34,37,46-49,68,637-718
+  s_1458c003fd3ca4::t_c11fca08f570be 719
+scripts/mutation/coverage-scope.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/daemon/src/server/http/daemon-session-idle-expiry.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/capture-kit/src/provider-app-log.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-297
+packages/test-kit/src/property-arbitraries.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/__tests__/snapshot-diff.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 9,12
+packages/platform-apple/src/deployment/runtime.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 103-107
+packages/daemon/package.json
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24,27-28,35-37,135-137
+  s_1458c003fd3ca4::t_bb6fb290d23034 138
+packages/daemon/src/execution/interaction/internal/__tests__/find.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 164-190
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-binding.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11
+packages/contracts/src/replay-backend.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-266
+packages/daemon/src/resources/device/__tests__/device-claim-admission.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,16-21,170
+packages/daemon/src/__tests__/support/test-device-runtime-gateway.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 27,213-218,223-228,237-238,243-244
+packages/daemon/src/sessions/snapshot-diff-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+scripts/ios-snapshot-benchmark/cli-process.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/sessions/handlers/__tests__/session-runtime-command.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 24
+packages/provider-limrun/src/app-log-reconnect.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 69-71,224
+src/__tests__/cli-network.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+.github/workflows/mutation-affected.yml
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 11-16,28,41-45,54-57,86-87,185,187
+packages/daemon/src/server/http/daemon-runtime-idle-reap.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6,8-9,20-22,40-41,80-81,118-119
+packages/daemon/src/sessions/handlers/session-prepare.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,9
+packages/platform-android/src/__tests__/fill-verification.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-9,11,105,107-112,120,122-135,139-144,147-163
+packages/capture-kit/src/ios-snapshot-engine/engine-conformance.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5-6
+packages/daemon/src/server/__tests__/request-router-idle-expired.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 17
+packages/daemon/src/sessions/handlers/lease-provider-credentials.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3-9,11-12,14-20,32,38,40,50,65-67,69-74,77-86,88,90-94,102-108,110-113,115-121,123-130,132-149,151-154,156-159
+packages/daemon/src/execution/interaction/internal/interaction-common.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-open-device-in-use.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+packages/daemon/src/server/http/transport.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,7,9
+packages/replay-port/src/daemon-port/replay-session-binding.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,6
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/UnitTests/RunnerTests+PresentedSurfacePayloadTests.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-26
+packages/daemon/src/sessions/__tests__/lease-lifecycle.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 121,130,152,158,168-178
+  s_1458c003fd3ca4::t_822c025b42558a 179-180
+packages/contracts/src/interactor-types.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 10-11,21,111,270-275
+packages/daemon/src/__tests__/support/human-control-router-fixture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16-17,41-42
+packages/daemon/src/core/capture-disclosure.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+src/__tests__/cli-test-env.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 3
+packages/daemon/src/execution/interaction/internal/__tests__/interaction-touch-fixtures.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 143
+src/__tests__/agent-device-client-interactions-input-filtering.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6-8,12-41,44-45,48,50-51
+packages/daemon/src/server/http/daemon-lease-finalizer.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8
+scripts/layering/package-export-surface.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-286
+packages/maestro/src/replay-backend/session-replay-maestro-observer.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-11,13-14,17,20,22,28,33-39,45-51,85,95,115
+packages/daemon/src/__tests__/support/touch-command-surface-fake.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-478
+apple/runner/AgentDeviceRunner/AgentDeviceRunnerUITests/RunnerTapPointPolicy.swift
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15
+packages/daemon/src/sessions/dispatch-payload.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 5
+packages/daemon/src/sessions/session-lifecycle/internal/__tests__/session-capabilities.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 7-11
+  s_1458c003fd3ca4::t_40afae3c90b15e 6
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-command-trust.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 16
+packages/daemon/src/core/__tests__/direct-ios-selector.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/daemon/src/execution/interaction/internal/interaction-touch-targets.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1
+scripts/replays/android-manual.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 6
+src/__tests__/cli-config-trust.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 12
+packages/test-kit/src/host-process-mock.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,4-19,21-29,31-32,36
+packages/daemon/src/execution/interaction/internal/find-target-capture.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,8,14
+packages/daemon/src/server/__tests__/http-server-tenant-trust.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-2,10,14-15,17
+packages/daemon/src/sessions/handlers/trace-runtime.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1,7
+packages/capture-kit/src/ios-snapshot-engine/geometry-policy-presented-surface.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-102
+packages/replay-port/src/daemon-port/session-replay-runtime-failure.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 15,19
+packages/daemon/src/resources/__tests__/app-log.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 4
+packages/replay-port/src/daemon-port/__tests__/target-classification.test.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 8-9,19-20,36,53,102,119,155,234,282,442,511,666,687,707-793
+packages/daemon-contracts/src/recovery-platform-scope.ts
+  s_1458c003fd3ca4::t_a3dc002a62c8e0 1-20
+.device-evidence/CHECKLIST-runner-failures.md
+  s_1458c003fd3ca4::t_240f1c6fc5ac5f 271
+.device-evidence/CHECKLIST.md
+  s_1458c003fd3ca4::t_d683bed0af355b 106
+pnpm-lock.yaml
+  s_1458c003fd3ca4::t_dffc8ad18007b5 113-114,275-278,343-346,365-367,380-383,426-428,476-478,503-506,573-576,594-595,629-632,703-706,1289-1290,4907
+src/__tests__/cli-web.test.ts
+  s_1458c003fd3ca4::t_285748b8ada2ad 7,10
+src/__tests__/client-transport-fixture.ts
+  s_1458c003fd3ca4::t_3a2f71df1b2642 3
+src/__tests__/cloud-connect-auth.test.ts
+  s_1458c003fd3ca4::t_3cdf5e26cd89d5 10
+src/__tests__/cloud-connect-profile-fields.test.ts
+  s_1458c003fd3ca4::t_6762171a6093a9 9
+src/__tests__/cloud-connect-profile.test.ts
+  s_1458c003fd3ca4::t_864d24035e11e1 23
+src/__tests__/cloud-connect-testmu.test.ts
+  s_1458c003fd3ca4::t_a48f9f700ea74d 15
+src/__tests__/command-descriptor-parity.test.ts
+  s_1458c003fd3ca4::t_43f240aa9e9282 136-138,172
+src/__tests__/command-descriptor-platform-execution-cli-route.test.ts
+  s_1458c003fd3ca4::t_b6d06b6ffe16bb 8-11,63,162,166,192,195-196,209,212,214,216,249
+src/__tests__/command-descriptor-timeout-policy.test.ts
+  s_1458c003fd3ca4::t_3f9208c5e4da83 335-337
+src/__tests__/contracts/apple-os-resolution.test.ts
+  s_1458c003fd3ca4::t_3fdc0d29a6682e 16
+src/__tests__/contracts/boundary-fault-matrix.test.ts
+  s_1458c003fd3ca4::t_0a7ab5cb6ee90d 8,10
+src/__tests__/daemon-client-progress.test.ts
+  s_1458c003fd3ca4::t_8144bd19e68959 1-2,38,109,163,209,248,313
+src/__tests__/daemon-composition/app-event-delivery.test.ts
+  s_1458c003fd3ca4::t_557774c92d0a37 13
+src/__tests__/daemon-composition/application-lifecycle-runtime-fixture.ts
+  s_1458c003fd3ca4::t_9256f721224744 134
+src/__tests__/daemon-composition/capture-disclosure.test.ts
+  s_1458c003fd3ca4::t_8fb14931069c80 1,8,40,119,146,172,234,262,417
+src/__tests__/daemon-composition/generic-settle.test.ts
+  s_1458c003fd3ca4::t_7b02939a9d252d 1,5-6,15-24,27,90,128-131,137,143-157,194-195,202,204,241-242,252-254,572-640,910-986
+src/__tests__/daemon-composition/http-server-limrun-uploaded-apps.test.ts
+  s_1458c003fd3ca4::t_ae411aebbf8c20 11,13
+src/__tests__/daemon-composition/is-runtime.test.ts
+  s_1458c003fd3ca4::t_c2778ba1afdd30 5,15
+src/__tests__/daemon-composition/platform-resource-cleanup-snapshot-helper.test.ts
+  s_1458c003fd3ca4::t_34dae9193aa772 15
+src/__tests__/daemon-composition/platform-services-fixture.ts
+  s_1458c003fd3ca4::t_49fabdad349d5a 1,4
+src/__tests__/daemon-composition/presented-sheet-trees.ts
+  s_1458c003fd3ca4::t_7a72d64a0b93da 1-81
+src/__tests__/daemon-composition/providers-plugin-routing-parity.test.ts
+  s_1458c003fd3ca4::t_fe6e59327def16 27,36
+src/__tests__/daemon-composition/request-dispatch-disclosure.test.ts
+  s_1458c003fd3ca4::t_d6342acb63be8c 26-27,35
+src/__tests__/daemon-composition/request-handler-chain.test.ts
+  s_1458c003fd3ca4::t_031beb25534012 1,10-12
+src/__tests__/daemon-composition/request-platform-providers.test.ts
+  s_1458c003fd3ca4::t_cd1a59b00b0405 8,34
+src/__tests__/daemon-composition/request-router-android-modal.test.ts
+  s_1458c003fd3ca4::t_7110ea50a97d7e 33
+src/__tests__/daemon-composition/request-router-fill-text-stdin.test.ts
+  s_1458c003fd3ca4::t_8d4163b05c46b8 12,21
+src/__tests__/daemon-composition/request-router-lock-policy.test.ts
+  s_1458c003fd3ca4::t_3a97a9ecacadcb 34
+src/__tests__/daemon-composition/request-router-macos-app-lease.test.ts
+  s_1458c003fd3ca4::t_e07ca82756fae1 1,5,8
+src/__tests__/daemon-composition/request-router-open-claim-recovery.test.ts
+  s_1458c003fd3ca4::t_43c2a7b494af3b 81,95
+src/__tests__/daemon-composition/request-router-provider-credentials.test.ts
+  s_1458c003fd3ca4::t_7a097a2a0a05fd 5
+src/__tests__/daemon-composition/request-router-record-runtime-lock.test.ts
+  s_1458c003fd3ca4::t_2f926d62dd0e86 14-17
+src/__tests__/daemon-composition/request-router-recording-health.test.ts
+  s_1458c003fd3ca4::t_3ab007d86d39bd 18
+src/__tests__/daemon-composition/request-router-replay-scope.test.ts
+  s_1458c003fd3ca4::t_a707748f6626a6 35
+src/__tests__/daemon-composition/request-router-replay-test-ime.test.ts
+  s_1458c003fd3ca4::t_ca5d8b8c53e878 39
+src/__tests__/daemon-composition/request-router-screenshot.test.ts
+  s_1458c003fd3ca4::t_85197bbb3f4622 26,31
+src/__tests__/daemon-composition/screenshot-runtime.test.ts
+  s_1458c003fd3ca4::t_91b6b9bc10f60f 8,16
+src/__tests__/daemon-composition/selector-runtime-ambiguity-issuance.test.ts
+  s_1458c003fd3ca4::t_89efb237f04421 7,9
+src/__tests__/daemon-composition/selector-runtime-backend.test.ts
+  s_1458c003fd3ca4::t_613dc56d043122 11
+src/__tests__/daemon-composition/selector-runtime.test.ts
+  s_1458c003fd3ca4::t_0f68f4308e40d5 13
+src/__tests__/daemon-composition/snapshot-quality-latch.test.ts
+  s_1458c003fd3ca4::t_9787f5b540f329 19
+src/__tests__/daemon-composition/snapshot-runtime-disclosure.test.ts
+  s_1458c003fd3ca4::t_6fa6b5e6ca38e7 12
+src/__tests__/daemon-composition/sparse-fallback-screenshot.test.ts
+  s_1458c003fd3ca4::t_4d524aa431773b 6
+src/__tests__/daemon-composition/wait-runtime.test.ts
+  s_1458c003fd3ca4::t_499ea56688e78f 26,34
+src/__tests__/daemon-registration-owner.fixtures.ts
+  s_1458c003fd3ca4::t_f82bff1c85a85e 53,56
+src/__tests__/daemon-registration-owner.test.ts
+  s_1458c003fd3ca4::t_3f07f8460fd3f3 23-24,35
+src/__tests__/install-source.test.ts
+  s_1458c003fd3ca4::t_13a734ecc3c80e 29
+src/__tests__/kernel/platform-collapse-parity.test.ts
+  s_1458c003fd3ca4::t_97cb63de412c11 23
+src/__tests__/kernel/snapshot-ref-grammar.test.ts
+  s_1458c003fd3ca4::t_2ef045f4f55430 3
+src/__tests__/limrun-runtime.test.ts
+  s_1458c003fd3ca4::t_b655071205c505 5,15,24,90,164-167,169
+src/__tests__/platform-runtime-claim-recovery.test.ts
+  s_1458c003fd3ca4::t_e8083ba4c70b58 1,6-7,11,13,15
+src/__tests__/platform-runtime-runtime-hints.fixtures.ts
+  s_1458c003fd3ca4::t_8e9685b1a4bffb 4
+src/__tests__/provider-device-runtimes.test.ts
+  s_1458c003fd3ca4::t_9773a3ff023a94 7
+src/__tests__/remote-connection-proxy-allocate-by-spec.test.ts
+  s_1458c003fd3ca4::t_9104b7e19749ea 1-318
+src/__tests__/remote-connection-proxy-lease-id.test.ts
+  s_1458c003fd3ca4::t_3722b84c923e72 1-142
+src/__tests__/remote-connection.fixtures.ts
+  s_1458c003fd3ca4::t_0906467b9fecd8 10,107-108
+src/__tests__/runtime-public.test.ts
+  s_1458c003fd3ca4::t_63b8671473f4f3 16
+src/__tests__/selectors-build.test.ts
+  s_1458c003fd3ca4::t_fe52a7b073a6e7 4
+src/__tests__/test-utils/daemon-http-fixture.ts
+  s_1458c003fd3ca4::t_38f58d20dc2754 4
+src/__tests__/test-utils/fake-adb.ts
+  s_1458c003fd3ca4::t_8d23a21b70bb6e 9
+src/__tests__/test-utils/registered-daemon-fixture.test.ts
+  s_1458c003fd3ca4::t_a85813d4bb1f23 6
+src/agent-device-client-metro-hints.test.ts
+  s_1458c003fd3ca4::t_c8035eea52dad0 1-23
+src/agent-device-client.ts
+  s_1458c003fd3ca4::t_d58b1bb8d95dab 32,53,65-68,70-74,224,279-280,364,369-370,382-389,542,555,559
+src/cli.ts
+  s_1458c003fd3ca4::t_e8605493ad3db9 1,10,50,141,351,354,786-808,816
+src/cli/__tests__/auth-session.test.ts
+  s_1458c003fd3ca4::t_22f6cb12aae7fb 15,18-19
+src/cli/__tests__/browser-launch.test.ts
+  s_1458c003fd3ca4::t_b835499b6c40ac 4
+src/cli/__tests__/command-explain.test.ts
+  s_1458c003fd3ca4::t_8b5695ed42be56 7-10
+src/cli/__tests__/update-check.test.ts
+  s_1458c003fd3ca4::t_3200a56734f3fb 5-6,13
+src/cli/command-explain.ts
+  s_1458c003fd3ca4::t_c7e175ff0353c8 7
+src/cli/commands/__tests__/auth.test.ts
+  s_1458c003fd3ca4::t_e8e0000e20b493 7
+src/cli/commands/__tests__/connection.test.ts
+  s_1458c003fd3ca4::t_7f4e0f2d89e98d 14
+src/cli/commands/__tests__/daemon.test.ts
+  s_1458c003fd3ca4::t_6adb7b06e9ef97 4-5,15,18
+src/cli/commands/__tests__/generic.test.ts
+  s_1458c003fd3ca4::t_8863d89e70f37c 6
+src/cli/commands/__tests__/plugins.test.ts
+  s_1458c003fd3ca4::t_35c0d04dd0217f 6
+src/cli/commands/__tests__/proxy-startup-render.test.ts
+  s_1458c003fd3ca4::t_6e02401ffeafaf 3-4
+src/cli/commands/__tests__/proxy.test.ts
+  s_1458c003fd3ca4::t_d339da5bd6a7d7 11-13
+src/cli/commands/__tests__/replay-maestro-export.test.ts
+  s_1458c003fd3ca4::t_2522f6dc8ecaaa 14
+src/cli/commands/connection-context.test.ts
+  s_1458c003fd3ca4::t_816fae7e8709ca 5
+src/cli/commands/connection-runtime.ts
+  s_1458c003fd3ca4::t_0c203bcdf87da5 1,35,40-44,357,364,366-378,430-431,438,472-473,569,876,899,902,909-910
+src/cli/commands/daemon.ts
+  s_1458c003fd3ca4::t_4cba29d53284ce 6
+src/cli/commands/device.ts
+  s_1458c003fd3ca4::t_d553d8e6ffad71 8-9,68
+src/cli/commands/generic.ts
+  s_1458c003fd3ca4::t_e9c066837d4533 10
+src/cli/commands/proxy-lease-device.ts
+  s_1458c003fd3ca4::t_29b1f41c5b6117 1-217
+src/cli/commands/react-devtools.ts
+  s_1458c003fd3ca4::t_a7c61f24105730 2-9,13,15-24,26-27
+src/cli/commands/replay.ts
+  s_1458c003fd3ca4::t_f2e423acecaede 6
+src/cli/commands/shared.ts
+  s_1458c003fd3ca4::t_d9569e8499a620 1,5,21-32
+src/cli/connection/connect-provider-adapters.ts
+  s_1458c003fd3ca4::t_92259b07fbb289 5,210
+src/cli/connection/ended-lease.test.ts
+  s_1458c003fd3ca4::t_8bc06f79245877 1-80
+src/cli/connection/ended-lease.ts
+  s_1458c003fd3ca4::t_086aa338008753 1-4,6-10,13-14,16-27
+src/cli/connection/provider-policy.test.ts
+  s_1458c003fd3ca4::t_1183b46b280705 6
+src/cli/parser/__tests__/args-maestro-support-matrix.test.ts
+  s_1458c003fd3ca4::t_cb3664c6ed10fa 10-13
+src/cli/parser/__tests__/args-parse-session.test.ts
+  s_1458c003fd3ca4::t_897051fce30cf1 278,283-285,296-302,305-314
+src/cli/react-devtools/metro-inspector.test.ts
+  s_1458c003fd3ca4::t_0639cd4f0132be 1-281
+src/cli/react-devtools/metro-inspector.ts
+  s_1458c003fd3ca4::t_511de01abdd112 1-336
+src/cli/react-devtools/react-component-inspect.test.ts
+  s_1458c003fd3ca4::t_30d78086150ce5 1-126
+src/cli/react-devtools/react-component-inspect.ts
+  s_1458c003fd3ca4::t_8b0b93078e23c8 1-166
+src/cli/react-devtools/react-component-tree.test.ts
+  s_1458c003fd3ca4::t_3301d9d4358957 1-151
+src/cli/react-devtools/react-component-tree.ts
+  s_1458c003fd3ca4::t_f4f2c90f42b44b 1-277
+src/cli/react-devtools/react-component.test.ts
+  s_1458c003fd3ca4::t_eaf44ed146077d 2-3,5-8,10-11,13-15,17-22
+src/cli/react-devtools/react-component.ts
+  s_1458c003fd3ca4::t_525d8b13f8670e 1-44
+src/cli/react-devtools/react-devtools-command.fixtures.ts
+  s_1458c003fd3ca4::t_621bc86891ffcd 1-55
+src/cli/react-devtools/react-devtools-connection.test.ts
+  s_1458c003fd3ca4::t_b6cb935012054f 1-62
+src/cli/react-devtools/react-devtools-connection.ts
+  s_1458c003fd3ca4::t_a058f326665b1b 1-206
+src/cli/react-devtools/react-devtools-inspect-command.test.ts
+  s_1458c003fd3ca4::t_19d286ccd31433 1-169
+src/cli/react-devtools/react-devtools-inspect-command.ts
+  s_1458c003fd3ca4::t_b5f8c2799e434f 1-248
+src/cli/react-devtools/react-devtools-runtime.fixtures.ts
+  s_1458c003fd3ca4::t_9cda4a62ba5e80 1-301
+src/cli/react-devtools/react-devtools-runtime.test.ts
+  s_1458c003fd3ca4::t_69934b6b966df9 1-468
+src/cli/react-devtools/react-devtools-runtime.ts
+  s_1458c003fd3ca4::t_20c09f79b9b4ce 1-458
+src/cli/react-devtools/react-devtools-text.ts
+  s_1458c003fd3ca4::t_4b246a317012ec 1-13
+src/cli/react-devtools/react-profile-analysis.test.ts
+  s_1458c003fd3ca4::t_8d0d7da5b02d67 1-548
+src/cli/react-devtools/react-profile-analysis.ts
+  s_1458c003fd3ca4::t_313ca9c8025686 1,3-66,69-70,73-75,77,79-81,83-86,88,90-92,94-96,98-108,110,112-151,153-163,165-174,176,178-211,213-224,226,228-247,249-262,264-273,275-286,288-302,305-306,308-330,332-361,363-364,366-370,372-374,376,378-403,405-421,423-437,439-464,466-488
+src/cli/react-devtools/react-profile-command.test.ts
+  s_1458c003fd3ca4::t_ab9c485b977285 1-311
+src/cli/react-devtools/react-profile-command.ts
+  s_1458c003fd3ca4::t_f25f217e625588 1-325
+src/cli/react-devtools/react-profile-format.test.ts
+  s_1458c003fd3ca4::t_665a1470f5a6c0 1-215
+src/cli/react-devtools/react-profile-format.ts
+  s_1458c003fd3ca4::t_3a6b861d0e1326 1-190
+src/cli/react-devtools/react-profile-renders.fixtures.ts
+  s_1458c003fd3ca4::t_ad97d9f200c8de 1-46
+src/cli/react-devtools/react-profile-renders.test.ts
+  s_1458c003fd3ca4::t_52a2840d732864 1-118
+src/cli/react-devtools/react-profile-renders.ts
+  s_1458c003fd3ca4::t_3e5399c41a8eb3 1-389
+src/cli/replay-test/__tests__/reporting.test.ts
+  s_1458c003fd3ca4::t_b8d4090c0948c5 6
+src/cli/replay-test/__tests__/session-test-reporter-values-maestro.test.ts
+  s_1458c003fd3ca4::t_e910f544d81c64 1-2,55,109-110,143
+src/cli/replay-test/__tests__/session-test-reporter-values.test.ts
+  s_1458c003fd3ca4::t_565864383ca71a 1-2,40,97-98
+src/cli/replay-test/reporters/__tests__/custom.test.ts
+  s_1458c003fd3ca4::t_21fd95b0524594 7
+src/cli/replay-test/reporters/__tests__/default.test.ts
+  s_1458c003fd3ca4::t_aec00c8240fdc8 4-5
+src/cli/replay-test/reporters/__tests__/junit.test.ts
+  s_1458c003fd3ca4::t_bbf4bdc0109ddb 10
+src/cli/replay-test/reporters/__tests__/spec.test.ts
+  s_1458c003fd3ca4::t_2787a3abe13cf4 3
+src/cli/resolve-cli-options.test.ts
+  s_1458c003fd3ca4::t_b3390060dd4367 4
+src/client/client-companion-tunnel-worker.fixtures.ts
+  s_1458c003fd3ca4::t_8aa3df198afcfd 4
+src/client/client-companion-tunnel-worker.test.ts
+  s_1458c003fd3ca4::t_540b717ad20d57 13,17,29,245,250,256-257,263-264
+src/client/client-companion-tunnel-worker.ts
+  s_1458c003fd3ca4::t_3be160ab9ac580 558
+src/client/client-normalizers-device.test.ts
+  s_1458c003fd3ca4::t_48a6aa0aa23f25 8
+src/client/client-normalizers.ts
+  s_1458c003fd3ca4::t_efa7cf57c4e72a 1,387
+src/client/lease-client.test.ts
+  s_1458c003fd3ca4::t_31e5145ab46f05 100-133
+src/client/lease-client.ts
+  s_1458c003fd3ca4::t_39d5f98d4a8536 21-24
+src/commands/__tests__/command-surface-metadata.test.ts
+  s_1458c003fd3ca4::t_53a5c49b349d11 25
+src/commands/__tests__/input-audience.test.ts
+  s_1458c003fd3ca4::t_4e6577e671eab2 52-54,61-71
+src/commands/batch/cli.test.ts
+  s_1458c003fd3ca4::t_28ded9a55175a3 12
+src/commands/capture/output.test.ts
+  s_1458c003fd3ca4::t_ede1dcf560f1ad 126-151
+src/commands/capture/runtime/diff-screenshot.test.ts
+  s_1458c003fd3ca4::t_7ea5c571336a28 15
+src/commands/capture/runtime/presented-surface-carriage.test.ts
+  s_1458c003fd3ca4::t_8a2fc39bc5f5de 1-71
+src/commands/capture/runtime/snapshot-freshness.test.ts
+  s_1458c003fd3ca4::t_59c3798756a823 1-161
+src/commands/capture/runtime/snapshot.test.ts
+  s_1458c003fd3ca4::t_f64595e63d10c6 233,254-260,276-279,295-302,323-333,344-359,387-403,422-428,441-448,458-468,478-496,505-512,520-526,534-556,566-578,586-593,617-621,769-772,783-786,802-805,815-817,850-853,863-865,873-876,890-894,897-907,912,914
+src/commands/capture/runtime/snapshot.ts
+  s_1458c003fd3ca4::t_1ba29507e8d82a 13,71-77,122-124,201-202,217
+src/commands/command-input.ts
+  s_1458c003fd3ca4::t_bce68ffbe96a0a 23-28,219
+src/commands/command-projection.ts
+  s_1458c003fd3ca4::t_3d7348c3cf95df 4,54
+src/commands/common-input-fields.ts
+  s_1458c003fd3ca4::t_a08a9b3f4242d7 14-19,94-96,227-229,278-287
+src/commands/debugging/index.ts
+  s_1458c003fd3ca4::t_4be06356bbd978 14
+src/commands/input-audience.ts
+  s_1458c003fd3ca4::t_37b23041f9fa62 1,47-56
+src/commands/interaction/runtime/__tests__/selector-read-policy.test.ts
+  s_1458c003fd3ca4::t_87b365c1670395 150
+src/commands/interaction/runtime/__tests__/test-utils/index.ts
+  s_1458c003fd3ca4::t_7216c97a60857f 360
+src/commands/interaction/runtime/interaction-snapshot-capture.ts
+  s_1458c003fd3ca4::t_f51a68b2fd64e0 4,8-10,34
+src/commands/interaction/runtime/interactions-find-carried-target.test.ts
+  s_1458c003fd3ca4::t_9ae4796cdc9713 1-116
+src/commands/interaction/runtime/interactions-preresolved-target.test.ts
+  s_1458c003fd3ca4::t_0eb20df984f69a 1-164
+src/commands/interaction/runtime/interactions-ref-frame-evidence.test.ts
+  s_1458c003fd3ca4::t_c9da99374920b1 1-202
+src/commands/interaction/runtime/interactions-target-promotion.test.ts
+  s_1458c003fd3ca4::t_e90ba2b1e75b19 1-176
+src/commands/interaction/runtime/moving-target-gate.test.ts
+  s_1458c003fd3ca4::t_c68e1a98026315 5,16-20,239,456-562
+src/commands/interaction/runtime/moving-target-gate.ts
+  s_1458c003fd3ca4::t_9f7b44fbd9166e 15,20,25-31,33-47,75-117
+src/commands/interaction/runtime/native-ref-interaction.ts
+  s_1458c003fd3ca4::t_16971d8faa4e6b 6
+src/commands/interaction/runtime/post-action-observation.ts
+  s_1458c003fd3ca4::t_5f8d7f1fb2cc8b 9-10
+src/commands/interaction/runtime/ref-target-resolution.ts
+  s_1458c003fd3ca4::t_e5d6999e517d25 19,76,84
+src/commands/interaction/runtime/replay-target-guard.test.ts
+  s_1458c003fd3ca4::t_c365768d5ee0ba 9,12-14
+src/commands/interaction/runtime/resolution.ts
+  s_1458c003fd3ca4::t_f96097a4046664 6-7,10,133-140,142,144-146
+src/commands/interaction/runtime/selector-is-visibility.test.ts
+  s_1458c003fd3ca4::t_cffe32e44953b0 1-71
+src/commands/interaction/runtime/selector-is.test.ts
+  s_1458c003fd3ca4::t_0a07c31184d238 341
+src/commands/interaction/runtime/selector-read-disambiguation.test.ts
+  s_1458c003fd3ca4::t_f4d417c45cbe75 1-73
+src/commands/interaction/runtime/selector-read-find-list.test.ts
+  s_1458c003fd3ca4::t_7ae1ab2376f461 1-68
+src/commands/interaction/runtime/selector-read-resolution-payload.test.ts
+  s_1458c003fd3ca4::t_b93d6d6d321707 1-80
+src/commands/interaction/runtime/selector-read-shared.ts
+  s_1458c003fd3ca4::t_9576aed897347f 29,97
+src/commands/interaction/runtime/selector-read.test.ts
+  s_1458c003fd3ca4::t_72f61af23d2e81 240-246,248-254,256,261-262,283-290
+src/commands/interaction/runtime/selector-target-resolution-post-gesture.test.ts
+  s_1458c003fd3ca4::t_036feee3db9a38 1-53
+src/commands/interaction/runtime/selector-target-resolution.test.ts
+  s_1458c003fd3ca4::t_3bf71551042ad7 6,8,10,16-18,25,31,34,46,54
+src/commands/interaction/runtime/selector-target-resolution.ts
+  s_1458c003fd3ca4::t_f82701842a0c6d 1,5
+src/commands/interaction/runtime/selector-wait.ts
+  s_1458c003fd3ca4::t_410e1c7e67f036 100
+src/commands/interaction/runtime/settle-capture-deadline.test.ts
+  s_1458c003fd3ca4::t_816e42d1ac0893 1-80
+src/commands/interaction/runtime/settle-default-quiet.test.ts
+  s_1458c003fd3ca4::t_bb472d4af9abcf 1-184
+src/commands/interaction/runtime/settle-presented-surface.test.ts
+  s_1458c003fd3ca4::t_de9238dd085e54 1-84
+src/commands/interaction/runtime/settle-unavailable.test.ts
+  s_1458c003fd3ca4::t_b9416fba55ebde 3-6,8-24,26-28,31-37,40-56,59-61,64-73,76-86,88-96,99-106,109-122,125-130,133-152
+src/commands/interaction/runtime/settle-unavailable.ts
+  s_1458c003fd3ca4::t_81fef372dfa491 1-19
+src/commands/interaction/runtime/settle.ts
+  s_1458c003fd3ca4::t_efbe9759846b78 8,30,39,131-134,136-143,145-146,149,151,154,171-173,254,257-262,264-267
+src/commands/interaction/runtime/stable-capture.fixtures.ts
+  s_1458c003fd3ca4::t_9591edbc3f5da9 1,136-310
+src/commands/interaction/runtime/stable-capture.test.ts
+  s_1458c003fd3ca4::t_3f88d05944f5f9 12-13,16,19,26,136,298,333-485,494-496,553,584,620-629,634-635,650-657,659,661,664-670,673-679,687
+src/commands/interaction/runtime/stable-capture.ts
+  s_1458c003fd3ca4::t_2883aa77a78560 4,6,10,40,54-80,98-103,106-107,114-119,123,126,131-141,143,146-162,164,170-171,174-176,180-184,186-188,190-193,195-199,201-306,308-315,317-378,380-404,408-431,436-446,450-455,457,459,464,548,558-574,576-580
+src/commands/interaction/runtime/target-visibility-stages.ts
+  s_1458c003fd3ca4::t_9287e891ca933c 29
+src/commands/interaction/runtime/wait-absent.test.ts
+  s_1458c003fd3ca4::t_a7375f5b05c4f2 133,166,203
+src/commands/interaction/runtime/wait-capture-options.test.ts
+  s_1458c003fd3ca4::t_f879f118d8d59f 1-56
+src/commands/interaction/runtime/wait-stable.test.ts
+  s_1458c003fd3ca4::t_067dbb4adcfc73 337-368
+src/commands/interaction/runtime/wait-stable.ts
+  s_1458c003fd3ca4::t_e9ed46698b851b 24
+src/commands/management/app.test.ts
+  s_1458c003fd3ca4::t_4f13980c587166 16,18
+src/commands/management/app.ts
+  s_1458c003fd3ca4::t_b100794424ea98 85
+src/commands/management/output.test.ts
+  s_1458c003fd3ca4::t_c7e28583a329e0 3
+src/commands/output/diff.test.ts
+  s_1458c003fd3ca4::t_49a579ef5e8bd6 7
+src/commands/output/result-serialization.ts
+  s_1458c003fd3ca4::t_68766c2d6cf661 82
+src/commands/output/snapshot-android.test.ts
+  s_1458c003fd3ca4::t_b9585ba542734f 4
+src/commands/output/snapshot-serialization.test.ts
+  s_1458c003fd3ca4::t_25aa63bd22fe76 121-145
+src/commands/output/snapshot.test.ts
+  s_1458c003fd3ca4::t_f216dc711bbfb5 5
+src/commands/perf/index.ts
+  s_1458c003fd3ca4::t_7822d6f6fb25f2 77
+src/commands/post-action-observation-grammar.ts
+  s_1458c003fd3ca4::t_91f9591cd6ff45 37
+src/commands/replay/ad-script-round-trip.test.ts
+  s_1458c003fd3ca4::t_cb733363396b4a 4
+src/commands/replay/index.test.ts
+  s_1458c003fd3ca4::t_2d97b2b575526e 5-6,8,350-365
+src/commands/replay/replay-script.fixtures.ts
+  s_1458c003fd3ca4::t_b23dd7119ff615 1-229
+src/commands/schema/cli-config.test.ts
+  s_1458c003fd3ca4::t_098380a3d5480d 5
+src/commands/schema/cli-help-topics.test.ts
+  s_1458c003fd3ca4::t_42319549aedb9f 525-528,530-539,542,544,546,548,550-553,587-591,599-600,605,633
+src/commands/schema/cli-help-workflows.ts
+  s_1458c003fd3ca4::t_3b6303ac37c619 190
+src/commands/schema/cli-help.ts
+  s_1458c003fd3ca4::t_40775419248fe6 2,66,135,155,281,284-289,291-292,295-307,310-318,321-322,332,340,392,406,437,452-453,466,669,671,677
+src/commands/schema/command-overrides.ts
+  s_1458c003fd3ca4::t_243c0700662c93 182,184,186-187
+src/core/__tests__/device.test.ts
+  s_1458c003fd3ca4::t_cdcba44723b02e 10,22,189-216,218-222,224-227,230-240,242-243,245-246,248,250-269,271-274,276
+src/core/__tests__/snapshot-state.test.ts
+  s_1458c003fd3ca4::t_e7b8d0e2a50c8e 743-763
+src/core/interactors/android-alert-occlusion.test.ts
+  s_1458c003fd3ca4::t_45108de64b9327 14-15
+src/core/press-retarget.test.ts
+  s_1458c003fd3ca4::t_73062a9a305537 4
+src/daemon-client/__tests__/boundary-fault-acceptance.test.ts
+  s_1458c003fd3ca4::t_b2891c8b996082 1,7,117
+src/daemon-client/__tests__/boundary-fault-transport.test.ts
+  s_1458c003fd3ca4::t_831e1b7c65cf7b 1,13-14,239
+src/daemon-client/__tests__/daemon-client-abort-default-transport.test.ts
+  s_1458c003fd3ca4::t_a04bd14113699c 4,18-19,34-35,38-40,48-49,98
+src/daemon-client/__tests__/daemon-client-abort-timeout.test.ts
+  s_1458c003fd3ca4::t_cde71284226e29 13-14,27-28,31-33,55-56
+src/daemon-client/__tests__/daemon-client-abort.test.ts
+  s_1458c003fd3ca4::t_b1781a5d8d3273 11-12,24,26-29,44-45
+src/daemon-client/__tests__/daemon-client-address-hints.test.ts
+  s_1458c003fd3ca4::t_499103cb1a46a7 1
+src/daemon-client/__tests__/daemon-client-developer-dir.test.ts
+  s_1458c003fd3ca4::t_f14d8caa0921d4 14,16
+src/daemon-client/__tests__/daemon-client-health-compat.test.ts
+  s_1458c003fd3ca4::t_8a580d4d9a07a5 10
+src/daemon-client/__tests__/daemon-client-lease-beat.test.ts
+  s_1458c003fd3ca4::t_d69400fd9f78a2 1,6,532,538
+src/daemon-client/__tests__/daemon-client-lease-header.test.ts
+  s_1458c003fd3ca4::t_968f40ab5cdee3 1-200
+src/daemon-client/__tests__/daemon-client-lifecycle.test.ts
+  s_1458c003fd3ca4::t_de570ed6ef277d 8-13
+src/daemon-client/__tests__/daemon-client-liveness-probe.test.ts
+  s_1458c003fd3ca4::t_e1e2d2f9debe8e 24-25
+src/daemon-client/__tests__/daemon-client-metadata.test.ts
+  s_1458c003fd3ca4::t_201d3e0d2a3c89 6
+src/daemon-client/__tests__/daemon-client-newer-daemon.test.ts
+  s_1458c003fd3ca4::t_c2964a2320f8f9 4-8
+src/daemon-client/__tests__/daemon-client-policy-reuse.test.ts
+  s_1458c003fd3ca4::t_f2174cf685d27b 19-23
+src/daemon-client/__tests__/daemon-client-provider-credentials.test.ts
+  s_1458c003fd3ca4::t_5a0f9b8f8459f8 15,17
+src/daemon-client/__tests__/daemon-client-stalled-probe.test.ts
+  s_1458c003fd3ca4::t_9b91248fab27d0 20,22
+src/daemon-client/__tests__/daemon-client-startup-race.test.ts
+  s_1458c003fd3ca4::t_78021c9b12afea 13-17
+src/daemon-client/__tests__/daemon-client-timeout-route.test.ts
+  s_1458c003fd3ca4::t_53a208e7a04f87 5,48-50,130
+src/daemon-client/__tests__/daemon-client-transport.test.ts
+  s_1458c003fd3ca4::t_a4f2cac44357eb 7-12
+src/daemon-client/__tests__/daemon-client.test.ts
+  s_1458c003fd3ca4::t_bc87a6f96b98cc 12,14
+src/daemon-client/daemon-client-lease-beat.ts
+  s_1458c003fd3ca4::t_9b698a6f1c49d4 1,275,279,305
+src/daemon-client/daemon-client-lifecycle.ts
+  s_1458c003fd3ca4::t_c5057db8135166 1-2,87,106,111,126,149,526,703,906
+src/daemon-client/daemon-client-liveness-probe.ts
+  s_1458c003fd3ca4::t_29a7cb8464271c 1,161
+src/daemon-client/daemon-client-progress.ts
+  s_1458c003fd3ca4::t_7d9da8158457b6 1-2,23,39,90,104,150
+src/daemon-client/daemon-client-rpc.test.ts
+  s_1458c003fd3ca4::t_8df060a344739c 36-60,110-144
+src/daemon-client/daemon-client-rpc.ts
+  s_1458c003fd3ca4::t_d60a73df274d00 1-2,25,82,95-100,155,170,176,219
+src/daemon-client/daemon-client-transport.ts
+  s_1458c003fd3ca4::t_ddf87ac0754d64 1-2,371,394,428,462,493,595,693,726
+src/daemon-client/daemon-client.ts
+  s_1458c003fd3ca4::t_8b0a8aa1ce41f1 1,3,23
+src/daemon-composition-credentials.test.ts
+  s_1458c003fd3ca4::t_9af17d882413f3 2-3,5-7,9,31,33,39,51
+src/daemon-composition-web-cleanup.test.ts
+  s_1458c003fd3ca4::t_5647e41892407e 4,18,32,50
+src/daemon-composition.test.ts
+  s_1458c003fd3ca4::t_7fb21102652fda 1-65
+src/daemon-composition.ts
+  s_1458c003fd3ca4::t_7c176060bf4b83 42
+src/daemon-entrypoint.test.ts
+  s_1458c003fd3ca4::t_81b8ed96106ef8 9-10,25,27,83-84,128-129,179-180,310-311,436-437
+src/daemon.ts
+  s_1458c003fd3ca4::t_ac7328dfaaf316 2
+src/mcp/__tests__/command-tools-operator-inputs.test.ts
+  s_1458c003fd3ca4::t_ebe9e112cc3fa2 6,89,94-95,100-107
+src/mcp/__tests__/command-tools-parity.test.ts
+  s_1458c003fd3ca4::t_53f3fc357b44b2 12
+src/metro/client-metro-auto-companion.test.ts
+  s_1458c003fd3ca4::t_95c652a1134b1d 5,8,12-13
+src/metro/client-metro-companion.test.ts
+  s_1458c003fd3ca4::t_411df46d28343d 5,31
+src/metro/client-metro-startup-cleanup.test.ts
+  s_1458c003fd3ca4::t_23de8765fec874 5,28
+src/metro/client-metro.test.ts
+  s_1458c003fd3ca4::t_87dd3c54a53b08 10-11,13,17
+src/metro/metro-reload-endpoints.test.ts
+  s_1458c003fd3ca4::t_3ae1988d491005 1-11
+src/metro/metro-reload-endpoints.ts
+  s_1458c003fd3ca4::t_f11c701a1f3c1d 30
+src/metro/metro-session-hints.test.ts
+  s_1458c003fd3ca4::t_606e62408e84d0 11-12
+src/metro/metro-session-hints.ts
+  s_1458c003fd3ca4::t_3d0fb901583f8f 1-4,8,16-26,31-33,39,87,90-169
+src/platform-runtime-android-adb-host.test.ts
+  s_1458c003fd3ca4::t_f5d9a60153596b 14
+src/platform-runtime-android-application-tools.test.ts
+  s_1458c003fd3ca4::t_3cdb034237c84c 1-58
+src/platform-runtime-android-emulator-host.test.ts
+  s_1458c003fd3ca4::t_a7d682d44c920d 1-80
+src/platform-runtime-android-emulator-host.ts
+  s_1458c003fd3ca4::t_126ee490d53613 3,6-33,41,44-60,67-81
+src/platform-runtime-app-log-output.test.ts
+  s_1458c003fd3ca4::t_67c512cb5d60a0 6
+src/platform-runtime-app-log-output.ts
+  s_1458c003fd3ca4::t_0972964bdf1d98 1,5
+src/platform-runtime-app-log-process.test.ts
+  s_1458c003fd3ca4::t_cb55936d6b18b5 31
+src/platform-runtime-app-log-process.ts
+  s_1458c003fd3ca4::t_06eaa86a7eee28 26
+src/platform-runtime-apple-application-tools-close-alerts.test.ts
+  s_1458c003fd3ca4::t_f8a76beeaca5d5 1-69
+src/platform-runtime-apple-application-tools.test.ts
+  s_1458c003fd3ca4::t_9f7a6aa2b0aca4 1-114
+src/platform-runtime-claim-recovery.ts
+  s_1458c003fd3ca4::t_aa0353364868df 1-11,28-48
+src/platform-runtime-daemon-lifecycle.test.ts
+  s_1458c003fd3ca4::t_59f0fd55e82adc 4-5,7,15,19,23,27-28,33,45-57,63-75,79,85-93
+src/platform-runtime-daemon-lifecycle.ts
+  s_1458c003fd3ca4::t_5ddc6b4eb89837 1
+src/platform-runtime-daemon-services.ts
+  s_1458c003fd3ca4::t_e0f003b24d3fc2 9
+src/platform-runtime-device-boot.test.ts
+  s_1458c003fd3ca4::t_9ce944aae2ce01 21,26
+src/platform-runtime-device-ready.test.ts
+  s_1458c003fd3ca4::t_a09826449ab904 1-75
+src/platform-runtime-gateway.fixtures.ts
+  s_1458c003fd3ca4::t_4a1706017f4e25 26
+src/platform-runtime-host-diagnostics.test.ts
+  s_1458c003fd3ca4::t_1cf8bf7cfda615 1-47
+src/platform-runtime-network-host.test.ts
+  s_1458c003fd3ca4::t_29f847fc8999bc 8
+src/platform-runtime-open-target-relaunch.test.ts
+  s_1458c003fd3ca4::t_c1255ab1312b97 1-26
+src/platform-runtime-open-target.test.ts
+  s_1458c003fd3ca4::t_47d90dcee50e90 4-12,17-20,23-56,84-203
+src/platform-runtime-perf-capture-host.test.ts
+  s_1458c003fd3ca4::t_52355c44f59fef 14
+src/platform-runtime-resource-cleanup-retention.test.ts
+  s_1458c003fd3ca4::t_0c1afe47fccdba 1-32
+src/platform-runtime-resource-cleanup-sessionless-host.test.ts
+  s_1458c003fd3ca4::t_581b1b7315edc3 1-9,13-14,18,22-23,27-32,37,39-41,43-48,50-51
+src/platform-runtime-resource-cleanup.test.ts
+  s_1458c003fd3ca4::t_454c52f39cdc89 1-69
+src/platform-runtime-resource-cleanup.ts
+  s_1458c003fd3ca4::t_f369fe42c6e336 3
+src/platform-runtime-screen-recording-apple-simulator-host.test.ts
+  s_1458c003fd3ca4::t_615e7cd0201fd4 5
+src/platform-runtime-screen-recording-finalizer-host.test.ts
+  s_1458c003fd3ca4::t_a776d744d09b7a 2-5,15,25-26,100-124
+src/platform-runtime-screen-recording-finalizer-host.ts
+  s_1458c003fd3ca4::t_ce0d9194dadd52 4,8,29,37,43,54
+src/platform-runtime-screen-recording-output-host.test.ts
+  s_1458c003fd3ca4::t_7af1aded35e0e3 4
+src/plugins/load.test.ts
+  s_1458c003fd3ca4::t_1f4d35b3e57c64 9,11
+src/plugins/manifest.test.ts
+  s_1458c003fd3ca4::t_5d284ab70a050a 7
+src/plugins/store.test.ts
+  s_1458c003fd3ca4::t_d4bb06564c1e1e 7
+src/provider-credential-fingerprint.test.ts
+  s_1458c003fd3ca4::t_033e5966f4a7e8 1-2,8,157-178
+src/provider-webdriver.test.ts
+  s_1458c003fd3ca4::t_50891391fd277c 7
+src/remote/__tests__/artifact-download.test.ts
+  s_1458c003fd3ca4::t_7d2c5187d77ef4 10,12,14,170-194
+src/remote/__tests__/remote-config-public.test.ts
+  s_1458c003fd3ca4::t_d2d7e0f278733f 5-7
+src/remote/__tests__/remote-connection-state.test.ts
+  s_1458c003fd3ca4::t_e3aebd4ae1c98c 6
+src/remote/__tests__/remote-request-diagnostics.test.ts
+  s_1458c003fd3ca4::t_c7d0105b5c5914 11,13-14,152-181
+src/remote/__tests__/upload-client-cancellation.test.ts
+  s_1458c003fd3ca4::t_7abeb8229f34a9 16-17
+src/remote/__tests__/upload-client.test.ts
+  s_1458c003fd3ca4::t_278133c142b17c 7-8,10-11,153,157-161,205-206,255,308,451,455-459,897-929,968-969
+src/remote/artifact-download.ts
+  s_1458c003fd3ca4::t_fa101058304dbd 12,93
+src/remote/daemon-artifacts.ts
+  s_1458c003fd3ca4::t_45319ee37527dd 1-2,10,31-32,38,97,110,132,139,141,143,159,162,189,194,232,246,275-280,312,318,322,328,335,359,397,414
+src/remote/remote-connection-state.ts
+  s_1458c003fd3ca4::t_c835b37f66d38e 8-9,27,31,101-108,112,115,121-132
+src/remote/remote-request-diagnostics.ts
+  s_1458c003fd3ca4::t_efeb8dac948735 20,27,39,175
+src/remote/upload-client.ts
+  s_1458c003fd3ca4::t_cc54e81a55b92c 3-6,19-20,65,78,95,105,118,128,132,160,173,199,204,215,249,258-262,339-345,348-349,351,353-358,383,391-395
+src/screenshot-diff/__tests__/screenshot-diff.test.ts
+  s_1458c003fd3ca4::t_32b8c1c3ddd6dc 5
+src/sdk/android-adb-public.test.ts
+  s_1458c003fd3ca4::t_a1b55874f94d78 5
+src/sdk/batch-public.test.ts
+  s_1458c003fd3ca4::t_7640ba75e86ff3 3
+src/sdk/contracts-schema-public.test.ts
+  s_1458c003fd3ca4::t_59ee3969209380 27-28,51
+src/sdk/index.test.ts
+  s_1458c003fd3ca4::t_4935c7145a2e19 1-37
+src/sdk/index.ts
+  s_1458c003fd3ca4::t_93827424105bd0 9
+src/sdk/limrun-download-file.test.ts
+  s_1458c003fd3ca4::t_34c23c543dc6d1 7
+src/sdk/metro-public.test.ts
+  s_1458c003fd3ca4::t_7ccdd9c73c5e58 10,32
+src/sdk/selectors.test.ts
+  s_1458c003fd3ca4::t_c8f57de02d34f3 3
+test/integration/client-api-doc-snippets.test.ts
+  s_1458c003fd3ca4::t_765df4e8981ce9 14
+test/integration/command-coverage/declarations.ts
+  s_1458c003fd3ca4::t_b04fe3f77c0257 635-637,1055
+test/integration/daemon-replace-exit-flush.test.ts
+  s_1458c003fd3ca4::t_865ac531c2c3b8 7
+test/integration/installed-package-metro.test.ts
+  s_1458c003fd3ca4::t_a19ba40261aa7b 10,386
+test/integration/live-device-e2e-runtime.test.ts
+  s_1458c003fd3ca4::t_e5975395abe5bb 6
+test/integration/nightly/concurrency-torture/bindings.ts
+  s_1458c003fd3ca4::t_c211cd5edfdaae 21,26,99,106,109,116,130
+test/integration/nightly/concurrency-torture/claim-registry.ts
+  s_1458c003fd3ca4::t_89c4671e75db5f 1
+test/integration/nightly/concurrency-torture/real-scope-serialization.ts
+  s_1458c003fd3ca4::t_ac7e5ace01bec3 2-3,31,38
+test/integration/provider-scenarios/cloud-webdriver-ios-text-entry.test.ts
+  s_1458c003fd3ca4::t_0549775dbd4b7e 1,465,481
+test/integration/provider-scenarios/cloud-webdriver-lease-http.test.ts
+  s_1458c003fd3ca4::t_44eadd3a68965b 12
+test/integration/provider-scenarios/cloud-webdriver-provider-regressions.test.ts
+  s_1458c003fd3ca4::t_d612c6b4ddcb1c 1,321,337
+test/integration/provider-scenarios/cloud-webdriver-runtime.test.ts
+  s_1458c003fd3ca4::t_036f74ceba0511 1,620,636
+test/integration/provider-scenarios/daemon-http-server.test.ts
+  s_1458c003fd3ca4::t_eb9720ea0929f3 1-2,28,64,774
+test/integration/provider-scenarios/harness.ts
+  s_1458c003fd3ca4::t_4c25608ef093a9 1-2,29,74,76-78,225,293,332,334-336,339
+test/integration/provider-scenarios/ios-alert-settings.test.ts
+  s_1458c003fd3ca4::t_bed9d86b85f0c0 12-15
+test/integration/provider-scenarios/ios-wait-selector.test.ts
+  s_1458c003fd3ca4::t_725ad61631c75e 7
+test/integration/provider-scenarios/limrun-deployment-cancellation.fixtures.ts
+  s_1458c003fd3ca4::t_4a3cdc08a8d7e8 8
+test/integration/provider-scenarios/press-selector-resolution.test.ts
+  s_1458c003fd3ca4::t_3499b997bdc124 60,100-101,103-104,107-111,116-117,123,125
+test/integration/provider-scenarios/provider-device-runtime.fixtures.ts
+  s_1458c003fd3ca4::t_c639103a68b4aa 1,48,486,496,508,512
+test/integration/provider-scenarios/provider-ios-runner-transport.test.ts
+  s_1458c003fd3ca4::t_d90d706f3d24a4 1,360,370
+test/integration/provider-scenarios/provider-ios-selector-runtime.test.ts
+  s_1458c003fd3ca4::t_023de6682ca8b9 1,213,223
+test/integration/provider-scenarios/remote-daemon-client.test.ts
+  s_1458c003fd3ca4::t_5ded2c7954c2e1 15,712,726
+test/integration/provider-scenarios/remote-proxy-artifact-tenant.test.ts
+  s_1458c003fd3ca4::t_26a3d160b1b591 13-14,22,108-171
+test/integration/provider-scenarios/remote-proxy-parity.test.ts
+  s_1458c003fd3ca4::t_41b36ae9cea675 1-3,19,37,572,652
+test/integration/provider-scenarios/remote-proxy-request-diagnostics.test.ts
+  s_1458c003fd3ca4::t_ea936c6a15459e 14-15,28,30
+test/integration/provider-scenarios/remote-test-artifacts-directory.test.ts
+  s_1458c003fd3ca4::t_9897bed19ff72a 25
+test/integration/provider-scenarios/remote-test-artifacts-materialization.test.ts
+  s_1458c003fd3ca4::t_24806834f6e904 1,23,40
+test/integration/provider-scenarios/remote-upload-lease-beat.test.ts
+  s_1458c003fd3ca4::t_10b52646b86aa9 1,15,285
+test/integration/provider-scenarios/scenario.ts
+  s_1458c003fd3ca4::t_341ecdebb22c68 1,11-12,18,20-21
+test/integration/provider-scenarios/stale-provider-runtime-admission.fixtures.ts
+  s_1458c003fd3ca4::t_dd65f9339ec8a8 17
+test/integration/provider-scenarios/web-provider.test.ts
+  s_1458c003fd3ca4::t_6675d8db5303c3 5-6,8-10
+test/integration/provider-scenarios/web-world.ts
+  s_1458c003fd3ca4::t_62056807337c2e 2
+test/integration/remote-connection-process-isolation.test.ts
+  s_1458c003fd3ca4::t_368443b31254d1 5
+test/integration/smoke-daemon-clean.test.ts
+  s_1458c003fd3ca4::t_d42389b09a13ba 7
+test/integration/smoke-daemon-http.test.ts
+  s_1458c003fd3ca4::t_5ac26497a33654 8
+test/integration/smoke-ios-runner-status-visible-transport.test.ts
+  s_1458c003fd3ca4::t_7671a84327de51 8
+test/integration/smoke-macos-coverage.test.ts
+  s_1458c003fd3ca4::t_63b1c87649d90f 7
+test/integration/smoke-open-remote-config.test.ts
+  s_1458c003fd3ca4::t_4dccaf6eeccbcf 11
+test/integration/smoke-tvos-platform-coverage.test.ts
+  s_1458c003fd3ca4::t_21367e131b05f6 6
+test/integration/smoke-web-platform-coverage.test.ts
+  s_1458c003fd3ca4::t_eae77c7bc8ab23 6
+test/integration/support/daemon-test-cleanup.test.ts
+  s_1458c003fd3ca4::t_b3ec3b937fefe9 11
+test/output-economy/fixtures.ts
+  s_1458c003fd3ca4::t_7e2ea1289b1d05 1
+test/output-economy/owner-files-no-leak.test.ts
+  s_1458c003fd3ca4::t_f033e0c9542d27 5-8
+test/output-economy/selection-fixtures.ts
+  s_1458c003fd3ca4::t_f1c5624acec54d 1
+test/repo-guards/apple-runner-package-source.test.ts
+  s_1458c003fd3ca4::t_41cda7a26cf6ca 7
+test/repo-guards/command-doc-coverage.test.ts
+  s_1458c003fd3ca4::t_a88b53b271a31f 6-7
+test/repo-guards/exec-wrap-guard.test.ts
+  s_1458c003fd3ca4::t_d937775447b187 24
+test/repo-guards/runner-source-assertions.ts
+  s_1458c003fd3ca4::t_acd066e4855092 5
+test/wire-compat/closure-policy.ts
+  s_1458c003fd3ca4::t_185db262f4e4b9 48-51
+test/wire-compat/ledger.json
+  s_1458c003fd3ca4::t_f7d501feda080c 12,57-58,60-62,66-67,148,150,154-155,157,159,166,169,171-173,209-210,219-220,224-225,244-245,411-480
+test/wire-compat/surface.ts
+  s_1458c003fd3ca4::t_cca39e8bccf4cc 169,190
+tsconfig.json
+  s_1458c003fd3ca4::t_baaeb5827713ca 29-32
+tsconfig.typecheck.json
+  s_1458c003fd3ca4::t_825c8f04d06ec4 1-37
+tsdown.config.ts
+  s_1458c003fd3ca4::t_1fc546c31100c4 2,173-175
+vitest.config.ts
+  s_1458c003fd3ca4::t_25e3f4f9335df8 3,10,52-60,106-111,135-138,245
+website/docs/docs/agent-setup.md
+  s_1458c003fd3ca4::t_9f44fa0ebe54f2 40,42
+website/docs/docs/client-api.md
+  s_1458c003fd3ca4::t_76a73c2662a57a 36-39,214,217-218,221,252,267-268
+website/docs/docs/commands.md
+  s_1458c003fd3ca4::t_2a81400c3f2fcc 69,94,127,201,667,834-849,854-858,861-868,964
+website/docs/docs/configuration.md
+  s_1458c003fd3ca4::t_26729916564bff 125
+website/docs/docs/debugging-profiling.md
+  s_1458c003fd3ca4::t_91a9cc75313b42 18,20,23-26,29,31-39,41,43,45-55,57-60,62-71,73,76-79,82-86,88-94,172
+website/docs/docs/introduction.md
+  s_1458c003fd3ca4::t_bc0f61a428e287 20
+website/docs/docs/limrun.md
+  s_1458c003fd3ca4::t_a9541a45411661 21,74
+website/docs/docs/remote-proxy.md
+  s_1458c003fd3ca4::t_3aa727a31537ca 48-52,201-202,226
+website/docs/docs/replay-e2e.md
+  s_1458c003fd3ca4::t_e383ae3b6e85d9 94-99,102,396-399
+website/docs/docs/run-maestro-flows.md
+  s_1458c003fd3ca4::t_efd007fc909a4a 30
+website/docs/docs/snapshots.md
+  s_1458c003fd3ca4::t_3c9fab890f5515 219-243
+website/docs/index.md
+  s_1458c003fd3ca4::t_b1edaaae1755ec 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "12dd8717e87116fbb6f189cab7cabfad6b7c9dd8",
+  "prompts": {},
+  "sessions": {
+    "s_1458c003fd3ca4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7fdf91d9-6522-4fba-acff-11bbe68532d8",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
