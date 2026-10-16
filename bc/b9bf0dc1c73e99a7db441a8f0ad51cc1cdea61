@@ -1,0 +1,36 @@
+packages/contracts/src/device-rotation.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 211-212
+packages/daemon/src/execution/generic-runtime-execution.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 107
+packages/command-registry/src/registry.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 1526-1527
+packages/platform-android/src/telephony/runtime.test.ts
+  0f13203e7ff1ed6f 22
+packages/platform-android/src/telephony/console-event.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 14,16
+packages/platform-android/src/telephony/runtime.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 35
+packages/platform-android/src/emulator-console.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 18-19
+packages/platform-android/src/telephony/console-event.test.ts
+  s_fb4b5911a5b832::t_b192781910046a 50-58,67-74
+  s_fb4b5911a5b832::t_7eb2da1f41b054 31,41-45
+src/commands/system/index.ts
+  s_fb4b5911a5b832::t_7eb2da1f41b054 664,666
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bcb9bf0dc1c73e99a7db441a8f0ad51cc1cdea61",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
