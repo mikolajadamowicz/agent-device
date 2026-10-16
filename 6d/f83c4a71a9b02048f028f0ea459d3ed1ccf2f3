@@ -1,0 +1,25 @@
+packages/daemon/src/__tests__/support/runtime-binding-conformance.ts
+  s_fb4b5911a5b832::t_e76e7b9a292ad7 35,111-119
+test/integration/provider-scenarios/apple-platform-output-guard.test.ts
+  s_fb4b5911a5b832::t_e76e7b9a292ad7 132
+scripts/layering/contracts-exports.snapshot.json
+  s_fb4b5911a5b832::t_e76e7b9a292ad7 128
+test/integration/command-coverage/declarations.ts
+  s_fb4b5911a5b832::t_e76e7b9a292ad7 21,1435-1464
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6df83c4a71a9b02048f028f0ea459d3ed1ccf2f3",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
