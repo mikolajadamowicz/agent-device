@@ -16,7 +16,7 @@ Use it when an agent needs to inspect and operate a running app, not only reason
 - **Token-efficient UI context**: accessibility snapshots give agents structured UI state instead of screenshots alone.
 - **Runtime evidence**: capture screenshots, recordings, logs, network traffic, audio-level probes for browser and host-rendered simulator/emulator audio, traces, CPU/memory/perf snapshots, and crash-related logs when the happy path breaks.
 - **Replayable checks**: turn stable exploratory sessions into `.ad` replay scripts that run again without AI.
-- **React Native and Expo workflows**: pair device automation with optional React DevTools profiling for component trees, props/state/hooks, slow renders, and rerenders.
+- **React Native and Expo workflows**: pair device automation with React component inspection and performance profiling that names slow renders, rerenders, and their causes.
 - **Local devices and app surfaces**: drive simulators, emulators, physical devices, TV targets, desktop apps, and browser sessions through one CLI.
 
 If you know `agent-browser`, `agent-device` brings the same workflow to mobile, TV, desktop, and a limited managed web browser.
@@ -118,9 +118,9 @@ For a normal app-driving task, start immediately. Do not probe first with `--hel
 For TV, Fire TV, or Vega OS tasks, read `agent-device help tv`.
 For exploratory QA, read `agent-device help dogfood`.
 For logs, network, audio, traces, or runtime failures, read `agent-device help debugging`.
-For React Native component trees, props/state/hooks, slow renders, or rerenders, read `agent-device help react-devtools`.
+For React Native component internals (tree, props, state, hooks) and performance profiling (slow renders, rerenders, and their causes), read `agent-device help react-devtools`.
 For React Native JavaScript heap growth, heap snapshots, allocation hotspots, or retained-object leaks, read `agent-device help cdp`.
-For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to React DevTools or debugging evidence, read `agent-device help react-native`.
+For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to profiling or debugging evidence, read `agent-device help react-native`.
 
 Use MCP tools or the CLI in the integrated terminal.
 If `agent-device` is not on PATH but the user installed it globally in another shell, resolve the command the same way the user would from a normal terminal session and run that absolute path instead. This may require inspecting shell startup behavior or package-manager/global bin locations; do not assume the agent process `PATH` is the user's `PATH`.
@@ -1107,6 +1107,10 @@ Entry points for driving devices from Node.js:
   - `createAgentDeviceClient(options?)`
   - `createLocalArtifactAdapter(options?)`
   - `AppError`, `isAgentDeviceError(error)`, `normalizeAgentDeviceError(error)`
+  - `isUnreadableCaptureContentError(error)`: true when an Android helper capture found no readable
+    app content yet (`empty-helper-output`, `system-window-only`, `content-poor-app-window`), for
+    example while the app is still loading. Polling callers may keep polling. False for every other
+    platform, backend, and mechanism failure.
   - `centerOfRect(rect)`
   - types: `AgentDeviceClient`, `AgentDeviceClientConfig`, `AgentDeviceDevice`
   - types: every option and result type of the client's methods, among them `AppOpenOptions`,
@@ -1360,16 +1364,14 @@ await client.command.fold({
 
 `fold` accepts either `pose` or `keyframes`. Keyframes use linear interpolation at roughly 60 updates per second; repeat an angle to hold it. Timestamps must start at zero and increase strictly, with 2–64 frames and a final timestamp no greater than 60,000ms. Angles must be finite and between 0° and 180°. The final timestamp bounds motion, excluding helper preparation and final hinge verification. A custom final angle is verified within 0.5°; interior angles must also settle. Cancellation stops the motion at its current angle. Re-snapshot afterwards, including after interrupted motion. Android emulators accept `pose` only.
 
-`press`, `click`, and `longpress` take `readinessTimeoutMs`. With it, the command waits up to that many milliseconds for a target that is not on screen yet, then performs the requested interaction. Without it, the command looks once and fails at once, which is the right choice for an agent that most often misses because the selector is wrong. Use it in scripted flows, where a step can run before the screen finishes rendering:
+`press`, `click`, and `longpress` do not wait for a missing target to appear. When a screen is still loading, wait for its landmark before interacting:
 
 ```ts
-await client.interactions.press({
-  selector: 'label="Continue"',
-  readinessTimeoutMs: 2_000,
-});
+await client.command.wait({ text: 'Continue', timeoutMs: 5_000 });
+await client.interactions.press({ selector: 'label="Continue"' });
 ```
 
-The wait is capped at 2 seconds and covers only a target that has not appeared. When the target is still missing after the wait, the error carries `error.details.readiness` with `waitedMs`, `polls`, and `end` (`expired` or `stalled`). A capture that shows an empty accessibility tree ends the wait at once with `capture_sparse` and `readiness.end: sparse`. When the command had to wait and then succeeded, the result carries `data.readiness` with `polls` and `waitedMs`. A command that found its target on the first look has no `readiness` field. A covered, off-screen, or ambiguous target fails at once, and a screen that stays unreadable for the whole wait fails with its own error; neither carries `readiness`. `readinessTimeoutMs` is not an MCP tool argument and has no CLI flag.
+If the wait times out, check the selector and app state with a fresh snapshot. A covered, off-screen, or ambiguous target still fails the interaction.
 
 Vega OS client support is VVD-only and covers device discovery, app open/close, `back`, `home`, and `tvRemote`. Physical Fire TV, capture, selector, install, logging, and performance methods report unsupported for Vega targets.
 
@@ -1400,7 +1402,7 @@ Domain client methods:
 - `client.sessions.list()`, `stateDir()`, `close()`, `saveScript()`, `artifacts()`
 - `client.apps.install()`, `reinstall()`, `uninstall()`, `installFromSource()`, `list()`, `open()`, `close()`, `push()`, `triggerEvent()`
 - `client.materializations.release()`
-- `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease.
+- `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease. Pass `leaseId` (16 to 128 hex characters) to `allocate()` to name a new lease with an id the daemon has never issued, or to get back your live lease with that id when you retry with the same tenant, run, client, lease backend, and provider (and no device, or the leased one), then use the returned `leaseId`: a run that already holds a lease gets that one back, and an older daemon mints its own.
 - `client.metro.prepare()`, `reload()`
 - `client.capture.snapshot()`, `screenshot()`, `diff()`
 - `client.interactions.click()`, `press()`, `longPress()`, `swipe()`, `pan()`, `drag()`, `fling()`, `swipeGesture()`, `focus()`, `type()`, `fill()`, `scroll()`, `pinch()`, `rotateGesture()`, `transformGesture()`, `get()`, `is()`, `find()`
@@ -1414,6 +1416,8 @@ Domain client methods:
 `client.devices.list()` returns `AgentDeviceDevice` entries. Their optional `model` and `osVersion` fields describe the hardware and OS when discovery reports them; see [Device discovery](/agent-device/pr-preview/pr-4/docs/commands.md#device-discovery) for the sources.
 
 `client.capture.snapshot()` carries an optional `viewport: { width, height }` beside `nodes`: the box those rects are measured in, in the same coordinate space and orientation. Scale and clip against it instead of inferring the screen from the largest rect. When no box was measured, the field is absent rather than zero; see [Coordinates and viewport](/agent-device/pr-preview/pr-4/docs/snapshots.md#coordinates-and-viewport) for what each producer answers with.
+
+It also carries an optional `presentedSurface: 'presented' | 'absent' | 'unknown'` on iOS captures: whether the capture saw a modal presentation over your app's content. `'absent'` is a reading that was earned, so it is safe to act on; `'unknown'` says the capture could not tell and is not `'absent'`. The field is absent on other platforms. See [Presented surface](/agent-device/pr-preview/pr-4/docs/snapshots.md#presented-surface).
 
 `client.observability.events({ cursor, limit })` reads the session event timeline as paged JSON entries. Use `nextCursor` from the previous page to continue from the daemon-owned `events.ndjson` file without replaying already uploaded/displayed events. Cursors are absolute and survive the file's size rotation; a cursor older than the retained window rejects with `COMMAND_FAILED`, `details.reason: "EVENT_LOG_CURSOR_EXPIRED"`, and `details.earliestCursor` to resume from.
 The timeline leaves out user-entered content such as typed text, selector values, and payloads; see [Sessions](/agent-device/pr-preview/pr-4/docs/sessions.md#find-a-sessions-logs-and-artifacts) for what it keeps.
@@ -1593,7 +1597,7 @@ agent-device daemon stop --clean
 Boot and shut down:
 
 - `boot` gets the selected target ready without launching an app. It needs an active session or a device selector. You mainly need it when `open` fails because no simulator or emulator is booted.
-- Android: `boot --platform android --device <avd-name>` launches that emulator with a window; add `--headless` to launch it without one.
+- Android: `boot --platform android --device <avd-name>` launches that emulator with a window; add `--headless` to launch it without one. On macOS the window opens behind the focused app, which keeps focus (also when `open` boots a stopped AVD). This is best-effort: the emulator can still take focus if the focused app cannot be read, or if its window appears after the startup budget runs out.
 - `shutdown` turns off the selected Apple simulator or Android emulator. It refuses the active session's device; use `close --shutdown` to end the session and turn the device off.
 - `--timeout <ms>` on `boot`, `open <app>`, and `prepare ios-runner` is the startup budget for booting an iOS Simulator or Android emulator (for `prepare ios-runner`, shared with runner preparation). A never-booted iOS Simulator can take several minutes. When the budget runs out, the command fails with `error.details.reason: boot_timeout` and the device keeps booting, so a retry finds it further along. See [Sessions](/agent-device/pr-preview/pr-4/docs/sessions.md#wait-for-a-slow-or-busy-device).
 
@@ -1618,6 +1622,7 @@ Open apps and links:
 - `open --platform macos --surface app|frontmost-app|desktop|menubar` selects the macOS session surface; `app` is the default when you name an app. See [Desktop targets](#desktop-targets). `--save-script` records the surface so `replay` reopens it; with no surface given, replay opens an app session.
 - Android React Native: `open --relaunch` needs an installed package name. Install or reinstall the APK first; `open <apk|aab> --relaunch` is rejected. For Metro-backed JS changes, run `metro reload` before reaching for `open <app> --relaunch`.
 - Android (adb): an intent target such as `open settings` records the package that opened as `appBundleId`. `open settings --relaunch` stops and restarts that app. If the intent matches more than one activity, `--relaunch` fails.
+- Android (ADB): `close` force-stops the app, then checks for 2 seconds that it has left the foreground and for 2 more that its process has exited. If either check window ends first, `close` fails with `details.reason: android-app-close-timeout` and `details.phase` set to `foreground` or `process`; apps Android restarts at once, such as the launcher, fail this way.
 
 iOS Simulator launch behavior:
 
@@ -1650,7 +1655,7 @@ Remote daemons and tenants:
 
 - `--tenant`, `--session-isolation tenant`, `--run-id`, and `--lease-id` enforce lease admission on tenant-scoped daemons.
 - `--daemon-base-url http(s)://host:port[/base-path]` calls a remote HTTP daemon directly instead of starting a local one. Add `--daemon-auth-token <token>` (or `AGENT_DEVICE_DAEMON_AUTH_TOKEN`) for non-loopback daemon URLs.
-- Screenshots and recordings from a remote daemon are downloaded to the path you pass, so `screenshot page.png` and `record start session.mp4` work as they do locally.
+- Screenshots and recordings from a remote daemon are downloaded to the path you pass, so `screenshot page.png` and `record start session.mp4` work as they do locally. `record start` without a path downloads to `recording-<timestamp>.mp4` (`.webm` on web) in your working directory.
 - To drive a Mac's simulators and devices from another machine, see [Remote Proxy](/agent-device/pr-preview/pr-4/docs/remote-proxy.md). For hosted devices in CI, see [BrowserStack](/agent-device/pr-preview/pr-4/docs/browserstack.md), [AWS Device Farm](/agent-device/pr-preview/pr-4/docs/aws-device-farm.md), or [TestMu AI](/agent-device/pr-preview/pr-4/docs/testmu.md). For `connect --remote-config`, see [Remote Metro workflow](#remote-metro-workflow).
 
 ```bash
@@ -1724,6 +1729,7 @@ agent-device devices --platform android --android-device-allowlist emulator-5554
 - If the selected Xcode can't resolve a scoped simulator for the Apple runner, the runner start fails with `details.reason: "simulator_set_destination_not_found"`, naming the set and, when known, the Xcode version.
 - `--android-device-allowlist <serials>` limits Android discovery and selection to comma- or space-separated serials.
 - Set the same scopes with the `iosSimulatorDeviceSet` and `androidDeviceAllowlist` config keys, or `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`. CLI flags override environment values, except under a `strip` session lock, which ignores conflicting per-call selectors.
+- Start the daemon with `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET=<path>` to scope every iOS simulator request to one simulator set. A request without `--ios-simulator-device-set` uses that set, so iOS physical devices are not listed on that daemon. A request naming a different path string, including the same path with a trailing slash, fails with `INVALID_ARGS` and `details.reason: "ios_simulator_device_set_outside_daemon_set"`. macOS and other non-iOS requests ignore the set, and the host Mac stays listed. A daemon that the CLI starts inherits the CLI's environment, so later CLI calls with a different value still use the first value until the daemon restarts.
 - Scope applies before `--device`, `--udid`, and `--serial`, so an out-of-scope selector fails with `DEVICE_NOT_FOUND`.
 - On macOS, daemon startup removes any symlink at `~/Library/Developer/XCTestDevices`, including one you made yourself (for example to move it to another volume), and restores `XCTestDevices.agent-device-backup` when it exists. A symlinked `XCTestDevices` is not supported. Only the link is removed, never the directory it points to; `daemon.log` records each step and any failed restore, which doesn't stop the daemon.
 
@@ -2200,6 +2206,7 @@ Platform support:
 - macOS supports only `settings appearance <light|dark|toggle>` and `settings permission <grant|reset> <accessibility|screen-recording|input-monitoring>`.
 - `settings appearance` sets macOS appearance, iOS simulator appearance, or Android night mode.
 - `settings location set <lat> <lon>` sets coordinates on iOS simulators and Android emulators.
+- A target that does not serve a setting refuses it with `UNSUPPORTED_OPERATION` and `error.details.reason` (for example `unsupported-platform-leaf`) before anything changes. A request that names an app the change cannot take is refused first, with `INVALID_ARGS` and `setting_app_not_consumed`. `settings --help` describes where each setting runs.
 
 Device settings:
 
@@ -2363,30 +2370,41 @@ agent-device perf trace stop --kind perfetto --out app.perfetto-trace
 
 For the measurement workflow, data sources, and output examples, see [Performance snapshots](/agent-device/pr-preview/pr-4/docs/debugging-profiling.md#performance-snapshots).
 
-## React Native component internals
+## React Native components
 
 ```bash
-agent-device react-devtools status
-agent-device react-devtools wait --connected
-agent-device react-devtools get tree --depth 3
-agent-device react-devtools get component @c5
-agent-device react-devtools find Button
-agent-device react-devtools profile start
-agent-device react-devtools profile stop
-agent-device react-devtools profile slow --limit 5
-agent-device react-devtools profile rerenders --limit 5
-agent-device react-devtools profile timeline --limit 20
-agent-device react-devtools profile report @c5
+agent-device react-devtools tree [@ref|Name] [--depth 8] [--limit 60]
+agent-device react-devtools find <Name> [--exact] [--limit 20]
+agent-device react-devtools inspect <@ref|Name>
+agent-device react-devtools errors [--limit 10]
 ```
 
-- `react-devtools` runs the pinned `agent-react-devtools@0.5.0` package through npm and passes arguments through unchanged. The first run may download it; later runs can reuse the npm cache.
-- React Native 0.87+ needs a one-time app setup before `react-devtools wait --connected` can succeed; see [Debugging & Profiling](/agent-device/pr-preview/pr-4/docs/debugging-profiling.md#react-native-component-internals).
-- Use it for component hierarchy, props, state, hooks, render causes, slow components, and re-render counts. For the profiling workflow, see [Debugging & Profiling](/agent-device/pr-preview/pr-4/docs/debugging-profiling.md#react-native-component-internals) and `agent-device help react-devtools`.
-- `agent-device` global flags work before or after `react-devtools`. Put `--` before downstream flags only when they share an `agent-device` global flag name.
-- Development builds connect to the DevTools daemon on port 8097. If an Android emulator or device cannot reach the host, run `adb reverse tcp:8097 tcp:8097`. Android `open` of a local Metro URL with a port sets up host reachability; for app/package launches, run `adb reverse tcp:8081 tcp:8081` if the app cannot reach Metro.
-- Remote bridge sessions (Android and iOS) work through the same command; the CLI keeps a tunnel to the remote DevTools daemon alive until `react-devtools stop` or `disconnect`. See [Remote bridge sessions](/agent-device/pr-preview/pr-4/docs/debugging-profiling.md#remote-bridge-sessions) for the iOS relaunch order and supported React Native versions.
-- `react-devtools stop` reports the tunnel's pid and keeps tracking it when it cannot confirm the tunnel exited — it belongs to another user, for example — instead of starting a second one on the next run. Stop that process as its owner and run `react-devtools stop` again.
-- For cross-platform validation, use separate sessions/devices and restart `react-devtools` between iOS and Android runs.
+- `tree` prints the mounted component tree with `@c` refs. A chain of single-child wrappers, such as providers, prints on one line. Three or more consecutive siblings whose subtrees match exactly, in names, types, and logged errors and warnings, print as one counted line; other siblings, including same-name screens with different contents, keep their own lines. Pass a ref or a unique name to print one branch.
+- `find` lists components whose name contains the text, ignoring case, or equals it with `--exact`, each with the components that rendered it.
+- `inspect` prints a component's owners, props, state, hooks, and the errors and warnings it logged while rendering. It takes a ref, or a name only one mounted component has.
+- `errors` lists the components that logged console errors or warnings while rendering, with the messages. When the app's React DevTools backend does not attribute every log to a component, as on React Native 0.74 and 0.76, it says the list can be incomplete.
+- These commands connect the same way as profiling, below. A connected React DevTools window owns the component tree, so `tree`, `find`, and `errors` fail with `tree-unavailable` until it is closed and the app reloads.
+
+## React Native performance profiling
+
+```bash
+agent-device react-devtools profile start
+agent-device react-devtools profile stop
+agent-device react-devtools profile stop --limit 10
+agent-device react-devtools profile report
+agent-device react-devtools profile report <Component>
+agent-device react-devtools profile commit
+agent-device react-devtools profile commit <N>
+```
+
+- `profile start` begins recording React renders in the app; `profile stop` ends it and prints the commit count, render time, commits over the 16 ms frame budget, and up to five findings (`--limit` changes that). It also saves the recording for the session, so `report` and `commit` read it without the app.
+- `profile report` lists components by self time with why they rendered; `profile report <Component>` shows every component of that name, such as `Row` and memoized `Row`, each with its causes, changed props, owners, costliest commits, and findings. `profile commit` lists commits in order, or the slowest ones in order when there are more than `--limit` (default 20); `profile commit <N>` shows what rendered in one commit. `--limit` caps the rows of the list views.
+- Profiling connects through the app's Metro dev server and needs no app or Metro setup. It works with development builds of React Native 0.74 and later on Android emulators, iOS simulators, `agent-device proxy` connections, and remote bridge sessions. On a remote bridge it uses the Metro server next to the agent: the session's binding from `metro prepare`, or `--metro-host`/`--metro-port`. Metro accepts the debugger connection only from its own machine, so the bridge or `metroPublicBaseUrl` cannot carry it.
+- `--app <bundle-id>` picks the app when several share the dev server, and `--metro-device <name>` picks the device when one app runs on several. `--metro-port` and `--metro-host`, or `--bundle-url` for a dev server behind a URL path, pick the dev server when it is neither the session's Metro server nor `localhost:8081`.
+- With `--json`, `profile stop` returns the findings and the path of the saved profile.
+- See [Debugging & Profiling](/agent-device/pr-preview/pr-4/docs/debugging-profiling.md#react-native-performance-profiling) for the findings and the workflow.
+
+## React Native overlays
 
 ```bash
 agent-device react-native dismiss-overlay
@@ -2482,7 +2500,7 @@ agent-device record stop                # Stop active recording
 - `record start` defaults to app scope and needs a session from `open <app>`. Use `--scope device` or `--scope system` for whole-screen capture (multiple apps, settings, home screen) where the backend supports it.
 - iOS recording works on simulators and CoreDevice-backed physical devices. Physical devices capture runner screenshots, not a native video stream: no audio, dropped frames are expected, and the default is 15 FPS. `--fps <n>` (1-120) caps the rate; a busy app or long command yields fewer frames.
 - `--quality medium|high` (default `medium`) sets export quality on Android and Limrun; Apple export always keeps the captured resolution. Numeric `5`-`7` map to `medium` and `8`-`10` to `high`.
-- With touch visualization on, recordings also produce a gesture telemetry sidecar. Burned-in touch overlays export only on macOS hosts; elsewhere `record stop` returns the raw video and telemetry with `overlayWarning`. The overlay renders at most 30 FPS (or `--fps` if lower) within a fixed budget; an export past the budget returns the raw video with `overlayWarning`.
+- With touch visualization on, recordings also produce a gesture telemetry sidecar. Burned-in touch overlays export only on macOS hosts; elsewhere `record stop` returns the raw video and telemetry with `overlayWarning`. The overlay renders at most 30 FPS (or `--fps` if lower) within a fixed budget, which also covers the video checks that run before and after it; an export past the budget returns the raw video with `overlayWarning`. On a host that has not run a recording before, part of that budget goes to one-time tool setup, so the first `record stop` of a long recording is more likely to return the raw video.
 - Android uses `adb shell screenrecord` (180s limit per clip). Longer recordings are split into MP4 chunks while the daemon stays alive; after a daemon restart, `record stop` recovers only chunks listed in the device manifest. A clip can end before `record stop` when the screen stopped changing; `durationMs` is wall-clock time, and `capturedDurationMs` plus a warning report how much the video covers.
 - Limrun sessions always record the whole screen and refuse `--fps` and `--hide-touches` with `INVALID_ARGS`. A failed download is retried by the next `record stop`; nothing survives a daemon restart.
 - A busy iOS simulator recording slot returns non-retriable `DEVICE_IN_USE` with `details.reason: apple_simulator_recording_busy`. Run `record stop` in the session that owns the recording; if no recording is active, ask the host operator to restart the CoreSimulator stream service.
@@ -2751,7 +2769,7 @@ Only the variables below, and those documented on command pages, are supported. 
 | Category                            | Env vars                                                                                                                                                                                                                                                                                                                     | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CLI defaults and config             | `AGENT_DEVICE_HOME`, `AGENT_DEVICE_CONFIG`, `AGENT_DEVICE_SESSION`, `AGENT_DEVICE_PLATFORM`, `AGENT_DEVICE_SCREENSHOT_SCALE`, `AGENT_DEVICE_SESSION_LOCK`, `AGENT_DEVICE_DAEMON_BASE_URL`, `AGENT_DEVICE_DAEMON_AUTH_TOKEN`, `AGENT_DEVICE_CLOUD_BASE_URL`                                                                   | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Device scoping                      | `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`                                                                                                                                                                                                                                                                                      | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Device scoping                      | `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`, `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET`                                                                                                                                                                                                                                             | Public. `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET` is read by the daemon: every iOS simulator request that names no `--ios-simulator-device-set` uses that set, so iOS physical devices are not listed, and a request naming a different path string fails with `INVALID_ARGS` (`details.reason: "ios_simulator_device_set_outside_daemon_set"`). macOS and non-iOS requests ignore it. A daemon started by the CLI inherits the CLI's value; restart the daemon after changing it.                                                                                                                     |
 | Android test IME                    | `AGENT_DEVICE_TEST_IME`                                                                                                                                                                                                                                                                                                      | Public. Same setting as `--test-ime` / `--no-test-ime` on `open`, `test`, and `replay`; see known limitations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | Local daemon storage                | `AGENT_DEVICE_STATE_DIR`                                                                                                                                                                                                                                                                                                     | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Metro and install helpers           | `AGENT_DEVICE_METRO_BEARER_TOKEN`, `AGENT_DEVICE_BUNDLETOOL_JAR`                                                                                                                                                                                                                                                             | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2792,49 +2810,83 @@ When UI automation is not enough, use these commands to collect runtime evidence
 - Apple crash symbolication with `debug symbols`
 - Screenshots, recordings, and replayable repro flows
 
-## React Native component internals
+## React Native components
 
-To inspect the React Native component tree, props, state, hooks, or render profiling, use `react-devtools`:
+To see what React renders behind a screen, read the component tree and inspect a component:
 
 ```bash
-agent-device react-devtools status
-agent-device react-devtools wait --connected
-agent-device react-devtools get tree --depth 3
-agent-device react-devtools get component @c5
-agent-device react-devtools profile start
-agent-device react-devtools profile stop
-agent-device react-devtools profile slow --limit 5
-agent-device react-devtools profile rerenders --limit 5
-agent-device react-devtools profile timeline --limit 20
-agent-device react-devtools profile report @c5
+agent-device react-devtools find ContactRow
+agent-device react-devtools inspect @c42
+agent-device react-devtools tree @c40 --depth 3
+agent-device react-devtools errors
 ```
 
-`react-devtools` runs a pinned version of `agent-react-devtools` and passes your arguments to it.
+`find` and `tree` print `@c` refs. `inspect` shows the owners that rendered a component, its props, state, and hooks, and the errors and warnings it logged while rendering:
 
-On React Native 0.87 and later, set up the app once before `react-devtools wait --connected` can succeed, locally or through a remote bridge: install `agent-react-devtools` as a dev dependency of the app project, run `npx agent-react-devtools init` there, and rebundle. The package `react-devtools` runs is temporary and does not install it into the app. Run `npx agent-react-devtools uninit` when you no longer need the setup.
+```text
+@c42 ContactRow key=3
+rendered by: ContactList @c40 < MemoDefeatedScenario @c38 < PerfLabScreen @c12
+props:
+  contact: {id: 3, name: "Ada Lovelace"}
+  onSelect: ƒ onSelect() {}
+hooks:
+  State: false
+```
 
-For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to React DevTools or debugging evidence, start with `agent-device help react-native`. For slow-flow investigations, combine `help react-devtools` for the narrow React profile window with `help debugging` for log markers, network/audio evidence, traces, and perf samples. Start with one bounded survey: the `profile stop` summary, the `slow` and `rerenders` tables with a `--limit`, and `timeline` only when commit timing matters. Then drill into a specific `@c` ref with `profile report` instead of raising the `profile slow` limit again and again.
+`inspect` also takes a component name when only one mounted component has it. `errors` lists the components that logged console errors or warnings while rendering, with the messages; on older React Native versions, such as 0.74 and 0.76, it notes that the list can be incomplete. Refs change when a component remounts or the app reloads.
 
-React Native warning and error overlays come from the app. Treat them as findings or blockers: capture them, check `react-devtools errors` when connected, run `agent-device react-native dismiss-overlay` when the overlay is unrelated, then re-snapshot and report the overlay.
+These commands use the same connection as profiling, described below. If a React DevTools window is connected to the app, close it and reload the app first.
+
+## React Native performance profiling
+
+To find out why an interaction renders slowly, record a React profile around it:
+
+```bash
+agent-device react-devtools profile start
+agent-device fill 'id="catalog-search"' "tart" --delay-ms 80
+agent-device react-devtools profile stop
+```
+
+`profile stop` saves the recording and prints a short diagnosis: how many commits React made, how long they took, how many went over the 16 ms frame budget (when any did), and the problems it found, worst first. If changed-prop inspection is interrupted after collection, you can still read the saved recording with `profile report` and `profile commit`. Each finding names a component, shows the evidence, and suggests a fix:
+
+```text
+React profile 8.3s: 8 commits, 1303ms rendering, 8 over 16ms (worst #6 188ms)
+1. memo-defeated ContactRow: memo bypassed on 480/480 updates; new highlight (object) 480x, onSelect (function) 480x from ContactList -> wrap those props in useCallback/useMemo in ContactList
+```
+
+| Finding           | Meaning                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------- |
+| `slow-render`     | The component's own render is expensive.                                                        |
+| `memo-defeated`   | A memoized component often re-renders because props change identity.                            |
+| `parent-cascade`  | The component often re-renders with unchanged props, state, and context when its owner renders. |
+| `context-cascade` | Most of the component's renders come from context changes.                                      |
+| `effect-chain`    | The component triggers a follow-up commit right after rendering, likely state set in an effect. |
+| `render-storm`    | One component commits many times per second.                                                    |
+| `eager-mount`     | Hundreds of instances of one component mount in a single commit.                                |
+| `slow-commit`     | A commit took three frames or more, and other findings leave most of it unexplained.            |
+
+To dig into a finding, use the saved profile:
+
+```bash
+agent-device react-devtools profile report ContactRow
+agent-device react-devtools profile commit 6
+agent-device react-devtools profile report
+agent-device react-devtools profile commit
+```
+
+Without an argument, `report` lists components by self time with why they rendered, and `commit` lists the commits in order.
+
+Profiling works with development builds of React Native 0.74 and later, including Expo, and is verified on Android emulators and iOS simulators. It connects to the app through the Metro dev server, so the app, Metro config, and Babel config need no changes. If several apps use the same dev server, pass `--app <bundle-id>`. If one app runs on several devices connected to the same dev server, pass `--metro-device <name>` with a device name the error lists. If the dev server is not the session's Metro server or `localhost:8081`, pass `--metro-port` and `--metro-host`.
+
+Development builds render slower than release builds. Compare profiles of the same interaction before and after a change rather than reading the numbers as absolute.
+
+Component inspection and profiling also work through `agent-device proxy` and on remote bridge sessions, where they use the Metro server next to the agent: the session's binding from `metro prepare`, or `--metro-host`/`--metro-port`. Metro accepts the debugger connection only from its own machine, so the bridge or `metroPublicBaseUrl` cannot carry it.
+
+For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to profiling or debugging evidence, start with `agent-device help react-native`. For slow-flow investigations, combine `help react-devtools` for the React profile with `help debugging` for log markers, network/audio evidence, traces, and perf samples.
+
+React Native warning and error overlays come from the app. Treat them as findings or blockers: capture them, run `agent-device react-native dismiss-overlay` when the overlay is unrelated, then re-snapshot and report the overlay.
 
 For permission prompts and other alerts already on screen, see [Wait and alerts](/agent-device/pr-preview/pr-4/docs/commands.md#wait-and-alerts).
-
-### Remote bridge sessions
-
-On Android and iOS sessions connected through a remote bridge profile, `react-devtools` opens a tunnel to the DevTools daemon at `127.0.0.1:8097` inside the remote sandbox. Android uses the bridge's `adb reverse` mapping; iOS uses the bridge's wildcard Metro host tunnel. The tunnel stays up until you run `agent-device react-devtools stop` or `agent-device disconnect`.
-
-React Native tries to reach DevTools once, during JavaScript startup. On remote iOS, start DevTools before that launch:
-
-```bash
-agent-device open com.example.myapp --platform ios
-agent-device react-devtools start
-agent-device open com.example.myapp --platform ios --relaunch
-agent-device react-devtools wait --connected
-```
-
-The first `open` creates the bridge session; the relaunch lets the app find the running DevTools daemon.
-
-This path assumes the DevTools behavior bundled with React Native 0.83 and later. Browser or Chromium DevTools workflows from older versions are not available inside remote sandboxes. For Expo projects, check the React Native version your SDK bundles; no Expo SDK has been verified separately.
 
 ## React Native JS memory through CDP
 
@@ -2912,7 +2964,7 @@ agent-device debug symbols --artifact crash.ips --search-path ./build --out cras
 
 The command supports Apple `.ips`, `.crash`, and log-style crash artifacts that contain Binary Images or IPS `usedImages`. It matches UUIDs from the crash artifact against `dwarfdump --uuid` output from `.dSYM` bundles, runs `atos`, writes a symbolicated artifact, and prints only the output path plus a compact crash report: app/thread, exception or termination, top symbolicated frames, and the first actionable frame finding. The full symbolicated artifact stays on disk, so agent context stays small.
 
-`debug` covers symbolication only. Use `logs` for app logs, `network` for HTTP evidence, `perf` for performance samples, `record`/`trace` for media and traces, and `react-devtools` for React Native internals. `debug symbols` does not handle Android Java/R8 `mapping.txt` or native `ndk-stack`/`addr2line` symbolication; capture Android crash evidence with `logs` and symbolicate it with other tools.
+`debug` covers symbolication only. Use `logs` for app logs, `network` for HTTP evidence, `perf` for performance samples, `record`/`trace` for media and traces, and `react-devtools` for React Native components and performance profiling. `debug symbols` does not handle Android Java/R8 `mapping.txt` or native `ndk-stack`/`addr2line` symbolication; capture Android crash evidence with `logs` and symbolicate it with other tools.
 
 ## Core commands
 
@@ -3411,7 +3463,7 @@ agent-device connect limrun --platform android
 
 `--platform android` or `--platform ios` selects the instance type. `connect` checks the credentials for that platform without creating an instance.
 
-When you create an instance through agent-device, the creation request sends `User-Agent: agent-device-cli/<version>` so Limrun can attribute it to agent-device for revenue sharing.
+Requests agent-device makes with your API key, including instance creation, start their `User-Agent` with `agent-device-cli/<version>` so Limrun can attribute them to agent-device for revenue sharing.
 
 ## Drive an existing instance
 
@@ -3464,7 +3516,7 @@ agent-device disconnect
 
 On Android, agent-device connects to Limrun over an ADB tunnel. Snapshots use the Android snapshot helper, installs upload the app through Limrun asset storage, and port reverse runs over ADB, including the usual reverse setup for a local Metro server.
 
-On iOS, agent-device supports app lifecycle commands, snapshots, screenshots, taps, text input, scrolling, the home button, clipboard read and write, and app installation. `open --launch-args` relaunches the app with those arguments through simctl. iOS cannot reverse a remote device port to a local host port, so for Metro or React DevTools use a publicly reachable HTTPS endpoint or bridge URL instead of a local-only address.
+On iOS, agent-device supports app lifecycle commands, snapshots, screenshots, taps, text input, scrolling, the home button, clipboard read and write, and app installation. `open --launch-args` relaunches the app with those arguments through simctl. iOS cannot reverse a remote device port to a local host port, so for Metro use a publicly reachable HTTPS endpoint or bridge URL instead of a local-only address.
 
 On iOS, `settings` supports `appearance`, `permission`, `location`, and `clear-app-state`, with the same arguments as a local simulator. `clear-app-state` resets the app's data container through Limrun's soft reset. That reset relaunches the app once before agent-device stops it, so the app may run once after its data is cleared. `reset-keychain`, `wifi`, `airplane`, `faceid`, `touchid`, and `text-size` are unsupported, and you cannot read back any iOS setting.
 
@@ -3948,7 +4000,11 @@ agent-device disconnect
 
 `--daemon-auth-token <token>` works instead of the environment variable, but it authenticates only the command you pass it to. Later commands need the token again through the environment variable, a `daemonAuthToken` entry in your remote config profile, or the flag on each command.
 
-`connect proxy` stores the proxy profile and client identity. `open` leases the device for you, and the lease expires after five minutes without commands. A lease allocated directly over the RPC without `ttlMs` gets the daemon's one-minute inactivity default instead. Either window starts when allocation completes, not when it was requested. `close` releases the active session and its device lease, unless the lease was allocated with `retainOnClose`; only `leases.release`, expiry, or daemon shutdown ends that one. `disconnect` clears local connection state.
+`connect proxy` stores the proxy profile and client identity. `open` leases the device for you, and the lease expires after five minutes without commands. A lease allocated directly over the RPC without `ttlMs` gets the daemon's one-minute inactivity default instead. Either window starts when allocation completes, not when it was requested. `close` releases the active session and its device lease, unless the lease was allocated with `retainOnClose`; only `leases.release`, expiry, or daemon shutdown ends that one. The reply to any request that closed a session lists the leases it ended in `endedLeases`, as `{ leaseId, outcome: 'released' }`. This covers `close`, a `batch` with a close step, and a `replay` or `test` script that closes, as well as the session cleanup `test` runs after each script. A successful reply has the field in `data`, and a failed one has it in `error.details`. A gateway in front of the daemon reads the lease end from that reply. When the reply names the stored lease, the CLI forgets it, so the next `open` leases a device again. `disconnect` clears local connection state.
+
+Without `--udid` or `--serial`, `open` does not pick the device on the agent machine: it sends `--platform`, `--target`, and `--device` with the lease request, the daemon behind the proxy picks a matching device, and later commands use the device the lease names. The device therefore does not need to exist before `open`, which lets a service in front of the daemon create or choose it at that point. While that lease is active, an `open` that names a different device is refused instead of running on the leased one; close the session first, or run `connect --force` to start over. An existing lease that names no device, such as one supplied through `leaseId`, is refused with reason `LEASE_SCOPE_MISMATCH` and left active.
+
+`open` names each new lease with an id it makes (32 lowercase hex characters) and sends it with the allocation, so a host in front of the daemon knows the lease id before the daemon allocates. A direct `agent_device.lease.allocate` RPC can pass `leaseId` (16 to 128 hex characters) the same way; repeating the id of a live lease returns that lease when the retry carries the same tenant, run, client, lease backend, and provider, and either names no device or the device the lease binds, so a retry after a lost reply does not allocate a second one. A retry without `ttlMs` keeps the lease's window. A retry that changes any of those fields is refused like any other reused id. The id identifies the lease: one run can hold several leases. Any other id this daemon has already given a lease, active or ended, is refused with `INVALID_ARGS` and reason `LEASE_ID_IN_USE`, and without one the daemon makes the id. Use the id the reply carries: a run that already holds a lease gets that lease back, and an older daemon ignores the requested id.
 
 Several agents can share one proxy when each follows the same `connect proxy`, `open`, commands, `close`, and `disconnect` flow. A busy device error means another agent holds the device until it closes its session or its lease expires.
 
@@ -4097,6 +4153,8 @@ These rules apply to requests made under the lease. To refuse requests that name
 start the daemon with a policy that requires one (`leases.require`, below). The proxy token is shared
 by every client of the proxy, so a host serving several clients through one proxy authenticates each
 client itself and sets each request's tenant, session isolation, and lease before forwarding it.
+Embedding `@agent-device/proxy` with its `authenticate` option does the tenant and session
+isolation part: the proxy sends each client's requests as the tenant `authenticate` returns. A tenant id is 1-128 letters, numbers, dots, underscores or hyphens; any other id fails the request with a 500. On `/rpc` the proxy accepts only `agent_device.command` and the `agent_device.lease.*` methods, and refuses others with a 401. Upload tickets carry the client's own `authorization` and `x-agent-device-token` headers, or the `uploadHeaders` that `authenticate` returns, and never the daemon's token.
 
 ## Restrict what clients can do
 
@@ -4120,7 +4178,7 @@ AGENT_DEVICE_DAEMON_POLICY=./policy.json agent-device proxy
   devices and `serial` for Android.
 - `commands` takes either `allow` or `deny`, not both. With `allow`, commands added in later releases
   stay denied. Some client-side tools reach the daemon through internal commands: allow `runtime` for
-  `react-devtools` and Maestro flows, and `install-from-source` for remote installs.
+  Maestro flows, and `install-from-source` for remote installs.
 - `capabilities.deny: ["device-shutdown"]` blocks `shutdown`, `close --shutdown`, and any other path
   that would shut the device down.
 - `leases.require: "macos-app"` (the only accepted value) refuses every request that is not made
@@ -4262,18 +4320,15 @@ agent-device replay ~/.agent-device/sessions/e2e-2026-02-09T12-00-00-000Z.ad --s
 
   Earlier `close` actions still run. `test` does not accept the flag because each suite attempt
   cleans up its own session.
-- `press`, `click`, and `longpress` steps wait up to 2 seconds for their target to appear before
-  they fail, so a step recorded against a screen that was still loading passes once the target
-  shows up. The wait covers only a target that is not on screen yet: a target that is covered,
-  off-screen, or matched by more than one element fails at once, as it does live. The replay output
-  does not show the wait for a step that passed; run with `--debug` to see it in the diagnostics.
-- When the target never appears, replay stops with `REPLAY_DIVERGENCE`, and
-  `error.details.readiness` says how long the step waited and how many times it looked (`waitedMs`,
-  `polls`, `end`). For a step recorded with a target annotation (the `# agent-device:target-v1`
+- `press`, `click`, and `longpress` steps do not wait for a missing target to appear. If a screen
+  needs time to load, add an explicit wait before the interaction, such as
+  `wait 'label="Continue"' 5000`.
+  Covered, off-screen, and ambiguous targets fail as they do in live commands.
+- When the target is missing, replay stops with `REPLAY_DIVERGENCE`.
+  For a step recorded with a target annotation (the `# agent-device:target-v1`
   line above it), `error.details.divergence.kind` is `selector-miss` and the step is never sent.
   For a step without an annotation, `error.details.reason` is `selector_not_found`, as for a live
-  command. If the app shows an empty accessibility tree during that wait, `error.details.reason`
-  is `capture_sparse` instead; take a snapshot to see where the app is.
+  command.
 - A step whose read names one element (`is` with a predicate other than `exists`/`absent`, or
   `get attrs`) that reaches dispatch with an ambiguous selector fails with `AMBIGUOUS_MATCH` as
   the divergence cause — the same code the live command reports, so an ambiguous recorded
@@ -4567,11 +4622,10 @@ Passing `--plan-digest` that no longer matches the current script — because yo
     which repeats until the element is actually on screen.
 - A `press` or `click` step fails because its target was not found, but the element is on the
   screenshot:
-  - A `selector-miss` divergence, or `error.details.readiness.end: expired`, means the element was
-    not in the accessibility tree for the whole 2-second wait: the selector is wrong for this
-    build, or the element is not exposed to accessibility. `readiness.end: sparse` means the app
-    showed an empty tree: the screen was mid-transition or the app had left. Add a `wait` step for
-    a landmark on the new screen before the press.
+  - A `selector-miss` divergence means the target was absent from the captured accessibility
+    tree. Check the selector for this build and whether the app exposes the element to
+    accessibility. Add a `wait` step for a landmark on a loading screen before
+    the press.
 
 
 
@@ -4604,7 +4658,7 @@ Keep the target binding, such as `--platform ios`, on the `replay` or `test` com
 
 - Flows: `launchApp` (with `clearState`, `permissions`, and Apple-only launch arguments; `permissions` apply after state clearing but before launch, and a `launchApp` without `permissions` touches nothing — there is no silent `all: allow` default); `setPermissions` (mid-flow permission grants, denials, and resets; `all` resolves in the backend — one simctl call on iOS, the declared permissions on Android — with specific entries overriding after it); `runFlow` file/inline; `runFlow.when` and `repeat.while` conditions (`platform`, `visible`, `notVisible`, and `true`, all re-evaluated before every `repeat` iteration); `onFlowStart`/`onFlowComplete`; `repeat` with `times`, `while`, or both; and retry.
 - Interactions: `tapOn`, `doubleTapOn`, `longPressOn`, `inputText` on the focused element, `eraseText`, `openLink`, `hideKeyboard`, basic `pressKey`, and `back`; selector targets poll until available and support recursive `index`, `childOf`, `above`, `below`, `leftOf`, `rightOf`, `containsChild`, `containsDescendants`, points, and `optional`; outer command labels are metadata, not target selectors.
-- Assertions and navigation: `assertVisible`, `assertNotVisible`, `assertTrue` (literal values and `${VAR}` lookups only; `""`, `"false"`, `"0"`, `"null"`, and `"undefined"` are falsy, everything else is truthy), `extendedWaitUntil`, `scroll`, `scrollUntilVisible`, absolute/percentage/target `swipe`, `takeScreenshot`, `waitForAnimationToEnd`, `clearState`, and `stopApp`.
+- Assertions and navigation: `assertVisible`, `assertNotVisible`, `assertTrue` (literal values and `${VAR}` lookups only; `""`, `"false"`, `"0"`, `"null"`, and `"undefined"` are falsy, everything else is truthy), `extendedWaitUntil`, `scroll`, `scrollUntilVisible`, absolute/percentage/target `swipe`, `takeScreenshot`, `waitForAnimationToEnd`, `clearState`, `stopApp`, and `killApp` (system-initiated process death: `am kill` on ADB-backed Android devices, which refuse a foreground target with `android-kill-requires-background-app` — background the app first, for example `pressKey: Home` — and fail a target whose process survives with `android-kill-process-survived`; iOS, Limrun, and WebDriver-provider backends run it as `stopApp`).
 - Scripts: ordered `runScript` file/env scripts with `http.post`, `json`, and `output` variables; `evalScript` inline expressions run flow-scoped JavaScript and write `output.*` leaves for later steps.
 
 ## Boundaries
@@ -5265,6 +5319,31 @@ snapshot was taken on instead of guessing it from the largest rect.
 
 For Android pixel units and density, see [Android node metadata](#android-node-metadata).
 
+## Presented surface
+
+`snapshot --json` reports `presentedSurface` — whether the capture saw a modal presentation over your
+app's own content: `"presented"`, `"absent"`, or `"unknown"`. Read it instead of counting windows in
+the tree to work out whether a sheet or alert was up.
+
+- `"presented"` means the capture saw the presentation directly — a dimming view, an alert's own
+  view classes, or an element typed as a sheet, drawer, alert, or dialog.
+- `"absent"` is an earned answer, not a default. The capture checked every window it read and each
+  one held only its own content. This is the answer you can act on, for example to confirm a tap
+  dismissed a sheet.
+- `"unknown"` means the capture could not tell, and it is not a hedge — it says the capture lacks the
+  evidence absence needs. Absence is only reachable from a capture that reads UIKit class names, so a
+  screen served by a backend that publishes none answers `"unknown"` even when nothing is presented.
+  That is the private accessibility backend (`snapshotQuality.backend: "private-ax"`, which `--actions`
+  asks for) and an Appium or Limrun tree. Never treat `"unknown"` as `"absent"`.
+- A physical iOS device has one capture backend, and it publishes no class names, so there the answer
+  is `"presented"` or `"unknown"` and never `"absent"`.
+- The field is absent entirely when the platform publishes no reading at all: Android, web, Linux,
+  and macOS captures.
+
+The answer describes the screen, not the view of it you asked for, so `--raw`, `-i`, `-d`, and
+`--scope` all report the same value for one screen. Use `-i` or a `--scope` to keep the output small
+and still trust the answer.
+
 ## iOS capture behavior
 
 iOS snapshots use XCTest on simulators and physical devices. You can't pick the capture backend. `--raw` switches between two strategies, and each strategy
@@ -5670,6 +5749,6 @@ url: /agent-device/pr-preview/pr-4/index.md
 - **Interactions by ref, selector, or finder**: Tap, pan, fling, pinch, rotate, scroll, focus, type, assert, and find visible UI through refs, selectors, and semantic finders.
 - **Debugging and profiling**: Collect logs, inspect network traffic, capture screenshots and recordings, and sample performance where the target supports it.
 - **Session and replay**: Keep app state across commands in a session, and replay recorded `.ad` scripts to reproduce flows without an AI agent.
-- **React Native internals**: Use `agent-device react-devtools` for component trees and render profiles, and `agent-device cdp` for JS heap snapshots, diffs, and leak retainers.
+- **React Native internals**: Use `agent-device react-devtools` to inspect React Native components and profile their renders, and `agent-device cdp` for JS heap snapshots, diffs, and leak retainers.
 
 

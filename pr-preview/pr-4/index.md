@@ -11,4 +11,4 @@
 - **Interactions by ref, selector, or finder**: Tap, pan, fling, pinch, rotate, scroll, focus, type, assert, and find visible UI through refs, selectors, and semantic finders.
 - **Debugging and profiling**: Collect logs, inspect network traffic, capture screenshots and recordings, and sample performance where the target supports it.
 - **Session and replay**: Keep app state across commands in a session, and replay recorded `.ad` scripts to reproduce flows without an AI agent.
-- **React Native internals**: Use `agent-device react-devtools` for component trees and render profiles, and `agent-device cdp` for JS heap snapshots, diffs, and leak retainers.
+- **React Native internals**: Use `agent-device react-devtools` to inspect React Native components and profile their renders, and `agent-device cdp` for JS heap snapshots, diffs, and leak retainers.
