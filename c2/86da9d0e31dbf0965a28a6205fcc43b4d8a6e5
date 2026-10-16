@@ -1,0 +1,25 @@
+packages/contracts/src/platform-runtime-operations.ts
+  s_fb4b5911a5b832::t_11e46006367f79 26
+packages/contracts/src/facades/device.ts
+  s_fb4b5911a5b832::t_11e46006367f79 63
+packages/contracts/src/device-rotation.ts
+  s_fb4b5911a5b832::t_0da8af7df6f749 211-213
+packages/contracts/src/telephony-runtime.ts
+  s_fb4b5911a5b832::t_11e46006367f79 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c286da9d0e31dbf0965a28a6205fcc43b4d8a6e5",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
