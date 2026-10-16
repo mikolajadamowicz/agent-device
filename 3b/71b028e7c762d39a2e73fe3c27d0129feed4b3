@@ -1,0 +1,20 @@
+test/integration/command-coverage/declarations.ts
+  s_fb4b5911a5b832::t_12958b6bd7ab45 559
+  s_fb4b5911a5b832::t_ea06ccd08ea991 560-562
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3b71b028e7c762d39a2e73fe3c27d0129feed4b3",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
