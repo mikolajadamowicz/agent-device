@@ -64,7 +64,6 @@ agent-device screenshot page.png         # Save to a specific path
 agent-device install com.example.app ./build/app.apk     # Install the app, keeping app data where supported
 agent-device install-from-source https://example.com/builds/app.apk --platform android
 agent-device reinstall com.example.app ./build/app.apk   # Uninstall, then install with fresh state
-agent-device uninstall com.example.app                   # Remove the app; succeeds if it is already gone
 agent-device shutdown --platform android --device Pixel_9_Pro_XL
 agent-device close
 ```
