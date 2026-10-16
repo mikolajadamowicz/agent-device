@@ -8,6 +8,7 @@ packages/platform-android/src/device-sdk-int.ts
   7203e0e5052a014d 1-18
 packages/contracts/src/settings.test.ts
   7203e0e5052a014d 73-76,91
+  s_7918cddea2ba7d::t_03cda0dbf67481 44,59
 packages/platform-android/src/inventory.test.ts
   7203e0e5052a014d 114-139
 packages/platform-android/src/runtime.ts
@@ -47,5 +48,15 @@ packages/platform-android/src/settings.ts
   "schema_version": "authorship/3.0.0",
   "git_ai_version": "1.7.5",
   "base_commit_sha": "88447b03fbcd62dd9a81913e016611b5de3f3571",
-  "prompts": {}
+  "prompts": {},
+  "sessions": {
+    "s_7918cddea2ba7d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f3aa2b9-1f3a-410d-9b78-ab4cfee4c8e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
 }
