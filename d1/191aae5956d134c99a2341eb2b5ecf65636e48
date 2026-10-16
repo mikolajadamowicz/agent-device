@@ -1,0 +1,21 @@
+website/docs/docs/commands.md
+  s_fb4b5911a5b832::t_0da8af7df6f749 129
+src/commands/system/index.ts
+  s_fb4b5911a5b832::t_0da8af7df6f749 679
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d1191aae5956d134c99a2341eb2b5ecf65636e48",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
