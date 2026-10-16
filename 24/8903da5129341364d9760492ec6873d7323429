@@ -1,0 +1,127 @@
+packages/contracts/src/platform-runtime-operations.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 26,81,117
+packages/contracts/src/facades/client.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 124
+packages/platform-vega/src/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 156-159,206
+packages/contracts/src/device-rotation-telephony.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-68
+packages/platform-android/src/telephony/emulator-console.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-85
+packages/session-journal/src/__tests__/session-event-action.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 303-330
+packages/contracts/src/device-rotation.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 209-335
+packages/provider-webdriver/src/platform-runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 225-230,495,519,631
+packages/contracts/src/facades/device.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 48-53,61-63
+test/integration/provider-scenarios/provider-device-runtime.fixtures.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 276-277
+packages/daemon/src/core/runtime-operation-effects.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 86
+packages/provider-limrun/src/app-log-runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 6,122
+packages/platform-web/src/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 418
+packages/daemon/src/execution/telephony-runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-71
+packages/platform-linux/src/runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 225-226
+packages/provider-limrun/src/facts-runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 26,190,254
+src/platform-runtime-gateway.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 60,159
+packages/daemon/src/sessions/handlers/__tests__/install-source.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 468
+packages/daemon/src/sessions/handlers/__tests__/session-boot.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 489
+packages/platform-android/src/telephony/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-39
+packages/contracts/package.json
+  s_fb4b5911a5b832::t_9c17a364dbe486 515-518
+packages/contracts/src/runtime-operation-names.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 79
+packages/command-registry/src/command-result.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 10,86
+packages/platform-linux/src/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 209
+packages/contracts/src/client-system.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 8,104
+src/commands/system/index.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 3-6,18-23,82,158-180,256,310-312,402-426,463-469,503-507,538-541,664-678,692
+packages/platform-apple/src/runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 377-397
+packages/platform-harmonyos/src/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 251-252
+packages/platform-android/src/telephony/emulator-console.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-61
+packages/provider-limrun/src/interaction-operations.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 327-335,341-343
+packages/platform-android/src/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 55,352,480-481
+packages/platform-apple/src/runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 107-111,317
+packages/daemon/src/execution/generic-runtime-execution.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 48,106-117
+src/agent-device-client.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 175-176
+src/commands/system/index.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 10,15,28-29,387-444
+packages/daemon/src/sessions/handlers/__tests__/session-appstate-device-runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 74
+packages/platform-android/src/runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 249-273
+packages/session-journal/src/session-event-action-presentation.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 2,46-47,95-96,190-202
+packages/platform-apple/src/runner-demand.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 56-57
+src/commands/system/output.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 55
+website/docs/docs/client-api.md
+  s_fb4b5911a5b832::t_9c17a364dbe486 202-203,238
+packages/test-kit/src/runtime-operation-facts.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 72
+packages/platform-harmonyos/src/runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 105-106
+packages/contracts/src/telephony-runtime.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-20
+website/docs/docs/commands.md
+  s_fb4b5911a5b832::t_9c17a364dbe486 61-63,126-132
+packages/contracts/src/platform-runtime-unavailable.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 61,118,241-243,245
+packages/platform-android/src/telephony/runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-91
+packages/daemon/src/execution/__tests__/telephony-runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-173
+CHANGELOG.md
+  s_fb4b5911a5b832::t_9c17a364dbe486 13
+packages/platform-web/src/runtime.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 220-221
+packages/contracts/src/platform-runtime-unavailable.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 49
+packages/command-registry/src/registry.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 46,1518-1532
+packages/command-registry/src/__tests__/command-result.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 10,64,95,138
+test/integration/provider-scenarios/android-telephony.test.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 1-152
+src/client/client-types.ts
+  s_fb4b5911a5b832::t_9c17a364dbe486 130,175
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "248903da5129341364d9760492ec6873d7323429",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
