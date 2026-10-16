@@ -1,0 +1,44 @@
+CHANGELOG.md
+  s_fb4b5911a5b832::t_69b1be140b68b6 10
+packages/daemon/src/execution/telephony-runtime.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 54
+packages/platform-apple/src/runtime.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 377
+src/commands/system/index.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 308,412,424-428,431-434,675,677
+  s_fb4b5911a5b832::t_3ef680cd28cacd 429-430
+website/docs/docs/commands.md
+  s_fb4b5911a5b832::t_69b1be140b68b6 129-130
+packages/daemon/src/core/__tests__/daemon-command-registry.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 170
+src/commands/system/index.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 409
+packages/platform-android/src/emulator-console.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 9,18
+packages/contracts/src/device-rotation.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 220,227-228,230,237
+packages/session-journal/src/__tests__/session-event-action.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 320-323
+test/integration/provider-scenarios/android-telephony.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 123,145,150
+packages/contracts/src/device-rotation-telephony.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 17-20,52,58
+packages/platform-android/src/emulator-console.test.ts
+  s_fb4b5911a5b832::t_69b1be140b68b6 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "91d859f18daeeeb8d0ac478290dd037aa3529fc4",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
