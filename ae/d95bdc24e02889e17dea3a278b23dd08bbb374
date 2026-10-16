@@ -1,0 +1,19 @@
+packages/contracts/src/facades/device.ts
+  s_fb4b5911a5b832::t_fb3bdf21320636 61,64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aed95bdc24e02889e17dea3a278b23dd08bbb374",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
