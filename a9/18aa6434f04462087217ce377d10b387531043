@@ -1,0 +1,578 @@
+src/commands/interaction/runtime/selector-action-resolution.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8
+packages/react-native/src/react-devtools/metro-inspector.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-281
+packages/remote/src/remote-config-core.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-129
+src/cli/commands/connection-presentation.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-4
+scripts/__tests__/help-conformance-sample-producers.ts
+  s_03ce48ad99216d::t_5fa083748223b7 39
+test/integration/provider-scenarios/remote-daemon-client.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8
+packages/remote/package.json
+  s_03ce48ad99216d::t_5fa083748223b7 1-43
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-runtime-maestro-shell-artifacts.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8
+packages/remote/src/__tests__/upload-client-cancellation.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-199
+scripts/check-affected/host-lock.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-74
+src/cli/commands/connection-runtime.ts
+  s_03ce48ad99216d::t_5fa083748223b7 4-5,9,22
+test/integration/provider-scenarios/harness.ts
+  s_03ce48ad99216d::t_5fa083748223b7 33
+packages/react-native/src/react-devtools/react-devtools-runtime.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-458
+scripts/check-affected/execution.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-79
+packages/react-native/package.json
+  s_03ce48ad99216d::t_5fa083748223b7 1-22
+scripts/check-affected/command-execution.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-122
+src/cli.ts
+  s_03ce48ad99216d::t_5fa083748223b7 45
+src/commands/capture/runtime/diff-screenshot.ts
+  s_03ce48ad99216d::t_5fa083748223b7 19-20
+packages/react-native/src/metro/metro-session-hints.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-138
+scripts/check-affected/run.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 168
+test/integration/provider-scenarios/remote-test-artifacts-materialization.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 18
+packages/daemon/src/__tests__/support/touch-command-surface-fake.ts
+  s_03ce48ad99216d::t_5fa083748223b7 26-32,36-39,50-55,81-104,107-136,140,145-151,169,199,205,207,213,215,219,222,230,236-243,247,259,272,336-338,341,354-361,363-375,377-379,382,385-405,412-413,415-417,420,423-424,428,438-442,551,557-559,588,591,593-607
+packages/react-native/src/metro/client-metro-startup-cleanup.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-206
+src/__tests__/remote-connection-proxy-lease-id.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 12-14,18
+scripts/check-affected/command.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-40
+packages/remote/src/remote-config-schema.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-127
+oxlint.config.ts
+  s_03ce48ad99216d::t_5fa083748223b7 128-129
+packages/daemon/src/execution/interaction/internal/interaction-settle-private-ax-route.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 15,65
+docs/agents/code-ownership.md
+  s_03ce48ad99216d::t_5fa083748223b7 1-42
+packages/remote/src/__tests__/daemon-artifacts-save-script.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-63
+packages/remote/src/upload-client-artifact.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-111
+src/__tests__/remote-connection-harmonyos.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 14
+src/provider-credential-fingerprint.ts
+  s_03ce48ad99216d::t_5fa083748223b7 7-8
+packages/remote/src/__tests__/daemon-artifacts-test-command.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-83
+packages/remote/src/upload-client.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-421
+packages/react-native/tsconfig.json
+  s_03ce48ad99216d::t_5fa083748223b7 1-30
+docs/agents/selector-capture.md
+  s_03ce48ad99216d::t_5fa083748223b7 38-47
+docs/agents/test-experiments.md
+  s_03ce48ad99216d::t_5fa083748223b7 1-44
+scripts/layering/package-boundaries.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 532-533,535
+packages/platform-android/src/__tests__/fill-verification.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 121-123,141
+src/__tests__/cli-close.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 12
+scripts/check-affected/test-report.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-61
+packages/capture-kit/src/screenshot-diff-region-overlay.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-69
+packages/daemon/src/__tests__/support/handlers/session-command-harness.ts
+  s_03ce48ad99216d::t_5fa083748223b7 31
+packages/daemon/src/__tests__/support/snapshot-runtime-fixture.ts
+  s_03ce48ad99216d::t_5fa083748223b7 183
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-script-source.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 28
+packages/react-native/src/react-devtools/react-component.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-44
+packages/react-native/src/react-devtools/react-devtools-inspect-command.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-251
+packages/react-native/src/react-devtools/react-profile-renders.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-118
+fallow-baselines/health.json
+  s_03ce48ad99216d::t_5fa083748223b7 23,121
+packages/react-native/src/metro/client-metro.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-1117
+src/cli/connection/limrun-profile.ts
+  s_03ce48ad99216d::t_5fa083748223b7 2
+src/cli/connection/ended-lease.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8
+src/cli/commands/plugins.ts
+  s_03ce48ad99216d::t_5fa083748223b7 2
+packages/selectors/src/interaction-targeting.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 23
+scripts/check-affected/host-lock.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-149
+packages/react-native/src/companion/client-companion-tunnel-worker.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-608
+packages/capture-kit/src/screenshot-diff-region-types.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-13
+packages/daemon/src/server/request-diagnostics-http.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+packages/react-native/src/react-devtools/react-devtools-output.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-4
+packages/capture-kit/src/screenshot-diff-region-split.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-199
+packages/provider-limrun/src/interaction-operations.ts
+  s_03ce48ad99216d::t_5fa083748223b7 362
+test/integration/remote-connection-process-isolation.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 6
+src/commands/management/app.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 13-14,170,178-189,193,204,213,224
+packages/react-native/src/react-devtools/react-profile-analysis.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-488
+packages/platform-android/src/runtime.ts
+  s_03ce48ad99216d::t_5fa083748223b7 360
+src/__tests__/lease-provider-profile-fields.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 19
+src/__tests__/daemon-composition/request-router-fill-text-stdin.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 23
+src/cli/connection/proxy-profile.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1
+packages/contracts/src/client-settings.ts
+  s_03ce48ad99216d::t_5fa083748223b7 46-51
+packages/contracts/src/facades/remote.ts
+  s_03ce48ad99216d::t_5fa083748223b7 29
+packages/react-native/src/metro/base-url.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-7
+src/cli/connection/generated-config.ts
+  s_03ce48ad99216d::t_5fa083748223b7 4,8
+packages/react-native/src/react-devtools/react-component-tree.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-277
+packages/react-native/src/index-react-inspect.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-168
+package.json
+  s_03ce48ad99216d::t_5fa083748223b7 148,180,308,313-314
+packages/react-native/src/companion/client-companion-tunnel-worker.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-224
+src/agent-device-client.ts
+  s_03ce48ad99216d::t_5fa083748223b7 64-65,70,225,282-289,370-373,379-383
+src/cli/connection/connect-provider-adapters.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8,18-19
+packages/remote/src/__tests__/upload-client.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-984
+src/cli/commands/react-devtools.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-57
+docs/agents/pull-requests.md
+  s_03ce48ad99216d::t_5fa083748223b7 1,3-4,6,8-12,14-16,18-19,21,23,25,27-30,32-34,36,38-41,43-44,48-55
+src/cli/connection/ended-lease.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 10
+test/wire-compat/closure-policy.ts
+  s_03ce48ad99216d::t_5fa083748223b7 52,54
+packages/react-native/src/metro/base-url.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-15
+packages/react-native/src/react-devtools/react-component-inspect.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-126
+packages/react-native/src/metro/metro-reload-endpoints.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-95
+src/cli/connection/provider-policy.ts
+  s_03ce48ad99216d::t_5fa083748223b7 3-7
+src/commands/output/diff.ts
+  s_03ce48ad99216d::t_5fa083748223b7 4-5
+src/daemon-client/daemon-client.ts
+  s_03ce48ad99216d::t_5fa083748223b7 17
+packages/plugins/package.json
+  s_03ce48ad99216d::t_5fa083748223b7 1-38
+packages/plugins/tsconfig.json
+  s_03ce48ad99216d::t_5fa083748223b7 1-20
+packages/react-native/src/react-devtools/react-profile-format.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-190
+packages/remote/src/upload-stream.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-277
+packages/react-native/src/companion/client-metro-companion.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-561
+packages/capture-kit/src/screenshot-diff-regions.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-310
+scripts/check-affected/command-execution.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-119
+test/wire-compat/wire-mutations.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 190,197,204,211,218,225,232,244,251,258,265,272,279,345
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-runtime-maestro-dispatch.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 10
+packages/react-native/src/react-devtools/react-component-tree.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-151
+packages/remote/src/daemon-artifacts.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-444
+packages/daemon/src/server/__tests__/atomic-publish-ownership.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 15
+packages/react-native/src/metro/bundle-url.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-13
+packages/daemon/src/__tests__/support/test-device-runtime-gateway.ts
+  s_03ce48ad99216d::t_5fa083748223b7 28
+packages/react-native/src/react-devtools/react-profile-command.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-325
+test/integration/installed-package-metro.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 235
+src/cli/commands/react-devtools.ts
+  s_03ce48ad99216d::t_5fa083748223b7 2,9
+packages/react-native/src/metro/bundle-url.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-21
+packages/remote/src/__tests__/remote-config-public.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-48
+packages/react-native/src/react-devtools/react-profile-renders.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-389
+src/sdk/plugins.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1
+src/__tests__/remote-connection-proxy-allocate-by-spec.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 16-18,22
+src/__tests__/cli-react-devtools-session.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 17
+packages/react-native/src/companion/client-companion-tunnel-contract.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-34
+packages/daemon/src/__tests__/support/replay-script-source-fixture.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-76
+scripts/check-affected/run.ts
+  s_03ce48ad99216d::t_5fa083748223b7 11,17,38-45,49-50,58-59,66-67,189,197-198,201,211,217-219,223,227,230,233,263,268-308,310-315
+scripts/check-affected/test-report.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-66
+packages/react-native/src/metro/metro-types.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-36
+src/cli/commands/connection-runtime-metro-teardown.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-92
+packages/daemon/src/server/__tests__/request-router-open.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 10
+packages/react-native/src/react-devtools/react-profile-format.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-215
+packages/capture-kit/package.json
+  s_03ce48ad99216d::t_5fa083748223b7 241-248,253-256
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime-failure.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 19
+docs/agents/gates.md
+  s_03ce48ad99216d::t_5fa083748223b7 1-23
+examples/sdk/tsconfig.json
+  s_03ce48ad99216d::t_5fa083748223b7 54,60-61
+packages/capture-kit/src/screenshot-diff.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-545
+packages/replay-port/src/daemon-port/__tests__/target-classification.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 15-17
+scripts/check-affected/execution.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-46
+scripts/check-affected/execution.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-221
+packages/plugins/src/store.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-152
+packages/react-native/src/metro/metro-session-hints.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-170
+docs/agents/device-foldable.md
+  s_03ce48ad99216d::t_5fa083748223b7 1-24
+packages/daemon/src/execution/interaction/internal/interaction-dispatch-disclosure.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 40,65
+src/__tests__/cloud-connect-testmu.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9,13,16,18,24
+packages/react-native/src/react-devtools/react-devtools-runtime.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-468
+docs/agents/test-authoring.md
+  s_03ce48ad99216d::t_5fa083748223b7 1-47
+packages/host-kit/src/internal/path-resolution.ts
+  s_03ce48ad99216d::t_5fa083748223b7 36
+packages/remote/src/remote-config.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1
+packages/remote/src/__tests__/artifact-download.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-194
+src/cli/connection/cloud-profile.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1
+src/cli/connection/provider-policy.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 7
+test/integration/provider-scenarios/remote-proxy-request-diagnostics.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 22
+src/cli/commands/connection-context.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+scripts/__tests__/agent-guidance-contract.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9-10,12
+packages/remote/src/upload-progress.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-110
+packages/react-native/src/companion/metro-tunnel-messages.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-76
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-command-trust.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 15
+packages/react-native/src/metro/client-metro-auto-companion.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-533
+packages/react-native/src/react-devtools/react-devtools-command.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-45
+packages/react-native/src/react-devtools/react-component.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-22
+packages/daemon/src/execution/interaction/internal/interaction-settle.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 30,148,152
+website/docs/docs/commands.md
+  s_03ce48ad99216d::t_5fa083748223b7 435,635-636,683-685,710
+website/docs/docs/security-trust.md
+  s_03ce48ad99216d::t_5fa083748223b7 51-52
+scripts/layering/architecture-ownership.ts
+  s_03ce48ad99216d::t_5fa083748223b7 120
+src/commands/schema/cli-help.ts
+  s_03ce48ad99216d::t_5fa083748223b7 171
+packages/daemon/src/execution/interaction/internal/interaction-common.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 19,166,224,330
+src/agent-device-client-metro.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-378
+packages/daemon/src/execution/interaction/internal/interaction-ios-tap-outcome.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 21
+packages/test-kit/src/index.ts
+  s_03ce48ad99216d::t_5fa083748223b7 54-64,107-114
+tsconfig.typecheck.json
+  s_03ce48ad99216d::t_5fa083748223b7 25,31-32
+packages/host-kit/src/internal/exec.ts
+  s_03ce48ad99216d::t_5fa083748223b7 40-41,194-195,272,278
+packages/platform-android/src/__tests__/settings.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1,5,493-654
+packages/react-native/src/companion/client-companion-tunnel-worker.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-915
+test/integration/provider-scenarios/remote-test-artifacts-directory.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 20
+vitest.config.ts
+  s_03ce48ad99216d::t_5fa083748223b7 2,7-9,14-15,113-116,323
+packages/capture-kit/src/screenshot-diff-overlay-matches.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-59
+src/cli/remote-config-flags.ts
+  s_03ce48ad99216d::t_5fa083748223b7 5-6
+packages/daemon/src/core/__tests__/request-ended-leases.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 6
+packages/plugins/src/manifest.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-128
+packages/react-native/src/companion/client-companion-tunnel.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-510
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-session-address.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+src/commands/capture/settings.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 96,98-115
+  s_03ce48ad99216d::t_49e8b07a84479a 95,97
+src/daemon-client/__tests__/daemon-client.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 23
+scripts/check-affected/run-cli.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-95
+src/sdk/remote-config.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-2
+packages/daemon/src/sessions/handlers/__tests__/session-command-replay.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+website/docs/docs/limrun.md
+  s_03ce48ad99216d::t_5fa083748223b7 76
+packages/replay-port/src/daemon-port/test-command.ts
+  s_03ce48ad99216d::t_5fa083748223b7 297
+packages/react-native/src/index-react-profile.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-306
+packages/replay-test/src/internal/session-test-artifacts.ts
+  s_03ce48ad99216d::t_5fa083748223b7 7
+packages/selectors/src/selector-pipeline.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 18
+packages/capture-kit/src/screenshot-diff-components.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-99
+src/commands/schema/option-schema.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 14
+src/__tests__/remote-connection-macos-app.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+packages/react-native/src/react-devtools/react-component-inspect.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-166
+packages/plugins/src/manifest.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-86
+packages/remote/src/artifact-download.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-193
+packages/plugins/src/load.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-163
+scripts/check-affected/checkout-state.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-76
+scripts/layering/daemon-modularity.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 660
+src/cli/commands/connection-context.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8
+packages/capture-kit/src/screenshot-diff.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-205
+tsdown.config.ts
+  s_03ce48ad99216d::t_5fa083748223b7 59-60,112
+src/__tests__/cloud-connect-profile.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 14
+packages/react-native/src/index-react-command-routing.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-31
+test/wire-compat/ledger.json
+  s_03ce48ad99216d::t_5fa083748223b7 147-183,208,213,218,318,323,413,418,428,433,438,443,448,453,478
+packages/daemon/src/sessions/__tests__/replay-runtime/session-replay-runtime.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 7
+packages/remote/src/__tests__/remote-connection-state.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-280
+src/cli/commands/connection.ts
+  s_03ce48ad99216d::t_5fa083748223b7 6,19
+packages/contracts/src/companion-tunnel-scope.ts
+  s_03ce48ad99216d::t_5fa083748223b7 2-3
+packages/react-native/src/metro/metro-reload-endpoints.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-69
+packages/react-native/src/react-devtools/react-profile-renders.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-46
+src/__tests__/test-utils/replay-script-source.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-45
+src/__tests__/cli-agent-cdp-session.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 21
+packages/daemon/src/server/__tests__/replay-device-selection.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 15
+src/sdk/metro.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-11
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-runtime-maestro.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 55
+src/daemon-client/daemon-client-rpc.ts
+  s_03ce48ad99216d::t_5fa083748223b7 11-12
+src/cli/commands/react-devtools-connection.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-70
+packages/test-kit/src/interaction-targeting.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-448
+docs/agents/device-verification.md
+  s_03ce48ad99216d::t_5fa083748223b7 1,3,5,7-15,17,19-21,23-26,28,30-31,33,35-39,41-45,47,49-54,56-59,61-62
+packages/react-native/src/react-devtools/react-devtools-runtime.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-301
+docs/agents/test-audit.md
+  s_03ce48ad99216d::t_5fa083748223b7 1,3-4,6,8-11,15,17-21,23-25,27,29-32,34-35
+packages/react-native/src/index-metro.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-621
+AGENTS.md
+  s_03ce48ad99216d::t_5fa083748223b7 3-4,8,14-20,22-24,28-29,31,33,35-42,44,46-52,54-55,57,59-61
+src/__tests__/daemon-composition/request-router-replay-test-ime.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 41
+packages/remote/tsconfig.json
+  s_03ce48ad99216d::t_5fa083748223b7 1-21
+CONTRIBUTING.md
+  s_03ce48ad99216d::t_5fa083748223b7 220-224,245-246
+packages/plugins/src/connection.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-34
+packages/daemon/src/sessions/handlers/__tests__/session-replay-command.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 17
+packages/react-native/src/index.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-100
+packages/selectors/package.json
+  s_03ce48ad99216d::t_5fa083748223b7 7,85
+scripts/check-affected/checkout-state.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-60
+scripts/layering/model.ts
+  s_03ce48ad99216d::t_5fa083748223b7 114
+src/commands/capture/runtime/snapshot.ts
+  s_03ce48ad99216d::t_5fa083748223b7 38
+packages/selectors/tsconfig.json
+  s_03ce48ad99216d::t_5fa083748223b7 17-18
+docs/adr/0019-request-bound-platform-runtime.md
+  s_03ce48ad99216d::t_5fa083748223b7 993-997,1004,1007-1009
+packages/plugins/src/store.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-206
+packages/test-kit/src/metro-process.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-74
+src/cli/commands/__tests__/connection.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 13
+src/cli/commands/screenshot.ts
+  s_03ce48ad99216d::t_5fa083748223b7 3
+src/commands/interaction/runtime/__tests__/test-utils/index.ts
+  s_03ce48ad99216d::t_5fa083748223b7 15
+src/cli/commands/proxy-lease-device.ts
+  s_03ce48ad99216d::t_5fa083748223b7 14
+.fallowrc.json
+  s_03ce48ad99216d::t_5fa083748223b7 6,27,98
+packages/plugins/src/load.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-152
+packages/daemon/src/sessions/__tests__/replay-suite/session-test-suite-command-video.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 17
+packages/platform-android/src/settings.ts
+  s_03ce48ad99216d::t_5fa083748223b7 3-4,29,43,92,106-108,296-374
+  s_03ce48ad99216d::t_65323bd567646a 375
+src/commands/capture/settings.ts
+  s_03ce48ad99216d::t_5fa083748223b7 39
+packages/react-native/src/react-devtools/metro-inspector.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-336
+docs/agents/testing.md
+  s_03ce48ad99216d::t_5fa083748223b7 1,3,5,7-9,11-14,16-17,19-23,25-27,29,31-33,35-38,40,42,44-50,52-55
+packages/plugins/src/host.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-21
+src/__tests__/remote-connection.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 19-21,36,43,1051,1665,1723,2020
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-error-projection.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+test/integration/provider-scenarios/cloud-webdriver-provider-adapters.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 29
+packages/daemon/src/sessions/__tests__/replay-runtime/application.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 14
+src/__tests__/cli-config-limrun.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+packages/daemon/src/execution/interaction/internal/interaction-target-evidence.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 19,47,141
+packages/daemon/src/sessions/__tests__/replay-maestro/session-replay-maestro-remote-evalscript.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 10
+test/wire-compat/surface.ts
+  s_03ce48ad99216d::t_5fa083748223b7 57,63-66,383
+src/__tests__/remote-connection.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+packages/daemon/src/execution/interaction/internal/interaction-capture-disclosure.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 17,59,112,172
+packages/remote/src/remote-request-diagnostics.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-220
+src/commands/schema/cli-help-topics.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 296-304
+packages/contracts/src/remote-config-fields.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1,133-146
+src/__tests__/remote-connection-platform-axis.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 25
+packages/remote/src/remote-connection-state.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-527
+packages/react-native/src/companion/client-metro-companion.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-35
+packages/react-native/src/react-devtools/react-profile-analysis.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-548
+packages/react-native/src/companion/companion-tunnel.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-12
+src/__tests__/cloud-connect-auth.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 8
+src/provider-device-runtimes.ts
+  s_03ce48ad99216d::t_5fa083748223b7 54-55
+docs/agents/review.md
+  s_03ce48ad99216d::t_5fa083748223b7 1-28
+test/integration/provider-scenarios/remote-proxy-artifact-tenant.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 16
+packages/daemon/src/server/__tests__/request-router-replay-env.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+src/__tests__/cli-config.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 9
+src/__tests__/provider-device-runtimes.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 3,5,120-124
+packages/contracts/src/settings.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 44,59,241-247
+  s_03ce48ad99216d::t_fe585aaf23cfa0 248-250
+packages/contracts/src/settings-catalog.ts
+  s_03ce48ad99216d::t_5fa083748223b7 108-113
+packages/remote/src/__tests__/remote-request-diagnostics.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-181
+packages/host-kit/src/internal/exec.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 626-647
+packages/react-native/src/react-devtools/react-devtools-text.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-13
+packages/test-kit/src/metro-session.fixtures.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-22
+packages/daemon/src/execution/handlers/__tests__/snapshot-settings-handler.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 640-683
+scripts/check-affected/command.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-30
+packages/remote/src/__tests__/upload-progress.test.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-107
+packages/react-native/src/react-devtools/react-devtools-connection.ts
+  s_03ce48ad99216d::t_5fa083748223b7 1-206
+CHANGELOG.md
+  s_03ce48ad99216d::t_5fa083748223b7 6
+src/core/interactors/android.ts
+  s_03ce48ad99216d::t_5fa083748223b7 128
+pnpm-lock.yaml
+  s_03ce48ad99216d::t_21acbbf2357fe9 73-75,88-93,587-605,693-733,801-803,2404,2410,2416,2422,2429,2436,2443,2450,2457,2464,2470,2476,2482,2488,2494,2500,2507,2514,2521,2528,2535,2542,2548,2554
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a918aa6434f04462087217ce377d10b387531043",
+  "prompts": {},
+  "sessions": {
+    "s_03ce48ad99216d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66e6aec9-b514-4d3b-a1eb-b0ad594faf7a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
