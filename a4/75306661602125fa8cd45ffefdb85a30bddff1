@@ -1,0 +1,25 @@
+packages/platform-android/src/telephony/console-event.ts
+  s_fb4b5911a5b832::t_d081025caaf648 8
+CHANGELOG.md
+  s_fb4b5911a5b832::t_d081025caaf648 10
+src/commands/system/index.ts
+  s_fb4b5911a5b832::t_d081025caaf648 409-411
+website/docs/docs/commands.md
+  s_fb4b5911a5b832::t_d081025caaf648 131-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a475306661602125fa8cd45ffefdb85a30bddff1",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
