@@ -1,0 +1,25 @@
+website/docs/docs/commands.md
+  s_1458c003fd3ca4::t_d1acad703606f7 675
+packages/provider-limrun/src/interaction-operations.ts
+  s_1458c003fd3ca4::t_62d5952a8f3d9e 362
+packages/platform-android/src/settings.ts
+  s_1458c003fd3ca4::t_d1acad703606f7 300-301
+packages/contracts/src/client-settings.ts
+  s_1458c003fd3ca4::t_d1acad703606f7 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28106dd3543750c0c89de417d54df1ce13dbd83b",
+  "prompts": {},
+  "sessions": {
+    "s_1458c003fd3ca4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7fdf91d9-6522-4fba-acff-11bbe68532d8",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
