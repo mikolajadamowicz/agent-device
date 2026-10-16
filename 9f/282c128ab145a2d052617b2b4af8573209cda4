@@ -1,0 +1,21 @@
+packages/provider-limrun/src/interaction-operations.ts
+  s_abfaf83846ea1b::t_8b0cc18070b3d9 362
+website/docs/docs/commands.md
+  s_abfaf83846ea1b::t_b8e078dff7fbf1 675
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9f282c128ab145a2d052617b2b4af8573209cda4",
+  "prompts": {},
+  "sessions": {
+    "s_abfaf83846ea1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "45b50132-ea4f-4526-8c8c-c8e098e341b6",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
