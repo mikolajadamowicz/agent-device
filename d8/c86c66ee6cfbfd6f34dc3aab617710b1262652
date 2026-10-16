@@ -1,0 +1,23 @@
+packages/platform-android/src/__tests__/settings.test.ts
+  s_1458c003fd3ca4::t_f42c2cb86fdac7 549-553,556-557,560,574-575,579-582,624,632-634
+packages/platform-android/src/settings.ts
+  s_1458c003fd3ca4::t_f1f80d72053ae9 30,328-342
+packages/contracts/src/settings-catalog.ts
+  s_1458c003fd3ca4::t_f1f80d72053ae9 112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d8c86c66ee6cfbfd6f34dc3aab617710b1262652",
+  "prompts": {},
+  "sessions": {
+    "s_1458c003fd3ca4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7fdf91d9-6522-4fba-acff-11bbe68532d8",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
