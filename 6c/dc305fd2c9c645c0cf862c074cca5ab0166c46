@@ -1,0 +1,31 @@
+CHANGELOG.md
+  s_03ce48ad99216d::t_ab956e37d91506 5
+website/docs/docs/commands.md
+  s_03ce48ad99216d::t_ab956e37d91506 307
+packages/platform-android/src/deployment/runtime.test.ts
+  s_03ce48ad99216d::t_8d44829b147340 234
+  s_03ce48ad99216d::t_26160dfab43668 238-245,254
+packages/platform-android/src/deployment/runtime.ts
+  s_03ce48ad99216d::t_425e7e0ecfff0a 73-75
+  s_03ce48ad99216d::t_0575da16273481 72,76
+packages/daemon/src/sessions/handlers/__tests__/session-uninstall.test.ts
+  s_03ce48ad99216d::t_26160dfab43668 5,37,39-46,48-52,54-61,63,65-74,77,79-86,99
+  s_03ce48ad99216d::t_00479d3c043475 18-23
+  s_03ce48ad99216d::t_ef631a052ff112 36,47,53,64,75-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6cdc305fd2c9c645c0cf862c074cca5ab0166c46",
+  "prompts": {},
+  "sessions": {
+    "s_03ce48ad99216d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66e6aec9-b514-4d3b-a1eb-b0ad594faf7a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
