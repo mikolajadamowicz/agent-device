@@ -1,0 +1,22 @@
+test/integration/smoke-linux-coverage.test.ts
+  s_fb4b5911a5b832::t_eb091a3cfa75bd 131
+test/integration/command-coverage/declarations.ts
+  s_fb4b5911a5b832::t_12958b6bd7ab45 559
+  s_fb4b5911a5b832::t_ea06ccd08ea991 560-562
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "39dd9dce2d1514784e0d837434361c21117f2ed8",
+  "prompts": {},
+  "sessions": {
+    "s_fb4b5911a5b832": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9804be62-7dd9-404d-ae4a-33d808dabf32",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}
