@@ -9,7 +9,7 @@
 <script defer src="/agent-device/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/static/js/index.5a0e877a86.js"></script>
+<script defer src="/agent-device/static/js/index.ae147f1967.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -311,7 +311,7 @@ without request or response bodies.</p>
 <ul>
 <li><code>client.devices.list()</code>, <code>capabilities()</code>, <code>boot()</code>, <code>shutdown()</code></li>
 <li><code>client.sessions.list()</code>, <code>stateDir()</code>, <code>close()</code>, <code>saveScript()</code>, <code>artifacts()</code></li>
-<li><code>client.apps.install()</code>, <code>reinstall()</code>, <code>installFromSource()</code>, <code>list()</code>, <code>open()</code>, <code>close()</code>, <code>push()</code>, <code>triggerEvent()</code></li>
+<li><code>client.apps.install()</code>, <code>reinstall()</code>, <code>uninstall()</code>, <code>installFromSource()</code>, <code>list()</code>, <code>open()</code>, <code>close()</code>, <code>push()</code>, <code>triggerEvent()</code></li>
 <li><code>client.materializations.release()</code></li>
 <li><code>client.leases.allocate()</code>, <code>heartbeat()</code>, <code>release()</code>. Pass <code>retainOnClose: true</code> to <code>allocate()</code> when you release the lease yourself; session <code>close</code> then leaves it active until <code>release()</code>, expiry, or daemon shutdown. The returned lease has <code>retainOnClose: true</code> only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its <code>ttlMs</code> like any other lease. Pass <code>leaseId</code> (16 to 128 hex characters) to <code>allocate()</code> to name a new lease with an id the daemon has never issued, or to get back your live lease with that id when you retry with the same tenant, run, client, lease backend, and provider (and no device, or the leased one), then use the returned <code>leaseId</code>: a run that already holds a lease gets that one back, and an older daemon mints its own.</li>
 <li><code>client.metro.prepare()</code>, <code>reload()</code></li>

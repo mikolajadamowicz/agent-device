@@ -300,7 +300,7 @@ agent-device snapshot -i --platform apple --target desktop
 - Prefer selectors and `@ref`s; window positions shift between runs, so raw x/y is less stable. Use `click --button secondary` for context menus, then run `snapshot -i` again.
 - On `frontmost-app` and `menubar`, `press` and `click` post synthetic mouse events (`desktop` is inspect-only). `--hold-ms` keeps the button down (at least 40 ms, default 60 ms), `--count` sends independent clicks, and `--double-tap` sends double-click pairs. Apps like Finder read two clicks at the default interval as one double-click; pass an `--interval-ms` longer than the system double-click time to keep them apart. Long schedules get the time they need, and a cancelled or interrupted click releases the button. `--jitter-px` is ignored on these surfaces.
 - macOS also supports `clipboard read|write`, `trigger-app-event`, `logs`, `network dump`, `audio probe`, `alert`, and part of `settings` (see [Settings helpers](#settings-helpers)). `audio probe` samples host system audio and needs Screen Recording permission; see [Debugging & Profiling](/agent-device/docs/debugging-profiling.md#audio-probes).
-- Mobile-only commands are unsupported on macOS: `boot`, `shutdown`, `home`, `orientation`, `app-switcher`, `action-button`, `fold`, `install`, `reinstall`, `install-from-source`, and `push`.
+- Mobile-only commands are unsupported on macOS: `boot`, `shutdown`, `home`, `orientation`, `app-switcher`, `action-button`, `fold`, `install`, `reinstall`, `uninstall`, `install-from-source`, and `push`.
 
 Set `AGENT_DEVICE_MACOS_APP_BACKEND=native` to run macOS app sessions without XCTest. There is no Automation Mode overlay, the app can stay behind other windows, and your pointer stays yours while a drawn pointer shows each action.
 
@@ -383,6 +383,7 @@ agent-device alert dismiss
 - `alert` (same as `alert get`) inspects or handles system alerts on iOS simulator, macOS desktop, and Android permission dialogs. On iOS it also covers app-owned modal popups with native blocking markers.
 - Use `alert get` for a quick check, and `alert wait <short-ms>` only when a prompt may appear after async work. Don't use `settings permission` to answer a dialog already on screen; it is for setup before a flow.
 - `accept` and `dismiss` are sent once on every platform and never replayed, even if the response is lost. On iOS the runner activates the button once, then only observes until the alert disappears, changes, or the deadline expires. A changed alert does not prove a permission was granted; verify the app outcome.
+- On the Apple XCUITest runner, `dismiss` activates only a button its decline list recognizes (`Cancel`, `Don't Allow`, `Ask App Not to Track`, and similar English labels), or the close button of a popover whose native marker reads "dismiss popup". It never taps anything else: unknown, reworded, or fully localized decline copy fails with `error.code: ALERT_BUTTON_NOT_FOUND` and `details.dispatched: no`, tapping nothing, rather than guessing at an affirmative ([#3627](https://github.com/callstack/agent-device/issues/3627)). A button choice that finds no button to name answers with that code and `dispatched: no` for `accept` too. To answer a prompt with unrecognized wording, read the labels with `alert get`, then press the button by label through `snapshot` + `press @ref`. The macOS helper's `dismiss` keeps its own rules (the app's cancel-button attribute, its label list, and a last-button fallback).
 - An unreadable or ambiguous capture after the action fails with `error.details.runnerErrorCode: ALERT_CONFIRMATION_UNAVAILABLE`; an expired runner deadline fails with `ALERT_DEADLINE_EXCEEDED`. Neither proves the alert is gone or that nothing happened. Run `alert get` before acting again.
 - iOS runner refusals carry `error.details.reason`: `runner_busy` means the runner ran nothing (`dispatched: no`); `runner_main_thread_timeout` means the action may still land (`dispatched: unknown`).
 - If a sheet or permission prompt is visible but `alert` reports none, treat it as app UI: run `snapshot -i -s "<visible label>"`, then `press @ref`. Android alert support is snapshot-derived, and not every iOS simulator permission surface is a native alert.
@@ -434,6 +435,8 @@ A `click` or `press` whose target the daemon resolves to a point (`@ref` or sele
 Text-entry errors and what to do:
 
 - `TEXT_INPUT_NOT_FOCUSED` (`type`): focus a visible text input and retry. If accessibility does not expose the input, focus it by coordinates.
+- `NO_TEXT_INPUT_AT_POINT` (iOS `fill` under a degraded XCTest channel — coordinate, ref, selector, and replay fills all aim at a point): the runner identified no text input under that point, so it refused before dispatching anything (`error.details.reason` is `no_text_input_at_point`, `dispatched: no`) and no field changed. A ref or selector fill aims at the centre of the rect it resolved to, so an outer container or a non-input node can land outside the real field: run `snapshot -i`, pick the input node itself, and aim inside its rect.
+- `TEXT_INPUT_PROBE_UNAVAILABLE` (iOS `fill` under a degraded XCTest channel): the runner's input lookup for the point could not answer, so it refused before dispatching anything (`error.details.reason` is `text_input_probe_unavailable`, `dispatched: no`). Unlike the refusal above this does not mean the point has no input — retry the fill, or run `snapshot -i` once its capture reads back.
 - `TEXT_INPUT_SYNTHESIS_UNAVAILABLE` (iOS `type "\n"` with the software keyboard hidden): show the software keyboard, then retry.
 - `TEXT_INPUT_COMMIT_NOT_OBSERVED` (iOS `fill`): the runner could not confirm the text landed before its deadline, or the text equals the field's placeholder. The field may hold none, part, or all of it. Run `snapshot -i`; if it doesn't match, retry with the full text quoted and `fill --delay-ms 80`.
 - `TEXT_INPUT_CLEAR_NOT_OBSERVED` (iOS `fill`): the old text was not seen cleared, so nothing was typed. Inspect with `snapshot -i`, then retry `fill`.
@@ -574,6 +577,15 @@ agent-device reinstall com.example.app ./build/MyApp.app --platform ios
 ```
 
 - `reinstall <app> <path>` uninstalls and installs in one command, for login/logout resets and deterministic test setup. Device coverage, formats, and remote upload match `install`.
+
+## App uninstall
+
+```bash
+agent-device uninstall com.example.app --platform android
+```
+
+- `uninstall <app>` removes an installed app, for example to start a test without the app installed. Android (ADB), iOS simulators, and CoreDevice iOS devices are supported.
+- A package name or bundle id that is not installed succeeds with `wasInstalled: false`; another name that matches nothing installed fails with `APP_NOT_INSTALLED`.
 
 ## App install from source URL
 
