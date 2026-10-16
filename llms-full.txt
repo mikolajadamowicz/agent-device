@@ -16,7 +16,7 @@ Use it when an agent needs to inspect and operate a running app, not only reason
 - **Token-efficient UI context**: accessibility snapshots give agents structured UI state instead of screenshots alone.
 - **Runtime evidence**: capture screenshots, recordings, logs, network traffic, audio-level probes for browser and host-rendered simulator/emulator audio, traces, CPU/memory/perf snapshots, and crash-related logs when the happy path breaks.
 - **Replayable checks**: turn stable exploratory sessions into `.ad` replay scripts that run again without AI.
-- **React Native and Expo workflows**: pair device automation with optional React DevTools profiling for component trees, props/state/hooks, slow renders, and rerenders.
+- **React Native and Expo workflows**: pair device automation with React component inspection and performance profiling that names slow renders, rerenders, and their causes.
 - **Local devices and app surfaces**: drive simulators, emulators, physical devices, TV targets, desktop apps, and browser sessions through one CLI.
 
 If you know `agent-browser`, `agent-device` brings the same workflow to mobile, TV, desktop, and a limited managed web browser.
@@ -118,9 +118,9 @@ For a normal app-driving task, start immediately. Do not probe first with `--hel
 For TV, Fire TV, or Vega OS tasks, read `agent-device help tv`.
 For exploratory QA, read `agent-device help dogfood`.
 For logs, network, audio, traces, or runtime failures, read `agent-device help debugging`.
-For React Native component trees, props/state/hooks, slow renders, or rerenders, read `agent-device help react-devtools`.
+For React Native component internals (tree, props, state, hooks) and performance profiling (slow renders, rerenders, and their causes), read `agent-device help react-devtools`.
 For React Native JavaScript heap growth, heap snapshots, allocation hotspots, or retained-object leaks, read `agent-device help cdp`.
-For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to React DevTools or debugging evidence, read `agent-device help react-native`.
+For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to profiling or debugging evidence, read `agent-device help react-native`.
 
 Use MCP tools or the CLI in the integrated terminal.
 If `agent-device` is not on PATH but the user installed it globally in another shell, resolve the command the same way the user would from a normal terminal session and run that absolute path instead. This may require inspecting shell startup behavior or package-manager/global bin locations; do not assume the agent process `PATH` is the user's `PATH`.
@@ -1107,6 +1107,10 @@ Entry points for driving devices from Node.js:
   - `createAgentDeviceClient(options?)`
   - `createLocalArtifactAdapter(options?)`
   - `AppError`, `isAgentDeviceError(error)`, `normalizeAgentDeviceError(error)`
+  - `isUnreadableCaptureContentError(error)`: true when an Android helper capture found no readable
+    app content yet (`empty-helper-output`, `system-window-only`, `content-poor-app-window`), for
+    example while the app is still loading. Polling callers may keep polling. False for every other
+    platform, backend, and mechanism failure.
   - `centerOfRect(rect)`
   - types: `AgentDeviceClient`, `AgentDeviceClientConfig`, `AgentDeviceDevice`
   - types: every option and result type of the client's methods, among them `AppOpenOptions`,
@@ -1651,7 +1655,7 @@ Remote daemons and tenants:
 
 - `--tenant`, `--session-isolation tenant`, `--run-id`, and `--lease-id` enforce lease admission on tenant-scoped daemons.
 - `--daemon-base-url http(s)://host:port[/base-path]` calls a remote HTTP daemon directly instead of starting a local one. Add `--daemon-auth-token <token>` (or `AGENT_DEVICE_DAEMON_AUTH_TOKEN`) for non-loopback daemon URLs.
-- Screenshots and recordings from a remote daemon are downloaded to the path you pass, so `screenshot page.png` and `record start session.mp4` work as they do locally.
+- Screenshots and recordings from a remote daemon are downloaded to the path you pass, so `screenshot page.png` and `record start session.mp4` work as they do locally. `record start` without a path downloads to `recording-<timestamp>.mp4` (`.webm` on web) in your working directory.
 - To drive a Mac's simulators and devices from another machine, see [Remote Proxy](/agent-device/docs/remote-proxy.md). For hosted devices in CI, see [BrowserStack](/agent-device/docs/browserstack.md), [AWS Device Farm](/agent-device/docs/aws-device-farm.md), or [TestMu AI](/agent-device/docs/testmu.md). For `connect --remote-config`, see [Remote Metro workflow](#remote-metro-workflow).
 
 ```bash
@@ -2189,6 +2193,7 @@ Platform support:
 - macOS supports only `settings appearance <light|dark|toggle>` and `settings permission <grant|reset> <accessibility|screen-recording|input-monitoring>`.
 - `settings appearance` sets macOS appearance, iOS simulator appearance, or Android night mode.
 - `settings location set <lat> <lon>` sets coordinates on iOS simulators and Android emulators.
+- A target that does not serve a setting refuses it with `UNSUPPORTED_OPERATION` and `error.details.reason` (for example `unsupported-platform-leaf`) before anything changes. A request that names an app the change cannot take is refused first, with `INVALID_ARGS` and `setting_app_not_consumed`. `settings --help` describes where each setting runs.
 
 Device settings:
 
@@ -2352,30 +2357,41 @@ agent-device perf trace stop --kind perfetto --out app.perfetto-trace
 
 For the measurement workflow, data sources, and output examples, see [Performance snapshots](/agent-device/docs/debugging-profiling.md#performance-snapshots).
 
-## React Native component internals
+## React Native components
 
 ```bash
-agent-device react-devtools status
-agent-device react-devtools wait --connected
-agent-device react-devtools get tree --depth 3
-agent-device react-devtools get component @c5
-agent-device react-devtools find Button
-agent-device react-devtools profile start
-agent-device react-devtools profile stop
-agent-device react-devtools profile slow --limit 5
-agent-device react-devtools profile rerenders --limit 5
-agent-device react-devtools profile timeline --limit 20
-agent-device react-devtools profile report @c5
+agent-device react-devtools tree [@ref|Name] [--depth 8] [--limit 60]
+agent-device react-devtools find <Name> [--exact] [--limit 20]
+agent-device react-devtools inspect <@ref|Name>
+agent-device react-devtools errors [--limit 10]
 ```
 
-- `react-devtools` runs the pinned `agent-react-devtools@0.5.0` package through npm and passes arguments through unchanged. The first run may download it; later runs can reuse the npm cache.
-- React Native 0.87+ needs a one-time app setup before `react-devtools wait --connected` can succeed; see [Debugging & Profiling](/agent-device/docs/debugging-profiling.md#react-native-component-internals).
-- Use it for component hierarchy, props, state, hooks, render causes, slow components, and re-render counts. For the profiling workflow, see [Debugging & Profiling](/agent-device/docs/debugging-profiling.md#react-native-component-internals) and `agent-device help react-devtools`.
-- `agent-device` global flags work before or after `react-devtools`. Put `--` before downstream flags only when they share an `agent-device` global flag name.
-- Development builds connect to the DevTools daemon on port 8097. If an Android emulator or device cannot reach the host, run `adb reverse tcp:8097 tcp:8097`. Android `open` of a local Metro URL with a port sets up host reachability; for app/package launches, run `adb reverse tcp:8081 tcp:8081` if the app cannot reach Metro.
-- Remote bridge sessions (Android and iOS) work through the same command; the CLI keeps a tunnel to the remote DevTools daemon alive until `react-devtools stop` or `disconnect`. See [Remote bridge sessions](/agent-device/docs/debugging-profiling.md#remote-bridge-sessions) for the iOS relaunch order and supported React Native versions.
-- `react-devtools stop` reports the tunnel's pid and keeps tracking it when it cannot confirm the tunnel exited — it belongs to another user, for example — instead of starting a second one on the next run. Stop that process as its owner and run `react-devtools stop` again.
-- For cross-platform validation, use separate sessions/devices and restart `react-devtools` between iOS and Android runs.
+- `tree` prints the mounted component tree with `@c` refs. A chain of single-child wrappers, such as providers, prints on one line. Three or more consecutive siblings whose subtrees match exactly, in names, types, and logged errors and warnings, print as one counted line; other siblings, including same-name screens with different contents, keep their own lines. Pass a ref or a unique name to print one branch.
+- `find` lists components whose name contains the text, ignoring case, or equals it with `--exact`, each with the components that rendered it.
+- `inspect` prints a component's owners, props, state, hooks, and the errors and warnings it logged while rendering. It takes a ref, or a name only one mounted component has.
+- `errors` lists the components that logged console errors or warnings while rendering, with the messages. When the app's React DevTools backend does not attribute every log to a component, as on React Native 0.74 and 0.76, it says the list can be incomplete.
+- These commands connect the same way as profiling, below. A connected React DevTools window owns the component tree, so `tree`, `find`, and `errors` fail with `tree-unavailable` until it is closed and the app reloads.
+
+## React Native performance profiling
+
+```bash
+agent-device react-devtools profile start
+agent-device react-devtools profile stop
+agent-device react-devtools profile stop --limit 10
+agent-device react-devtools profile report
+agent-device react-devtools profile report <Component>
+agent-device react-devtools profile commit
+agent-device react-devtools profile commit <N>
+```
+
+- `profile start` begins recording React renders in the app; `profile stop` ends it and prints the commit count, render time, commits over the 16 ms frame budget, and up to five findings (`--limit` changes that). It also saves the recording for the session, so `report` and `commit` read it without the app.
+- `profile report` lists components by self time with why they rendered; `profile report <Component>` shows every component of that name, such as `Row` and memoized `Row`, each with its causes, changed props, owners, costliest commits, and findings. `profile commit` lists commits in order, or the slowest ones in order when there are more than `--limit` (default 20); `profile commit <N>` shows what rendered in one commit. `--limit` caps the rows of the list views.
+- Profiling connects through the app's Metro dev server and needs no app or Metro setup. It works with development builds of React Native 0.74 and later on Android emulators, iOS simulators, `agent-device proxy` connections, and remote bridge sessions. On a remote bridge it uses the Metro server next to the agent: the session's binding from `metro prepare`, or `--metro-host`/`--metro-port`. Metro accepts the debugger connection only from its own machine, so the bridge or `metroPublicBaseUrl` cannot carry it.
+- `--app <bundle-id>` picks the app when several share the dev server, and `--metro-device <name>` picks the device when one app runs on several. `--metro-port` and `--metro-host`, or `--bundle-url` for a dev server behind a URL path, pick the dev server when it is neither the session's Metro server nor `localhost:8081`.
+- With `--json`, `profile stop` returns the findings and the path of the saved profile.
+- See [Debugging & Profiling](/agent-device/docs/debugging-profiling.md#react-native-performance-profiling) for the findings and the workflow.
+
+## React Native overlays
 
 ```bash
 agent-device react-native dismiss-overlay
@@ -2471,7 +2487,7 @@ agent-device record stop                # Stop active recording
 - `record start` defaults to app scope and needs a session from `open <app>`. Use `--scope device` or `--scope system` for whole-screen capture (multiple apps, settings, home screen) where the backend supports it.
 - iOS recording works on simulators and CoreDevice-backed physical devices. Physical devices capture runner screenshots, not a native video stream: no audio, dropped frames are expected, and the default is 15 FPS. `--fps <n>` (1-120) caps the rate; a busy app or long command yields fewer frames.
 - `--quality medium|high` (default `medium`) sets export quality on Android and Limrun; Apple export always keeps the captured resolution. Numeric `5`-`7` map to `medium` and `8`-`10` to `high`.
-- With touch visualization on, recordings also produce a gesture telemetry sidecar. Burned-in touch overlays export only on macOS hosts; elsewhere `record stop` returns the raw video and telemetry with `overlayWarning`. The overlay renders at most 30 FPS (or `--fps` if lower) within a fixed budget; an export past the budget returns the raw video with `overlayWarning`.
+- With touch visualization on, recordings also produce a gesture telemetry sidecar. Burned-in touch overlays export only on macOS hosts; elsewhere `record stop` returns the raw video and telemetry with `overlayWarning`. The overlay renders at most 30 FPS (or `--fps` if lower) within a fixed budget, which also covers the video checks that run before and after it; an export past the budget returns the raw video with `overlayWarning`. On a host that has not run a recording before, part of that budget goes to one-time tool setup, so the first `record stop` of a long recording is more likely to return the raw video.
 - Android uses `adb shell screenrecord` (180s limit per clip). Longer recordings are split into MP4 chunks while the daemon stays alive; after a daemon restart, `record stop` recovers only chunks listed in the device manifest. A clip can end before `record stop` when the screen stopped changing; `durationMs` is wall-clock time, and `capturedDurationMs` plus a warning report how much the video covers.
 - Limrun sessions always record the whole screen and refuse `--fps` and `--hide-touches` with `INVALID_ARGS`. A failed download is retried by the next `record stop`; nothing survives a daemon restart.
 - A busy iOS simulator recording slot returns non-retriable `DEVICE_IN_USE` with `details.reason: apple_simulator_recording_busy`. Run `record stop` in the session that owns the recording; if no recording is active, ask the host operator to restart the CoreSimulator stream service.
@@ -2781,49 +2797,83 @@ When UI automation is not enough, use these commands to collect runtime evidence
 - Apple crash symbolication with `debug symbols`
 - Screenshots, recordings, and replayable repro flows
 
-## React Native component internals
+## React Native components
 
-To inspect the React Native component tree, props, state, hooks, or render profiling, use `react-devtools`:
+To see what React renders behind a screen, read the component tree and inspect a component:
 
 ```bash
-agent-device react-devtools status
-agent-device react-devtools wait --connected
-agent-device react-devtools get tree --depth 3
-agent-device react-devtools get component @c5
-agent-device react-devtools profile start
-agent-device react-devtools profile stop
-agent-device react-devtools profile slow --limit 5
-agent-device react-devtools profile rerenders --limit 5
-agent-device react-devtools profile timeline --limit 20
-agent-device react-devtools profile report @c5
+agent-device react-devtools find ContactRow
+agent-device react-devtools inspect @c42
+agent-device react-devtools tree @c40 --depth 3
+agent-device react-devtools errors
 ```
 
-`react-devtools` runs a pinned version of `agent-react-devtools` and passes your arguments to it.
+`find` and `tree` print `@c` refs. `inspect` shows the owners that rendered a component, its props, state, and hooks, and the errors and warnings it logged while rendering:
 
-On React Native 0.87 and later, set up the app once before `react-devtools wait --connected` can succeed, locally or through a remote bridge: install `agent-react-devtools` as a dev dependency of the app project, run `npx agent-react-devtools init` there, and rebundle. The package `react-devtools` runs is temporary and does not install it into the app. Run `npx agent-react-devtools uninit` when you no longer need the setup.
+```text
+@c42 ContactRow key=3
+rendered by: ContactList @c40 < MemoDefeatedScenario @c38 < PerfLabScreen @c12
+props:
+  contact: {id: 3, name: "Ada Lovelace"}
+  onSelect: ƒ onSelect() {}
+hooks:
+  State: false
+```
 
-For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to React DevTools or debugging evidence, start with `agent-device help react-native`. For slow-flow investigations, combine `help react-devtools` for the narrow React profile window with `help debugging` for log markers, network/audio evidence, traces, and perf samples. Start with one bounded survey: the `profile stop` summary, the `slow` and `rerenders` tables with a `--limit`, and `timeline` only when commit timing matters. Then drill into a specific `@c` ref with `profile report` instead of raising the `profile slow` limit again and again.
+`inspect` also takes a component name when only one mounted component has it. `errors` lists the components that logged console errors or warnings while rendering, with the messages; on older React Native versions, such as 0.74 and 0.76, it notes that the list can be incomplete. Refs change when a component remounts or the app reloads.
 
-React Native warning and error overlays come from the app. Treat them as findings or blockers: capture them, check `react-devtools errors` when connected, run `agent-device react-native dismiss-overlay` when the overlay is unrelated, then re-snapshot and report the overlay.
+These commands use the same connection as profiling, described below. If a React DevTools window is connected to the app, close it and reload the app first.
+
+## React Native performance profiling
+
+To find out why an interaction renders slowly, record a React profile around it:
+
+```bash
+agent-device react-devtools profile start
+agent-device fill 'id="catalog-search"' "tart" --delay-ms 80
+agent-device react-devtools profile stop
+```
+
+`profile stop` saves the recording and prints a short diagnosis: how many commits React made, how long they took, how many went over the 16 ms frame budget (when any did), and the problems it found, worst first. If changed-prop inspection is interrupted after collection, you can still read the saved recording with `profile report` and `profile commit`. Each finding names a component, shows the evidence, and suggests a fix:
+
+```text
+React profile 8.3s: 8 commits, 1303ms rendering, 8 over 16ms (worst #6 188ms)
+1. memo-defeated ContactRow: memo bypassed on 480/480 updates; new highlight (object) 480x, onSelect (function) 480x from ContactList -> wrap those props in useCallback/useMemo in ContactList
+```
+
+| Finding           | Meaning                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------- |
+| `slow-render`     | The component's own render is expensive.                                                        |
+| `memo-defeated`   | A memoized component often re-renders because props change identity.                            |
+| `parent-cascade`  | The component often re-renders with unchanged props, state, and context when its owner renders. |
+| `context-cascade` | Most of the component's renders come from context changes.                                      |
+| `effect-chain`    | The component triggers a follow-up commit right after rendering, likely state set in an effect. |
+| `render-storm`    | One component commits many times per second.                                                    |
+| `eager-mount`     | Hundreds of instances of one component mount in a single commit.                                |
+| `slow-commit`     | A commit took three frames or more, and other findings leave most of it unexplained.            |
+
+To dig into a finding, use the saved profile:
+
+```bash
+agent-device react-devtools profile report ContactRow
+agent-device react-devtools profile commit 6
+agent-device react-devtools profile report
+agent-device react-devtools profile commit
+```
+
+Without an argument, `report` lists components by self time with why they rendered, and `commit` lists the commits in order.
+
+Profiling works with development builds of React Native 0.74 and later, including Expo, and is verified on Android emulators and iOS simulators. It connects to the app through the Metro dev server, so the app, Metro config, and Babel config need no changes. If several apps use the same dev server, pass `--app <bundle-id>`. If one app runs on several devices connected to the same dev server, pass `--metro-device <name>` with a device name the error lists. If the dev server is not the session's Metro server or `localhost:8081`, pass `--metro-port` and `--metro-host`.
+
+Development builds render slower than release builds. Compare profiles of the same interaction before and after a change rather than reading the numbers as absolute.
+
+Component inspection and profiling also work through `agent-device proxy` and on remote bridge sessions, where they use the Metro server next to the agent: the session's binding from `metro prepare`, or `--metro-host`/`--metro-port`. Metro accepts the debugger connection only from its own machine, so the bridge or `metroPublicBaseUrl` cannot carry it.
+
+For React Native apps, overlays, Metro/Fast Refresh blockers, and routing to profiling or debugging evidence, start with `agent-device help react-native`. For slow-flow investigations, combine `help react-devtools` for the React profile with `help debugging` for log markers, network/audio evidence, traces, and perf samples.
+
+React Native warning and error overlays come from the app. Treat them as findings or blockers: capture them, run `agent-device react-native dismiss-overlay` when the overlay is unrelated, then re-snapshot and report the overlay.
 
 For permission prompts and other alerts already on screen, see [Wait and alerts](/agent-device/docs/commands.md#wait-and-alerts).
-
-### Remote bridge sessions
-
-On Android and iOS sessions connected through a remote bridge profile, `react-devtools` opens a tunnel to the DevTools daemon at `127.0.0.1:8097` inside the remote sandbox. Android uses the bridge's `adb reverse` mapping; iOS uses the bridge's wildcard Metro host tunnel. The tunnel stays up until you run `agent-device react-devtools stop` or `agent-device disconnect`.
-
-React Native tries to reach DevTools once, during JavaScript startup. On remote iOS, start DevTools before that launch:
-
-```bash
-agent-device open com.example.myapp --platform ios
-agent-device react-devtools start
-agent-device open com.example.myapp --platform ios --relaunch
-agent-device react-devtools wait --connected
-```
-
-The first `open` creates the bridge session; the relaunch lets the app find the running DevTools daemon.
-
-This path assumes the DevTools behavior bundled with React Native 0.83 and later. Browser or Chromium DevTools workflows from older versions are not available inside remote sandboxes. For Expo projects, check the React Native version your SDK bundles; no Expo SDK has been verified separately.
 
 ## React Native JS memory through CDP
 
@@ -2901,7 +2951,7 @@ agent-device debug symbols --artifact crash.ips --search-path ./build --out cras
 
 The command supports Apple `.ips`, `.crash`, and log-style crash artifacts that contain Binary Images or IPS `usedImages`. It matches UUIDs from the crash artifact against `dwarfdump --uuid` output from `.dSYM` bundles, runs `atos`, writes a symbolicated artifact, and prints only the output path plus a compact crash report: app/thread, exception or termination, top symbolicated frames, and the first actionable frame finding. The full symbolicated artifact stays on disk, so agent context stays small.
 
-`debug` covers symbolication only. Use `logs` for app logs, `network` for HTTP evidence, `perf` for performance samples, `record`/`trace` for media and traces, and `react-devtools` for React Native internals. `debug symbols` does not handle Android Java/R8 `mapping.txt` or native `ndk-stack`/`addr2line` symbolication; capture Android crash evidence with `logs` and symbolicate it with other tools.
+`debug` covers symbolication only. Use `logs` for app logs, `network` for HTTP evidence, `perf` for performance samples, `record`/`trace` for media and traces, and `react-devtools` for React Native components and performance profiling. `debug symbols` does not handle Android Java/R8 `mapping.txt` or native `ndk-stack`/`addr2line` symbolication; capture Android crash evidence with `logs` and symbolicate it with other tools.
 
 ## Core commands
 
@@ -3400,7 +3450,7 @@ agent-device connect limrun --platform android
 
 `--platform android` or `--platform ios` selects the instance type. `connect` checks the credentials for that platform without creating an instance.
 
-When you create an instance through agent-device, the creation request sends `User-Agent: agent-device-cli/<version>` so Limrun can attribute it to agent-device for revenue sharing.
+Requests agent-device makes with your API key, including instance creation, start their `User-Agent` with `agent-device-cli/<version>` so Limrun can attribute them to agent-device for revenue sharing.
 
 ## Drive an existing instance
 
@@ -3453,7 +3503,7 @@ agent-device disconnect
 
 On Android, agent-device connects to Limrun over an ADB tunnel. Snapshots use the Android snapshot helper, installs upload the app through Limrun asset storage, and port reverse runs over ADB, including the usual reverse setup for a local Metro server.
 
-On iOS, agent-device supports app lifecycle commands, snapshots, screenshots, taps, text input, scrolling, the home button, clipboard read and write, and app installation. `open --launch-args` relaunches the app with those arguments through simctl. iOS cannot reverse a remote device port to a local host port, so for Metro or React DevTools use a publicly reachable HTTPS endpoint or bridge URL instead of a local-only address.
+On iOS, agent-device supports app lifecycle commands, snapshots, screenshots, taps, text input, scrolling, the home button, clipboard read and write, and app installation. `open --launch-args` relaunches the app with those arguments through simctl. iOS cannot reverse a remote device port to a local host port, so for Metro use a publicly reachable HTTPS endpoint or bridge URL instead of a local-only address.
 
 On iOS, `settings` supports `appearance`, `permission`, `location`, and `clear-app-state`, with the same arguments as a local simulator. `clear-app-state` resets the app's data container through Limrun's soft reset. That reset relaunches the app once before agent-device stops it, so the app may run once after its data is cleared. `reset-keychain`, `wifi`, `airplane`, `faceid`, `touchid`, and `text-size` are unsupported, and you cannot read back any iOS setting.
 
@@ -4114,7 +4164,7 @@ AGENT_DEVICE_DAEMON_POLICY=./policy.json agent-device proxy
   devices and `serial` for Android.
 - `commands` takes either `allow` or `deny`, not both. With `allow`, commands added in later releases
   stay denied. Some client-side tools reach the daemon through internal commands: allow `runtime` for
-  `react-devtools` and Maestro flows, and `install-from-source` for remote installs.
+  Maestro flows, and `install-from-source` for remote installs.
 - `capabilities.deny: ["device-shutdown"]` blocks `shutdown`, `close --shutdown`, and any other path
   that would shut the device down.
 - `leases.require: "macos-app"` (the only accepted value) refuses every request that is not made
@@ -5685,6 +5735,6 @@ url: /agent-device/index.md
 - **Interactions by ref, selector, or finder**: Tap, pan, fling, pinch, rotate, scroll, focus, type, assert, and find visible UI through refs, selectors, and semantic finders.
 - **Debugging and profiling**: Collect logs, inspect network traffic, capture screenshots and recordings, and sample performance where the target supports it.
 - **Session and replay**: Keep app state across commands in a session, and replay recorded `.ad` scripts to reproduce flows without an AI agent.
-- **React Native internals**: Use `agent-device react-devtools` for component trees and render profiles, and `agent-device cdp` for JS heap snapshots, diffs, and leak retainers.
+- **React Native internals**: Use `agent-device react-devtools` to inspect React Native components and profile their renders, and `agent-device cdp` for JS heap snapshots, diffs, and leak retainers.
 
 

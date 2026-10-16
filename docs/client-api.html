@@ -9,7 +9,7 @@
 <script defer src="/agent-device/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/static/js/index.873a2631dc.js"></script>
+<script defer src="/agent-device/static/js/index.7908078220.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -55,6 +55,10 @@
 <li><code>createAgentDeviceClient(options?)</code></li>
 <li><code>createLocalArtifactAdapter(options?)</code></li>
 <li><code>AppError</code>, <code>isAgentDeviceError(error)</code>, <code>normalizeAgentDeviceError(error)</code></li>
+<li><code>isUnreadableCaptureContentError(error)</code>: true when an Android helper capture found no readable
+app content yet (<code>empty-helper-output</code>, <code>system-window-only</code>, <code>content-poor-app-window</code>), for
+example while the app is still loading. Polling callers may keep polling. False for every other
+platform, backend, and mechanism failure.</li>
 <li><code>centerOfRect(rect)</code></li>
 <li>types: <code>AgentDeviceClient</code>, <code>AgentDeviceClientConfig</code>, <code>AgentDeviceDevice</code></li>
 <li>types: every option and result type of the client&#x27;s methods, among them <code>AppOpenOptions</code>,
