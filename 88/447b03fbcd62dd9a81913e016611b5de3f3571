@@ -1,0 +1,51 @@
+packages/daemon/src/__tests__/support/snapshot-runtime-fixture.ts
+  7203e0e5052a014d 182
+packages/daemon/src/execution/handlers/__tests__/snapshot-settings-handler.test.ts
+  7203e0e5052a014d 230-252
+packages/platform-android/src/settings-permission.ts
+  7203e0e5052a014d 14,666
+packages/platform-android/src/device-sdk-int.ts
+  7203e0e5052a014d 1-18
+packages/contracts/src/settings.test.ts
+  7203e0e5052a014d 73-76,91
+packages/platform-android/src/inventory.test.ts
+  7203e0e5052a014d 114-139
+packages/platform-android/src/runtime.ts
+  7203e0e5052a014d 359
+packages/platform-android/src/settings-bluetooth.ts
+  7203e0e5052a014d 1-127
+packages/platform-android/src/__tests__/test-utils/fake-timers.ts
+  7203e0e5052a014d 1-20
+packages/provider-limrun/src/interaction-operations.ts
+  7203e0e5052a014d 361
+website/docs/docs/commands.md
+  7203e0e5052a014d 623-624,674
+packages/contracts/src/settings-catalog.ts
+  7203e0e5052a014d 104-107
+packages/platform-android/src/__tests__/settings-bluetooth.test.ts
+  7203e0e5052a014d 1-204
+src/commands/capture/settings.test.ts
+  7203e0e5052a014d 180,183
+packages/platform-android/src/inventory.ts
+  7203e0e5052a014d 22,232-235
+packages/platform-android/src/inventory-parsers.ts
+  7203e0e5052a014d 63-68
+packages/platform-android/src/inventory-parsers.test.ts
+  7203e0e5052a014d 10,35-42
+CHANGELOG.md
+  7203e0e5052a014d 6
+packages/platform-android/src/__tests__/device-sdk-int.test.ts
+  7203e0e5052a014d 1-23
+packages/platform-android/src/__tests__/alert.test.ts
+  7203e0e5052a014d 3
+packages/platform-android/src/__tests__/fill-verification.test.ts
+  7203e0e5052a014d 11,14
+packages/platform-android/src/settings.ts
+  7203e0e5052a014d 31,43,105-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88447b03fbcd62dd9a81913e016611b5de3f3571",
+  "prompts": {}
+}
