@@ -81,7 +81,7 @@ Entry points for integrations:
 - `agent-device/plugins/webdriver`
   - experimental `WebDriverPluginOptions` for providers using the shared engine.
 - `agent-device/plugins`
-  - experimental factory context: `ProviderPluginHost`; see [provider plugins](/agent-device/docs/plugins.md).
+  - experimental plugin contract: `AgentDevicePluginFactory` and `ProviderPluginHost`; see [provider plugins](/agent-device/docs/plugins.md).
 
 ## Android ADB providers
 

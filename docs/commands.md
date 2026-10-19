@@ -54,9 +54,13 @@ agent-device action-button
 agent-device fold closed
 agent-device fold half-open
 agent-device fold open
+agent-device telephony call 5551234
+agent-device telephony cancel 5551234
+agent-device telephony sms 5551234 "Your code is 1234"
 agent-device device status --platform android --serial emulator-5554
 agent-device device release --stale
 agent-device daemon stop --clean
+agent-device daemon status --json
 ```
 
 Boot and shut down:
@@ -75,14 +79,16 @@ Select a device:
 Device claims and the daemon:
 
 - `device status` lists host-local device claims without starting or contacting a daemon; `--stale` shows the stale claims it hides by default (owner exited, PID reused, state directory deleted, or daemon replaced), some of whose owners may still be running. Scope it with `--platform` plus `--udid` (Apple) or `--serial` (Android). A claim held by another live or uncertain owner blocks `open`, unless the device rebooted after the claim was taken: then `open` settles that owner's durable resources, takes the claim, and reports the release in `warnings`.
-- `device release --stale` settles the durable resources of an owner that provably can't release its claim (its process exited or a newer daemon replaced it), then clears the claim. Live, uncertain, PID-reused, corrupt, and deleted-state-directory claims are refused with the reason. See [Sessions](/agent-device/docs/sessions.md#release-a-device-another-workspace-holds).
+- `device release --stale` settles the durable resources of an owner that provably can't release its claim (its process exited or a newer daemon replaced it), then clears the claim. Live, uncertain, PID-reused, corrupt, and deleted-state-directory claims are refused with the reason. See [Sessions](/agent-device/docs/sessions.md#release-a-device-another-session-or-workspace-holds).
+- A command that needs the shared local daemon starts it for its state directory when none runs; `device status` and `device release --stale` never contact one. When the running daemon comes from another version or build, the command replaces it only if it reports no work: no request in flight, no session, no repair session and no live lease. A resumable upload still streaming and a host human-control hold that names no lease are not counted, so a replacement can end them. Otherwise the command fails with `daemon-busy` and leaves the daemon alone. A daemon from a release that predates this check is never replaced, and fails with `daemon-incompatible`. End a busy or older daemon deliberately with `daemon stop`. Node.js clients choose this per client; see [Daemon lifecycle](/agent-device/docs/client-api.md#daemon-lifecycle).
 - `daemon stop --state-dir <path>` stops a local daemon after verifying its identity. `--clean` also removes the Apple runner processes and leases that daemon retained.
+- `daemon status [--state-dir <path>] [--json]` reads the daemon's record without contacting it. For a running daemon it lists every provider it registered, built in or installed, and the reason any plugin failed to register. See [provider plugins](/agent-device/docs/plugins.md).
 
 Open apps and links:
 
 - `open [app|url] [url]` boots and activates the selected target when needed. `open <url>` opens deep links on Android and iOS, and `open <app> <url>` opens a deep link in that app on iOS.
 - On iOS devices, `http(s)://` URLs open in Safari when no app is active. Custom-scheme URLs need an active app in the session.
-- `open <app> --wait <ms>` waits up to that budget for a device another session holds, then fails with `DEVICE_IN_USE`. The wait extends the command's timeout, so you don't need a longer `--timeout`. A claim held by another workspace's daemon is not waited for; `open` returns its recovery command at once. See [Sessions](/agent-device/docs/sessions.md#wait-for-a-slow-or-busy-device).
+- `open <app> --wait <ms>` waits up to that budget for a device another session holds, then fails with `DEVICE_IN_USE`. The wait extends the command's timeout, so you don't need a longer `--timeout`. A claim held by another workspace's daemon is not waited for; `open` returns its recovery command at once. Device-mutating commands like `install` and `reinstall` never wait either: a claim held by another session fails them at once, and when the caller sends a workspace, another workspace's claim under the same session name fails too. See [Sessions](/agent-device/docs/sessions.md#wait-for-a-slow-or-busy-device).
 - `open <app> --launch-console <path>` captures launch-time stdout/stderr for iOS simulator app launches. It is not valid for URL opens or other targets.
 - `open --platform macos --surface app|frontmost-app|desktop|menubar` selects the macOS session surface; `app` is the default when you name an app. See [Desktop targets](#desktop-targets). `--save-script` records the surface so `replay` reopens it; with no surface given, replay opens an app session.
 - Android React Native: `open --relaunch` needs an installed package name. Install or reinstall the APK first; `open <apk|aab> --relaunch` is rejected. For Metro-backed JS changes, run `metro reload` before reaching for `open <app> --relaunch`.
@@ -94,9 +100,11 @@ iOS Simulator launch behavior:
 - An `open` that launches an app reports `timing.postOpenObservation`. When it is present and not `"observable"`, the next command that reads the screen waits briefly until two reads agree, so a `click` lands where the element comes to rest. If the screen is still moving after that wait, the command proceeds and warns that the surface was still changing.
 - If CoreSimulator never answers a URL hand-off, `open` fails within 20 seconds with `details.reason: ios-simulator-openurl-timeout`. The Simulator may still have received the URL; retry the open or answer the prompt with `alert accept`.
 - When `open <app> --launch-url <url>` raises an `Open in "<App>"?` prompt and the URL's scheme belongs to the session app, `open` taps **Open** and returns `launchConfirmation: "accepted"`. If the app still never starts, `open` hands over the URL once more.
+- When that prompt stays unanswered, `open` returns `launchConfirmation: "unanswered"` with `launchConfirmationReason`: `alert-unrecognized` for a prompt it did not recognize (such as a non-English Simulator), or `url-owner-unresolved` when no single installed app owns the URL's scheme or that lookup failed. The prompt stays on screen; `warnings` name the next step. Inspect with `alert get`, then answer with `alert accept`.
+- When `open` could not read whether a prompt is up at all (the alert read, the accept, or the runner itself failed), `open` succeeds with `launchConfirmationProbeFailure` set to `alert-read`, `alert-accept`, or `runner` and no `launchConfirmation`, plus a warning to check with `alert get` before retrying.
 - `details.reason: launch_confirmation_unanswered` means the app never started after the prompt was accepted, or the prompt stayed visible after a failed tap. Answer it with `alert accept` or `alert dismiss` before continuing.
 - `details.reason: launch_confirmation_foreign_app` means another installed app owns the scheme (`details.foreignAppBundleId`). Close the prompt with `alert dismiss` and pass a URL your app handles.
-- `open` leaves the prompt on screen and returns as if none appeared when the Simulator isn't set to English (run with `--debug` to see the title), when the prompt appears after `open` has seen your app, or when no single installed app owns the scheme (none does, a debug and a release build both do, or the app list can't be read). Answer it with `alert accept` or `alert dismiss`.
+- A prompt that appears after `open` has already seen the app is not reported and not answered; use `alert accept`.
 
 Back, orientation, and hardware buttons:
 
@@ -115,6 +123,15 @@ Fold a foldable device:
 - `COMMAND_FAILED` with `reason: fold-pose-unverified` means the hinge reports another pose; `fold-pose-unsettled` means it reached `half-open` but never came to rest; `fold-pose-dispatched-unverified` means the pose was sent but the first hinge-angle read returned no sample, so check the lit panel with a screenshot; `hingeReadFailure` holds the read's own failure.
 - `UNSUPPORTED_OPERATION` covers single-panel devices (`single-panel-device` on Android) and simulators in a non-default `--ios-simulator-device-set` (`unsupported-device-scope`; use the default set). Physical devices are refused.
 - On Android, `fold` confirms the pose from the device state the emulator commits and reports `hingeAngleDegrees` as the hinge sensor reads it: the angle the AVD profile defines for the posture, such as 0°, 90°, and 180° on the Pixel folds or 15°, 90°, and 165° on the generic 7.6in Foldable. It also dismisses the lock screen that folding to the cover display can raise. For panels, poses, and timings, see `agent-device help foldable`.
+
+Simulate an incoming call or SMS:
+
+- `telephony call <number>` starts an incoming call from `<number>` on an Android emulator; `telephony accept <number>` answers it and `telephony cancel <number>` ends it. `telephony sms <number> <text>` delivers a text message from `<number>`. Use it to check how an app reacts when a call or message arrives, for example whether video playback pauses and resumes.
+- The events go through the emulator console (`adb emu gsm call|accept|cancel`, `adb emu sms send`), so they work on Android emulators reached through the local adb executor. Other adb executors, such as an ADB provider, have not been verified. Physical Android devices refuse with `UNSUPPORTED_OPERATION` and `reason: unsupported-device-kind`; iOS, macOS, tvOS, web, Linux, HarmonyOS, Vega, and Limrun and WebDriver (Appium) sessions refuse with `UNSUPPORTED_OPERATION` too: agent-device sends telephony only through adb and does not drive Appium's own call or SMS simulation.
+- `<number>` is digits with an optional leading `+`, up to 15 digits. Quote the SMS text, or pass it as the remaining words; the text is sent as one argument, with backslashes and line breaks (LF, or CRLF sent as LF) escaped for the emulator console. Tabs, lone carriage returns, and other C0 or C1 control characters are refused.
+- The emulator console answers some events with an error, such as `accept` for a number with no call. That fails with `COMMAND_FAILED`, `reason: telephony-console-refused`, and the console's own `consoleReason`. `cancel` for a number with no call succeeds, because the console answers it with `OK`.
+- The emulator drops SMS characters outside the Basic Multilingual Plane, such as emoji, and delivers the rest of the text. `textLength` counts the text as sent.
+- The call screen or message notification can cover the app. Re-snapshot before using refs from before the event.
 
 Remote daemons and tenants:
 
@@ -296,6 +313,7 @@ agent-device snapshot -i --platform apple --target desktop
 - `--platform macos`, or `--platform apple --target desktop`, selects the host Mac as a `desktop` target.
 - Use an `app` session for normal app control: `open`, `snapshot`, `click`, `fill`, `press`, `scroll`, `back`, `screenshot`, `record`. In app sessions, `screenshot` captures the app window, not the whole desktop.
 - Use the other surfaces to inspect desktop-wide UI before choosing an app, mainly with `snapshot`, `get`, `is`, and `wait`: `frontmost-app` is the focused app, `desktop` is the visible windows across the desktop, and `menubar` is the active app's menu bar and system menu extras. To click or fill inside one app afterwards, open it in an `app` session.
+- `open <app> --platform macos` attaches to a copy of the app that is already running, including one you started yourself from a script or supervisor. If that copy has not finished registering with macOS, the open waits briefly for it before handing the URL over, so a copy that registers within that window keeps the arguments it was started with; a copy still unregistered after the wait gets the plain `open`, which can start a second instance.
 - `open <app> --platform macos --surface menubar` targets one app's menu bar extras. Prefer it for status-item apps, which often expose little through the `app` surface.
 - Prefer selectors and `@ref`s; window positions shift between runs, so raw x/y is less stable. Use `click --button secondary` for context menus, then run `snapshot -i` again.
 - On `frontmost-app` and `menubar`, `press` and `click` post synthetic mouse events (`desktop` is inspect-only). `--hold-ms` keeps the button down (at least 40 ms, default 60 ms), `--count` sends independent clicks, and `--double-tap` sends double-click pairs. Apps like Finder read two clicks at the default interval as one double-click; pass an `--interval-ms` longer than the system double-click time to keep them apart. Long schedules get the time they need, and a cancelled or interrupted click releases the button. `--jitter-px` is ignored on these surfaces.
@@ -304,7 +322,7 @@ agent-device snapshot -i --platform apple --target desktop
 
 Set `AGENT_DEVICE_MACOS_APP_BACKEND=native` to run macOS app sessions without XCTest. There is no Automation Mode overlay, the app can stay behind other windows, and your pointer stays yours while a drawn pointer shows each action.
 
-- `click`, `press`, and `fill` use accessibility actions on the element at the target point, which must be inside one of the app's on-screen windows, not its menu bar. `type` inserts at the focused control or falls back to key events. `scroll` moves the scroll bar under the front window's center. Chromium-based apps expose their full tree. `screenshot` captures only the app's front window, even when it is covered.
+- `click`, `press`, and `fill` use accessibility actions on the element at the target point, which must be inside one of the app's on-screen windows, not its menu bar. `type` inserts at the focused control or falls back to key events. `scroll` moves the scroll bar under the front window's center. Chromium-based apps expose their full tree. `screenshot` captures only the app's front window, even when it is covered. The front window is the app's frontmost visible, nonempty normal-level (layer-0) window on the current Space: floating palettes and app-modal alerts at window level 8 are skipped, and a sheet is captured as its own window. If that window cannot be captured, `screenshot` fails; it never captures another window.
 - `record`, `prepare`, `back`, `longpress`, `--hold-ms`, `--double-tap`, `--button secondary`, gestures, and clicks on an element with no accessibility action fail with `UNSUPPORTED_OPERATION` (`reason: unsupported-device-backend`). Use the default XCTest backend for those.
 
 ```bash
@@ -484,7 +502,8 @@ Read-only commands such as `get`, `snapshot`, and `wait` report `no`, and so do 
 
 These refusals carry `dispatched: no` and a typed `error.details.reason`, so branch on the reason, not the message:
 
-- `session_or_device_selector_required`: the request had neither an active session nor a device selector. Open a session or pass `--platform`.
+- `session_or_device_selector_required`: the request had neither an active session nor a device selector. Open a session or pass `--platform`. Commands that require a session or a device selector before they read the request's target (`boot`, `clipboard`, `push`, `apps`, and siblings) answer this even when the request named a session the daemon does not hold.
+- `named_session_not_found`: the request named a session this daemon does not hold, with no device selector to fall back on (or no selector it can answer without the session — `appstate` on an Apple target refuses this even with an explicit device). The daemon lost its sessions (replaced or restarted), or the name is wrong; `agent-device session list` shows what it holds. Commands that require a session before they read anything else (interactions, `find` clicks, RN tooling, `screenshot`-style generic commands) answer the same missing-session cause as a message-level `SESSION_NOT_FOUND` carrying no `details.reason` — some carry a `dispatched` stamp from the disclosure layer, some carry no `details` at all; read the cause from the message, and read a present `dispatched` with its usual meaning.
 - `session_app_required`: a per-app setting was requested but the session binds no app and none was named. Run `open <app>`, or name the app on the request for a setting that takes one (`settings clear-app-state com.example.app`).
 - `app_not_installed`: the named app resolves to no installed app on the target. Run `apps --all` for the exact bundle id or package, or install the app, then retry.
 - `webdriver_route_unsupported`: on a WebDriver-backed device cloud, the driver does not implement the route; the limit is the cloud's driver, not the device. A command with a second route (`orientation` has two) tries it before failing. After an ambiguous failure on that transport, only read-only requests are resent.

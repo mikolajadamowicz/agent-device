@@ -893,7 +893,7 @@ Entry points for integrations:
 - `agent-device/plugins/webdriver`
   - experimental `WebDriverPluginOptions` for providers using the shared engine.
 - `agent-device/plugins`
-  - experimental factory context: `ProviderPluginHost`; see [provider plugins](/agent-device/docs/plugins.md).
+  - experimental plugin contract: `AgentDevicePluginFactory` and `ProviderPluginHost`; see [provider plugins](/agent-device/docs/plugins.md).
 
 ## Android ADB providers
 
@@ -1105,6 +1105,7 @@ Entry points for driving devices from Node.js:
 
 - `agent-device`
   - `createAgentDeviceClient(options?)`
+  - `ensureDaemon(options?)`
   - `createLocalArtifactAdapter(options?)`
   - `AppError`, `isAgentDeviceError(error)`, `normalizeAgentDeviceError(error)`
   - `isUnreadableCaptureContentError(error)`: true when an Android helper capture found no readable
@@ -1113,6 +1114,7 @@ Entry points for driving devices from Node.js:
     platform, backend, and mechanism failure.
   - `centerOfRect(rect)`
   - types: `AgentDeviceClient`, `AgentDeviceClientConfig`, `AgentDeviceDevice`
+  - types: `DaemonLifecycle`, `EnsureDaemonOptions`, `DaemonConnection`, `DaemonIdentity`
   - types: every option and result type of the client's methods, among them `AppOpenOptions`,
     `AppOpenResult`, `CaptureSnapshotOptions`, `CaptureSnapshotResult`, `CaptureScreenshotResult`,
     `PressOptions`
@@ -1238,6 +1240,42 @@ if ('cloudArtifacts' in result) {
 }
 ```
 
+## Daemon lifecycle
+
+A client talks to one local daemon per state directory. `daemonLifecycle` says who owns that daemon.
+
+| Mode                  | What the client does with the daemon                                                                                   |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `'managed'` (default) | Starts a missing daemon, replaces one that does not match the client, and retires an unresponsive one after a timeout. |
+| `'attach'`            | Connects to the running daemon. Never starts, replaces or stops one, even after a timeout.                             |
+
+`'managed'` stays the default until 0.22. Use `'attach'` when your code, or another process, owns the daemon, and call `ensureDaemon()` to start or replace it deliberately:
+
+```ts
+import { createAgentDeviceClient, ensureDaemon } from 'agent-device';
+
+const stateDir = './.my-app/agent-device-state';
+
+await ensureDaemon({
+  stateDir,
+  onStart: (reason, previous) => console.log(`started a daemon: ${reason}`, previous),
+});
+const client = createAgentDeviceClient({ stateDir, daemonLifecycle: 'attach' });
+```
+
+`ensureDaemon()` starts a daemon when none runs. It replaces a daemon that does not match the client only if that daemon holds no work: no request in flight, no session, no repair session and no live lease. A resumable upload still streaming and a host human-control hold that names no lease are not counted, so a replacement can end them. Otherwise it fails and leaves the daemon alone. Two cases retire a daemon without that proof, because it cannot be asked: a registered daemon that answers nothing on any transport, and one that times out on the quiesce request and then fails repeated liveness probes. A daemon that accepted the quiesce request is never signaled while it drains: the call waits up to 60 s for it to exit and clear its registration. One still running after that fails repeated liveness probes and is force-retired when its process is provably a daemon. A daemon that still answers, or whose process cannot be proven to be a daemon, fails the call with `daemon-drain-timeout`; a force retirement that cannot be confirmed fails it with `daemon_retirement_unconfirmed`. It returns `{ stateDir, daemon, started }`; `daemon` holds the pid, version and code identity, and no credentials. `onStart` runs when the call started a daemon: `'incompatible'` when it replaced a daemon that agreed to leave, with that daemon as `previous`, and `'missing'` otherwise. A `'missing'` start that also has a `previous` replaced a registered daemon that answered nothing, or one that accepted the request to leave and was force-retired after outlasting its drain.
+
+These failures carry a typed `error.details.reason`:
+
+| Reason                 | Meaning                                                                                                                                                                                                                                                                                                                          |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `daemon-not-running`   | An `'attach'` client found no daemon to connect to. Call `ensureDaemon()`.                                                                                                                                                                                                                                                       |
+| `daemon-incompatible`  | The running daemon does not match the client. `details.daemon` and `details.client` hold both identities. Stop it with `agent-device daemon stop --state-dir <path>`, then call `ensureDaemon()`. A daemon from a release that predates quiescing cannot be asked to leave, so `ensureDaemon()` reports it the same way.         |
+| `daemon-busy`          | `ensureDaemon()` found an incompatible daemon that still holds work. `details` counts `inFlightRequests`, `sessions`, `repairSessions` and `leases`. Wait for them to end and retry.                                                                                                                                             |
+| `daemon-drain-timeout` | A daemon accepted the request to leave but was still running 60 s later and could not be force-retired, either because it still answers or because its process cannot be proven to be a daemon (an embedded host). It was not signaled. Retry once it has exited, or stop it with `agent-device daemon stop --state-dir <path>`. |
+
+`ensureDaemon()` only ever manages the local daemon on `stateDir`. A client with `daemonBaseUrl` never starts or stops a local daemon in either mode, and `daemonLifecycle` does not change `daemonTransport` or `daemonServerMode`.
+
 ## Device cloud sessions
 
 You drive Limrun, BrowserStack, AWS Device Farm, and TestMu AI devices with the same typed client methods. Use the CLI `connect` flow to persist connection state locally. Pass provider settings in the client config when your Node.js integration already owns credentials and provider selectors.
@@ -1352,6 +1390,8 @@ await client.command.tvRemote({
 await client.command.appSwitcher();
 await client.command.actionButton();
 await client.command.fold({ pose: 'open' });
+await client.command.telephony({ action: 'call', number: '5551234' });
+await client.command.telephony({ action: 'sms', number: '5551234', text: 'Your code is 1234' });
 await client.command.fold({
   keyframes: [
     { atMs: 0, angle: 0 },
@@ -1386,6 +1426,7 @@ Supported command methods:
 - `appSwitcher`
 - `actionButton`
 - `fold`
+- `telephony`
 - `keyboard`
 - `clipboard`
 - `tvRemote`
@@ -1402,7 +1443,7 @@ Domain client methods:
 - `client.sessions.list()`, `stateDir()`, `close()`, `saveScript()`, `artifacts()`
 - `client.apps.install()`, `reinstall()`, `uninstall()`, `installFromSource()`, `list()`, `open()`, `close()`, `push()`, `triggerEvent()`
 - `client.materializations.release()`
-- `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease. Pass `leaseId` (16 to 128 hex characters) to `allocate()` to name a new lease with an id the daemon has never issued, or to get back your live lease with that id when you retry with the same tenant, run, client, lease backend, and provider (and no device, or the leased one), then use the returned `leaseId`: a run that already holds a lease gets that one back, and an older daemon mints its own.
+- `client.leases.allocate()`, `heartbeat()`, `release()`. Pass `retainOnClose: true` to `allocate()` when you release the lease yourself; session `close` then leaves it active until `release()`, expiry, or daemon shutdown. The returned lease has `retainOnClose: true` only when the daemon honored it. Keep heartbeating a retained lease between sessions: it expires after its `ttlMs` like any other lease. Pass `leaseId` (16 to 128 hex characters) to `allocate()` to name a new lease with an id the daemon has never issued, or to get back your live lease with that id when you retry with the same tenant, run, client, lease backend, and provider (and no device, or the leased one), then use the returned `leaseId`: a run that already holds a lease gets that one back, and an older daemon mints its own. `allocate()` with a `leaseProvider` the daemon has no runtime for fails with `UNSUPPORTED_OPERATION`, reason `provider-not-registered`, and `details.registeredProviders`; no lease is recorded. Leases with no provider, `proxy`, or `cloud` need no runtime.
 - `client.metro.prepare()`, `reload()`
 - `client.capture.snapshot()`, `screenshot()`, `diff()`
 - `client.interactions.click()`, `press()`, `longPress()`, `swipe()`, `pan()`, `drag()`, `fling()`, `swipeGesture()`, `focus()`, `type()`, `fill()`, `scroll()`, `pinch()`, `rotateGesture()`, `transformGesture()`, `get()`, `is()`, `find()`
@@ -1412,6 +1453,9 @@ Domain client methods:
 - `client.debug.symbols()`
 - `client.recording.record()` and `client.recording.trace()`
 - `client.settings.update()`
+
+If the daemon returns a missing or non-object lease, or a lease without a non-empty string for `leaseId`, `tenantId`, `runId`, or `backend`, `client.leases.allocate()` and `client.leases.heartbeat()` reject with `COMMAND_FAILED` and `details.reason: "INVALID_LEASE_RESPONSE"`.
+The original daemon response is available in `error.details.response`.
 
 `client.devices.list()` returns `AgentDeviceDevice` entries. Their optional `model` and `osVersion` fields describe the hardware and OS when discovery reports them; see [Device discovery](/agent-device/docs/commands.md#device-discovery) for the sources.
 
@@ -1589,9 +1633,13 @@ agent-device action-button
 agent-device fold closed
 agent-device fold half-open
 agent-device fold open
+agent-device telephony call 5551234
+agent-device telephony cancel 5551234
+agent-device telephony sms 5551234 "Your code is 1234"
 agent-device device status --platform android --serial emulator-5554
 agent-device device release --stale
 agent-device daemon stop --clean
+agent-device daemon status --json
 ```
 
 Boot and shut down:
@@ -1610,14 +1658,16 @@ Select a device:
 Device claims and the daemon:
 
 - `device status` lists host-local device claims without starting or contacting a daemon; `--stale` shows the stale claims it hides by default (owner exited, PID reused, state directory deleted, or daemon replaced), some of whose owners may still be running. Scope it with `--platform` plus `--udid` (Apple) or `--serial` (Android). A claim held by another live or uncertain owner blocks `open`, unless the device rebooted after the claim was taken: then `open` settles that owner's durable resources, takes the claim, and reports the release in `warnings`.
-- `device release --stale` settles the durable resources of an owner that provably can't release its claim (its process exited or a newer daemon replaced it), then clears the claim. Live, uncertain, PID-reused, corrupt, and deleted-state-directory claims are refused with the reason. See [Sessions](/agent-device/docs/sessions.md#release-a-device-another-workspace-holds).
+- `device release --stale` settles the durable resources of an owner that provably can't release its claim (its process exited or a newer daemon replaced it), then clears the claim. Live, uncertain, PID-reused, corrupt, and deleted-state-directory claims are refused with the reason. See [Sessions](/agent-device/docs/sessions.md#release-a-device-another-session-or-workspace-holds).
+- A command that needs the shared local daemon starts it for its state directory when none runs; `device status` and `device release --stale` never contact one. When the running daemon comes from another version or build, the command replaces it only if it reports no work: no request in flight, no session, no repair session and no live lease. A resumable upload still streaming and a host human-control hold that names no lease are not counted, so a replacement can end them. Otherwise the command fails with `daemon-busy` and leaves the daemon alone. A daemon from a release that predates this check is never replaced, and fails with `daemon-incompatible`. End a busy or older daemon deliberately with `daemon stop`. Node.js clients choose this per client; see [Daemon lifecycle](/agent-device/docs/client-api.md#daemon-lifecycle).
 - `daemon stop --state-dir <path>` stops a local daemon after verifying its identity. `--clean` also removes the Apple runner processes and leases that daemon retained.
+- `daemon status [--state-dir <path>] [--json]` reads the daemon's record without contacting it. For a running daemon it lists every provider it registered, built in or installed, and the reason any plugin failed to register. See [provider plugins](/agent-device/docs/plugins.md).
 
 Open apps and links:
 
 - `open [app|url] [url]` boots and activates the selected target when needed. `open <url>` opens deep links on Android and iOS, and `open <app> <url>` opens a deep link in that app on iOS.
 - On iOS devices, `http(s)://` URLs open in Safari when no app is active. Custom-scheme URLs need an active app in the session.
-- `open <app> --wait <ms>` waits up to that budget for a device another session holds, then fails with `DEVICE_IN_USE`. The wait extends the command's timeout, so you don't need a longer `--timeout`. A claim held by another workspace's daemon is not waited for; `open` returns its recovery command at once. See [Sessions](/agent-device/docs/sessions.md#wait-for-a-slow-or-busy-device).
+- `open <app> --wait <ms>` waits up to that budget for a device another session holds, then fails with `DEVICE_IN_USE`. The wait extends the command's timeout, so you don't need a longer `--timeout`. A claim held by another workspace's daemon is not waited for; `open` returns its recovery command at once. Device-mutating commands like `install` and `reinstall` never wait either: a claim held by another session fails them at once, and when the caller sends a workspace, another workspace's claim under the same session name fails too. See [Sessions](/agent-device/docs/sessions.md#wait-for-a-slow-or-busy-device).
 - `open <app> --launch-console <path>` captures launch-time stdout/stderr for iOS simulator app launches. It is not valid for URL opens or other targets.
 - `open --platform macos --surface app|frontmost-app|desktop|menubar` selects the macOS session surface; `app` is the default when you name an app. See [Desktop targets](#desktop-targets). `--save-script` records the surface so `replay` reopens it; with no surface given, replay opens an app session.
 - Android React Native: `open --relaunch` needs an installed package name. Install or reinstall the APK first; `open <apk|aab> --relaunch` is rejected. For Metro-backed JS changes, run `metro reload` before reaching for `open <app> --relaunch`.
@@ -1629,9 +1679,11 @@ iOS Simulator launch behavior:
 - An `open` that launches an app reports `timing.postOpenObservation`. When it is present and not `"observable"`, the next command that reads the screen waits briefly until two reads agree, so a `click` lands where the element comes to rest. If the screen is still moving after that wait, the command proceeds and warns that the surface was still changing.
 - If CoreSimulator never answers a URL hand-off, `open` fails within 20 seconds with `details.reason: ios-simulator-openurl-timeout`. The Simulator may still have received the URL; retry the open or answer the prompt with `alert accept`.
 - When `open <app> --launch-url <url>` raises an `Open in "<App>"?` prompt and the URL's scheme belongs to the session app, `open` taps **Open** and returns `launchConfirmation: "accepted"`. If the app still never starts, `open` hands over the URL once more.
+- When that prompt stays unanswered, `open` returns `launchConfirmation: "unanswered"` with `launchConfirmationReason`: `alert-unrecognized` for a prompt it did not recognize (such as a non-English Simulator), or `url-owner-unresolved` when no single installed app owns the URL's scheme or that lookup failed. The prompt stays on screen; `warnings` name the next step. Inspect with `alert get`, then answer with `alert accept`.
+- When `open` could not read whether a prompt is up at all (the alert read, the accept, or the runner itself failed), `open` succeeds with `launchConfirmationProbeFailure` set to `alert-read`, `alert-accept`, or `runner` and no `launchConfirmation`, plus a warning to check with `alert get` before retrying.
 - `details.reason: launch_confirmation_unanswered` means the app never started after the prompt was accepted, or the prompt stayed visible after a failed tap. Answer it with `alert accept` or `alert dismiss` before continuing.
 - `details.reason: launch_confirmation_foreign_app` means another installed app owns the scheme (`details.foreignAppBundleId`). Close the prompt with `alert dismiss` and pass a URL your app handles.
-- `open` leaves the prompt on screen and returns as if none appeared when the Simulator isn't set to English (run with `--debug` to see the title), when the prompt appears after `open` has seen your app, or when no single installed app owns the scheme (none does, a debug and a release build both do, or the app list can't be read). Answer it with `alert accept` or `alert dismiss`.
+- A prompt that appears after `open` has already seen the app is not reported and not answered; use `alert accept`.
 
 Back, orientation, and hardware buttons:
 
@@ -1650,6 +1702,15 @@ Fold a foldable device:
 - `COMMAND_FAILED` with `reason: fold-pose-unverified` means the hinge reports another pose; `fold-pose-unsettled` means it reached `half-open` but never came to rest; `fold-pose-dispatched-unverified` means the pose was sent but the first hinge-angle read returned no sample, so check the lit panel with a screenshot; `hingeReadFailure` holds the read's own failure.
 - `UNSUPPORTED_OPERATION` covers single-panel devices (`single-panel-device` on Android) and simulators in a non-default `--ios-simulator-device-set` (`unsupported-device-scope`; use the default set). Physical devices are refused.
 - On Android, `fold` confirms the pose from the device state the emulator commits and reports `hingeAngleDegrees` as the hinge sensor reads it: the angle the AVD profile defines for the posture, such as 0°, 90°, and 180° on the Pixel folds or 15°, 90°, and 165° on the generic 7.6in Foldable. It also dismisses the lock screen that folding to the cover display can raise. For panels, poses, and timings, see `agent-device help foldable`.
+
+Simulate an incoming call or SMS:
+
+- `telephony call <number>` starts an incoming call from `<number>` on an Android emulator; `telephony accept <number>` answers it and `telephony cancel <number>` ends it. `telephony sms <number> <text>` delivers a text message from `<number>`. Use it to check how an app reacts when a call or message arrives, for example whether video playback pauses and resumes.
+- The events go through the emulator console (`adb emu gsm call|accept|cancel`, `adb emu sms send`), so they work on Android emulators reached through the local adb executor. Other adb executors, such as an ADB provider, have not been verified. Physical Android devices refuse with `UNSUPPORTED_OPERATION` and `reason: unsupported-device-kind`; iOS, macOS, tvOS, web, Linux, HarmonyOS, Vega, and Limrun and WebDriver (Appium) sessions refuse with `UNSUPPORTED_OPERATION` too: agent-device sends telephony only through adb and does not drive Appium's own call or SMS simulation.
+- `<number>` is digits with an optional leading `+`, up to 15 digits. Quote the SMS text, or pass it as the remaining words; the text is sent as one argument, with backslashes and line breaks (LF, or CRLF sent as LF) escaped for the emulator console. Tabs, lone carriage returns, and other C0 or C1 control characters are refused.
+- The emulator console answers some events with an error, such as `accept` for a number with no call. That fails with `COMMAND_FAILED`, `reason: telephony-console-refused`, and the console's own `consoleReason`. `cancel` for a number with no call succeeds, because the console answers it with `OK`.
+- The emulator drops SMS characters outside the Basic Multilingual Plane, such as emoji, and delivers the rest of the text. `textLength` counts the text as sent.
+- The call screen or message notification can cover the app. Re-snapshot before using refs from before the event.
 
 Remote daemons and tenants:
 
@@ -1831,6 +1892,7 @@ agent-device snapshot -i --platform apple --target desktop
 - `--platform macos`, or `--platform apple --target desktop`, selects the host Mac as a `desktop` target.
 - Use an `app` session for normal app control: `open`, `snapshot`, `click`, `fill`, `press`, `scroll`, `back`, `screenshot`, `record`. In app sessions, `screenshot` captures the app window, not the whole desktop.
 - Use the other surfaces to inspect desktop-wide UI before choosing an app, mainly with `snapshot`, `get`, `is`, and `wait`: `frontmost-app` is the focused app, `desktop` is the visible windows across the desktop, and `menubar` is the active app's menu bar and system menu extras. To click or fill inside one app afterwards, open it in an `app` session.
+- `open <app> --platform macos` attaches to a copy of the app that is already running, including one you started yourself from a script or supervisor. If that copy has not finished registering with macOS, the open waits briefly for it before handing the URL over, so a copy that registers within that window keeps the arguments it was started with; a copy still unregistered after the wait gets the plain `open`, which can start a second instance.
 - `open <app> --platform macos --surface menubar` targets one app's menu bar extras. Prefer it for status-item apps, which often expose little through the `app` surface.
 - Prefer selectors and `@ref`s; window positions shift between runs, so raw x/y is less stable. Use `click --button secondary` for context menus, then run `snapshot -i` again.
 - On `frontmost-app` and `menubar`, `press` and `click` post synthetic mouse events (`desktop` is inspect-only). `--hold-ms` keeps the button down (at least 40 ms, default 60 ms), `--count` sends independent clicks, and `--double-tap` sends double-click pairs. Apps like Finder read two clicks at the default interval as one double-click; pass an `--interval-ms` longer than the system double-click time to keep them apart. Long schedules get the time they need, and a cancelled or interrupted click releases the button. `--jitter-px` is ignored on these surfaces.
@@ -1839,7 +1901,7 @@ agent-device snapshot -i --platform apple --target desktop
 
 Set `AGENT_DEVICE_MACOS_APP_BACKEND=native` to run macOS app sessions without XCTest. There is no Automation Mode overlay, the app can stay behind other windows, and your pointer stays yours while a drawn pointer shows each action.
 
-- `click`, `press`, and `fill` use accessibility actions on the element at the target point, which must be inside one of the app's on-screen windows, not its menu bar. `type` inserts at the focused control or falls back to key events. `scroll` moves the scroll bar under the front window's center. Chromium-based apps expose their full tree. `screenshot` captures only the app's front window, even when it is covered.
+- `click`, `press`, and `fill` use accessibility actions on the element at the target point, which must be inside one of the app's on-screen windows, not its menu bar. `type` inserts at the focused control or falls back to key events. `scroll` moves the scroll bar under the front window's center. Chromium-based apps expose their full tree. `screenshot` captures only the app's front window, even when it is covered. The front window is the app's frontmost visible, nonempty normal-level (layer-0) window on the current Space: floating palettes and app-modal alerts at window level 8 are skipped, and a sheet is captured as its own window. If that window cannot be captured, `screenshot` fails; it never captures another window.
 - `record`, `prepare`, `back`, `longpress`, `--hold-ms`, `--double-tap`, `--button secondary`, gestures, and clicks on an element with no accessibility action fail with `UNSUPPORTED_OPERATION` (`reason: unsupported-device-backend`). Use the default XCTest backend for those.
 
 ```bash
@@ -2019,7 +2081,8 @@ Read-only commands such as `get`, `snapshot`, and `wait` report `no`, and so do 
 
 These refusals carry `dispatched: no` and a typed `error.details.reason`, so branch on the reason, not the message:
 
-- `session_or_device_selector_required`: the request had neither an active session nor a device selector. Open a session or pass `--platform`.
+- `session_or_device_selector_required`: the request had neither an active session nor a device selector. Open a session or pass `--platform`. Commands that require a session or a device selector before they read the request's target (`boot`, `clipboard`, `push`, `apps`, and siblings) answer this even when the request named a session the daemon does not hold.
+- `named_session_not_found`: the request named a session this daemon does not hold, with no device selector to fall back on (or no selector it can answer without the session — `appstate` on an Apple target refuses this even with an explicit device). The daemon lost its sessions (replaced or restarted), or the name is wrong; `agent-device session list` shows what it holds. Commands that require a session before they read anything else (interactions, `find` clicks, RN tooling, `screenshot`-style generic commands) answer the same missing-session cause as a message-level `SESSION_NOT_FOUND` carrying no `details.reason` — some carry a `dispatched` stamp from the disclosure layer, some carry no `details` at all; read the cause from the message, and read a present `dispatched` with its usual meaning.
 - `session_app_required`: a per-app setting was requested but the session binds no app and none was named. Run `open <app>`, or name the app on the request for a setting that takes one (`settings clear-app-state com.example.app`).
 - `app_not_installed`: the named app resolves to no installed app on the target. Run `apps --all` for the exact bundle id or package, or install the app, then retry.
 - `webdriver_route_unsupported`: on a WebDriver-backed device cloud, the driver does not implement the route; the limit is the cloud's driver, not the device. A command with a second route (`orientation` has two) tries it before failing. After an ambiguous failure on that transport, only read-only requests are resent.
@@ -2748,6 +2811,7 @@ explicit config:
 - local code and write destinations (`reporter`, `reportJunit`, `saveScript`, `launchConsole`)
 
 Project config can also set `snapshotDepth`, `snapshotScope`, `screenshotScale`, `activity`, `relaunch`, `shutdown`, `fps`, and `quality`. Local paths and executable modules, such as `stepsFile` and `reporter`, are allowed only in user or explicit config.
+The `record` config key and `AGENT_DEVICE_RECORD` were removed. `--record` is per-invocation only: pass it on the command, or set `record: true` in an SDK/MCP call, to keep a corrective read in a healed script.
 
 `install-from-source` can read a GitHub Actions artifact source from user or explicit config when the remote daemon supports resolving CI artifacts. Repository config rejects this key:
 
@@ -2771,17 +2835,17 @@ Project config can set a default lock mode for named sessions with `sessionLock`
 
 Only the variables below, and those documented on command pages, are supported. Other `AGENT_DEVICE_*` names you may see in logs or source are internal.
 
-| Category                            | Env vars                                                                                                                                                                                                                                                                                                                     | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CLI defaults and config             | `AGENT_DEVICE_HOME`, `AGENT_DEVICE_CONFIG`, `AGENT_DEVICE_SESSION`, `AGENT_DEVICE_PLATFORM`, `AGENT_DEVICE_SCREENSHOT_SCALE`, `AGENT_DEVICE_SESSION_LOCK`, `AGENT_DEVICE_DAEMON_BASE_URL`, `AGENT_DEVICE_DAEMON_AUTH_TOKEN`, `AGENT_DEVICE_CLOUD_BASE_URL`                                                                   | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Device scoping                      | `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`, `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET`                                                                                                                                                                                                                                             | Public. `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET` is read by the daemon: every iOS simulator request that names no `--ios-simulator-device-set` uses that set, so iOS physical devices are not listed, and a request naming a different path string fails with `INVALID_ARGS` (`details.reason: "ios_simulator_device_set_outside_daemon_set"`). macOS and non-iOS requests ignore it. A daemon started by the CLI inherits the CLI's value; restart the daemon after changing it.                                                                                                                     |
-| Android test IME                    | `AGENT_DEVICE_TEST_IME`                                                                                                                                                                                                                                                                                                      | Public. Same setting as `--test-ime` / `--no-test-ime` on `open`, `test`, and `replay`; see known limitations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Local daemon storage                | `AGENT_DEVICE_STATE_DIR`                                                                                                                                                                                                                                                                                                     | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Metro and install helpers           | `AGENT_DEVICE_METRO_BEARER_TOKEN`, `AGENT_DEVICE_BUNDLETOOL_JAR`                                                                                                                                                                                                                                                             | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| App hooks and logs                  | `AGENT_DEVICE_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_IOS_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_MACOS_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_ANDROID_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_APP_LOG_MAX_BYTES`, `AGENT_DEVICE_APP_LOG_MAX_FILES`, `AGENT_DEVICE_APP_LOG_REDACT_PATTERNS`, `AGENT_DEVICE_EVENT_LOG_MAX_BYTES` | Public. Byte caps take whole integers (`5242880`), not `5MB`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Apple runner setup                  | `AGENT_DEVICE_IOS_TEAM_ID`, `AGENT_DEVICE_IOS_SIGNING_IDENTITY`, `AGENT_DEVICE_IOS_PROVISIONING_PROFILE`, `AGENT_DEVICE_IOS_BUNDLE_ID`, `AGENT_DEVICE_IOS_RUNNER_DERIVED_PATH`, `AGENT_DEVICE_IOS_CLEAN_DERIVED`, `AGENT_DEVICE_IOS_RUNNER_CACHE_KEEP`                                                                       | Public operator controls. Cleanup of an `AGENT_DEVICE_IOS_RUNNER_DERIVED_PATH` override is only automatic for paths under project `.tmp/`; keys in the managed runner cache are swept after a build. `AGENT_DEVICE_IOS_RUNNER_CACHE_KEEP` is the number of most-recent runner cache keys per platform folder (for example `ios-simulator` and `ios-device` are counted separately) guaranteed to survive a new build, the new key included (default 3, `0` keeps all). Keys used in the last day, held by a build, or named by a live runner lease also survive, so it is not a hard disk-usage cap. |
-| Install/update and platform helpers | `AGENT_DEVICE_NO_UPDATE_NOTIFIER`, `AGENT_DEVICE_MACOS_HELPER_BIN`, `AGENT_DEVICE_ANDROID_SNAPSHOT_HELPER_SESSION`                                                                                                                                                                                                           | Public operator controls                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| macOS app backend                   | `AGENT_DEVICE_MACOS_APP_BACKEND`, `AGENT_DEVICE_MACOS_GHOST_CURSOR`                                                                                                                                                                                                                                                          | Public operator controls, read by the daemon. `native` drives macOS app sessions through the macOS helper instead of XCTest; see [Desktop targets](/agent-device/docs/commands.md#desktop-targets). Unset or `xctest` uses the runner. The drawn agent pointer adds about 0.3 s to each native click, fill, type, and scroll; `AGENT_DEVICE_MACOS_GHOST_CURSOR=0` turns it off. Restart the daemon after changing either value.                                                                                                                                                                      |
+| Category                            | Env vars                                                                                                                                                                                                                                                                                                                     | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CLI defaults and config             | `AGENT_DEVICE_HOME`, `AGENT_DEVICE_CONFIG`, `AGENT_DEVICE_SESSION`, `AGENT_DEVICE_PLATFORM`, `AGENT_DEVICE_SCREENSHOT_SCALE`, `AGENT_DEVICE_SESSION_LOCK`, `AGENT_DEVICE_DAEMON_BASE_URL`, `AGENT_DEVICE_DAEMON_AUTH_TOKEN`, `AGENT_DEVICE_DAEMON_STARTUP_TIMEOUT_MS`, `AGENT_DEVICE_CLOUD_BASE_URL`                         | Public. `AGENT_DEVICE_DAEMON_STARTUP_TIMEOUT_MS` is the ceiling (a positive integer number of milliseconds, default `120000`; any other value fails with `INVALID_ARGS` before a daemon spawns, and only when the client must start a daemon — a client that attaches to or reuses a running daemon never reads it) a client waits for a local daemon it starts to register; CLI, MCP, and Node clients share it. A live daemon is waited for while it records startup progress, so an overloaded host slows startup instead of failing it. A failed startup names the outcome in `details.reason`: `startup-exited` (the process ended before registering), `startup-stalled` (alive, no startup progress for a fixed 60 s window this variable does not change), or `startup-ceiling` (a startup was still live when the ceiling passed — this client's daemon or another client's; the client stops its own launch and never signals another client's live daemon. Only a progressing own launch outlasts the fixed stall window). Branch on `details.reason`, never on the message. |
+| Device scoping                      | `AGENT_DEVICE_ANDROID_DEVICE_ALLOWLIST`, `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET`                                                                                                                                                                                                                                             | Public. `AGENT_DEVICE_IOS_SIMULATOR_DEVICE_SET` is read by the daemon: every iOS simulator request that names no `--ios-simulator-device-set` uses that set, so iOS physical devices are not listed, and a request naming a different path string fails with `INVALID_ARGS` (`details.reason: "ios_simulator_device_set_outside_daemon_set"`). macOS and non-iOS requests ignore it. A daemon started by the CLI inherits the CLI's value; restart the daemon after changing it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Android test IME                    | `AGENT_DEVICE_TEST_IME`                                                                                                                                                                                                                                                                                                      | Public. Same setting as `--test-ime` / `--no-test-ime` on `open`, `test`, and `replay`; see known limitations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Local daemon storage                | `AGENT_DEVICE_STATE_DIR`                                                                                                                                                                                                                                                                                                     | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Metro and install helpers           | `AGENT_DEVICE_METRO_BEARER_TOKEN`, `AGENT_DEVICE_BUNDLETOOL_JAR`                                                                                                                                                                                                                                                             | Public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| App hooks and logs                  | `AGENT_DEVICE_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_IOS_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_MACOS_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_ANDROID_APP_EVENT_URL_TEMPLATE`, `AGENT_DEVICE_APP_LOG_MAX_BYTES`, `AGENT_DEVICE_APP_LOG_MAX_FILES`, `AGENT_DEVICE_APP_LOG_REDACT_PATTERNS`, `AGENT_DEVICE_EVENT_LOG_MAX_BYTES` | Public. Byte caps take whole integers (`5242880`), not `5MB`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Apple runner setup                  | `AGENT_DEVICE_IOS_TEAM_ID`, `AGENT_DEVICE_IOS_SIGNING_IDENTITY`, `AGENT_DEVICE_IOS_PROVISIONING_PROFILE`, `AGENT_DEVICE_IOS_BUNDLE_ID`, `AGENT_DEVICE_IOS_RUNNER_DERIVED_PATH`, `AGENT_DEVICE_IOS_CLEAN_DERIVED`, `AGENT_DEVICE_IOS_RUNNER_CACHE_KEEP`                                                                       | Public operator controls. Cleanup of an `AGENT_DEVICE_IOS_RUNNER_DERIVED_PATH` override is only automatic for paths under project `.tmp/`; keys in the managed runner cache are swept after a build. `AGENT_DEVICE_IOS_RUNNER_CACHE_KEEP` is the number of most-recent runner cache keys per platform folder (for example `ios-simulator` and `ios-device` are counted separately) guaranteed to survive a new build, the new key included (default 3, `0` keeps all). Keys used in the last day, held by a build, or named by a live runner lease also survive, so it is not a hard disk-usage cap.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Install/update and platform helpers | `AGENT_DEVICE_NO_UPDATE_NOTIFIER`, `AGENT_DEVICE_MACOS_HELPER_BIN`, `AGENT_DEVICE_ANDROID_SNAPSHOT_HELPER_SESSION`                                                                                                                                                                                                           | Public operator controls                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| macOS app backend                   | `AGENT_DEVICE_MACOS_APP_BACKEND`, `AGENT_DEVICE_MACOS_GHOST_CURSOR`                                                                                                                                                                                                                                                          | Public operator controls, read by the daemon. `native` drives macOS app sessions through the macOS helper instead of XCTest; see [Desktop targets](/agent-device/docs/commands.md#desktop-targets). Unset or `xctest` uses the runner. The drawn agent pointer adds about 0.3 s to each native click, fill, type, and scroll; `AGENT_DEVICE_MACOS_GHOST_CURSOR=0` turns it off. Restart the daemon after changing either value.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ## Command-specific defaults
 
@@ -3351,7 +3415,8 @@ Run `agent-device help physical-device` for the same setup guidance from the CLI
 - Set `AGENT_DEVICE_IOS_SIGNING_IDENTITY` only when `xcodebuild` asks for a specific identity.
 - The profile and team must allow both `AGENT_DEVICE_IOS_BUNDLE_ID` and `<id>.uitests`.
 - Free Apple Developer (Personal Team) accounts can fail with "bundle identifier is not available" for generic IDs. Set `AGENT_DEVICE_IOS_BUNDLE_ID` to a unique reverse-DNS value (for example `com.yourname.agentdevice.runner`).
-- When the runner fails to start, `error.details.reason` is one of `signing_no_development_team`, `signing_provisioning_profile_missing`, `bundle_identifier_already_registered`, `signing_unspecified`, `devtools_security_developer_mode_disabled` (the Mac's `DevToolsSecurity` setting, which says nothing about the device's Developer Mode toggle), `device_developer_mode_disabled`, `device_developer_disk_image_unavailable`, or `build_failed_unclassified` when the cause is unknown. Branch on `details.reason` and follow `hint`; the error code is `COMMAND_FAILED` for every reason.
+- When the runner fails to start, `error.details.reason` is one of `signing_no_development_team`, `signing_provisioning_profile_missing`, `bundle_identifier_already_registered`, `signing_unspecified`, `devtools_security_developer_mode_disabled` (the Mac's `DevToolsSecurity` setting, which says nothing about the device's Developer Mode toggle), `simulator_service_hub_unavailable`, `simulator_set_destination_not_found` (a `--ios-simulator-device-set` simulator the selected Xcode cannot resolve, which names the set), `device_developer_mode_disabled`, `device_developer_disk_image_unavailable`, or `build_failed_unclassified` when the cause is unknown. Branch on `details.reason` and follow `hint`; the error code is `COMMAND_FAILED` for every reason.
+- `simulator_service_hub_unavailable` means the selected Xcode is too old for the host macOS: macOS refuses to load that Xcode's `DTServiceHub`, so every iOS Simulator runner start fails. Commands the runner doesn't serve keep working — `open`, and a `snapshot` or `screenshot` the simulator bridge answers — while a capture the runner has to serve (`snapshot --actions`, `snapshot --observe-only`, or one the bridge can't answer) fails the same way. The `DTServiceHub` refusal is visible in `runner.log`. Fix it on the machine running the daemon: `xcode-select -s /Applications/Xcode.app`, or start the daemon with `DEVELOPER_DIR=/Applications/Xcode.app`, pointing at an Xcode that supports this macOS. The command fails as soon as the refusal reaches `runner.log` instead of waiting out the connect timeout, and the failure is not retried or rebuilt, because neither can change which Xcode the host can load.
 - The two `device_*` reasons come from the device itself (`xcrun devicectl device info details`), checked before the runner builds. `device_developer_mode_disabled` means the Developer Mode toggle in Settings is off; turn it on. `device_developer_disk_image_unavailable` means Developer Mode is on but the developer disk image isn't available yet, usually because device support is still installing; wait and retry.
 - The first run builds the Apple runner and takes longer than later commands. Keep the device connected; if setup times out, retry with `--debug` to see signing and build diagnostics.
 - If you set `AGENT_DEVICE_IOS_RUNNER_DERIVED_PATH` together with `AGENT_DEVICE_IOS_CLEAN_DERIVED`, keep the path in a subdirectory of the project's `.tmp/` directory. For any other path, the command fails instead of cleaning it, and the error hint names both fixes.
@@ -3479,7 +3544,7 @@ An agent in a sandbox can drive an instance that someone else created, such as t
 | iOS      | `LIM_IOS_INSTANCE_URL` (`status.apiUrl`), `LIM_IOS_INSTANCE_TOKEN` (`status.token`)                                                                    |
 | Android  | `LIM_ANDROID_INSTANCE_URL` (`status.apiUrl`), `LIM_ANDROID_INSTANCE_TOKEN` (`status.token`), `LIM_ANDROID_INSTANCE_ADB_URL` (`status.adbWebSocketUrl`) |
 
-The `lim` CLI reads the same variables, so one set works for both tools. Set all of a platform's variables or none. With a partial set, `connect` fails, and the daemon disables Limrun and records `provider_runtime_skipped` in `daemon.log`.
+The `lim` CLI reads the same variables, so one set works for both tools. Set all of a platform's variables or none. With a partial set, `connect` fails, and the daemon registers without Limrun, lists it as `failed` in `agent-device daemon status`, and records `provider_plugin_failed` in `daemon.log`.
 
 ```bash
 export LIM_IOS_INSTANCE_URL=...
@@ -3546,6 +3611,36 @@ const runtime = new LimrunRuntime({
 ```
 
 To drive existing instances, pass `instances: { ios: { apiUrl, token } }` (Android also takes `adbUrl`), with or without `apiKey`. The runtime never creates or deletes instances for a platform listed there.
+
+A provider that reaches a harness-owned instance through the Node.js client allocates a Limrun lease in `acquire` and releases that same lease in `release`. Put the returned `lease.leaseId` on the client scope, and pass that same id to `leases.release`. Start the daemon with the instance URL and token (`LIM_IOS_INSTANCE_URL` and `LIM_IOS_INSTANCE_TOKEN`). `leases.allocate` attaches to that instance. `leases.release` returns `{ released, provider }`. Neither call creates or deletes the instance. Allocate with `retainOnClose: true` because the provider releases the lease itself: without it, a session `close` before `release` ends the lease and `leases.release` returns `released: false`. A retained lease still expires after its `ttlMs`, so keep heartbeating it between sessions.
+
+```ts
+import { createAgentDeviceClient } from 'agent-device';
+
+const scope = {
+  tenant: 'limrun',
+  runId: process.env.GITHUB_RUN_ID ?? 'local-run',
+  leaseBackend: 'ios-instance',
+  leaseProvider: 'limrun',
+} as const;
+
+const provider = {
+  acquire: async (req: { slot: string }) => {
+    const lease = await createAgentDeviceClient({ session: `lease-${req.slot}` }).leases.allocate({
+      ...scope,
+      platform: 'ios',
+      retainOnClose: true,
+    });
+    return {
+      id: lease.leaseId,
+      client: { ...scope, leaseId: lease.leaseId, sessionIsolation: 'tenant' as const },
+    };
+  },
+  release: async (lease: { id: string }) => {
+    await createAgentDeviceClient({}).leases.release({ ...scope, leaseId: lease.id });
+  },
+};
+```
 
 After allocating a lease, call `runtime.getDeviceSession(device)` to get the allocated device's capabilities: app inventory, foreground state where Limrun exposes it, key input, bounded log reads, recording, remote asset installation, and the interactor. On Android it also exposes agent-device's `AndroidAdbProvider` for helpers and reversible port forwarding. On iOS it exposes a typed `simctl` execution handle so your bridge can own runner lifecycle and launch policy. The runtime does not expose raw Limrun clients.
 
@@ -3747,50 +3842,119 @@ Install only packages you trust: plugin factories run with the daemon's host per
 
 A failed install keeps the previous selection. A running daemon keeps the plugin set and files it started with, including removed installations. To apply changes, close sessions and run `agent-device daemon stop` with the matching `--state-dir`; the next device command uses the new set. Use separate state directories for different plugin homes.
 
-Compatibility checks run offline against local metadata; provider operations may still need network access. An incompatible plugin stops the daemon from starting. Run `plugins list --json` to see the errors, then update or remove the affected package. Upgrading agent-device does not download compatible plugin versions for you.
+## See which providers are registered
+
+`agent-device daemon status` lists every provider the running daemon registered: the bundled ones (BrowserStack, AWS Device Farm, and Limrun when it is configured), then installed plugins. With `--json`, each entry has:
+
+```json
+{
+  "provider": "testmu",
+  "source": "store",
+  "package": "@agent-device/testmu",
+  "version": "0.21.29",
+  "state": "active",
+  "credentials": { "variables": ["LT_USERNAME", "LT_ACCESS_KEY"], "byBackend": {} }
+}
+```
+
+`source` is `builtin` or `store`; `embedder` is the third slot, reserved for plugins an embedding host passes itself (#3757). A plugin that cannot register has `state: "failed"` and an `error` with `code`, `message`, and a `reason` such as `invalid_plugin`, `incompatible_plugin`, or `duplicate_provider`. The daemon starts without it and keeps every other provider. Fix or remove the package, then stop the daemon so the next command starts a new one.
+
+When a daemon's `daemon.json` cannot be used, `daemon status` says so instead of reporting a stopped daemon: `unreadable` means the file exists but could not be read, and `invalid` means it was read but is not a daemon record. A missing or stale record means `stopped`; an unreadable or invalid file never does.
+
+When the daemon stops, it closes every plugin once: each runtime shuts down, then its `dispose` runs. A step that fails is logged as `provider_plugin_cleanup_failed` with the provider and step, and the other plugins still close.
+
+`plugins list --json` works without a daemon. It lists your installed plugins with their provider and whether their factory loads and validates; whether `setup` succeeds shows only in a running daemon's inventory. When a daemon is running for the same `--state-dir`, it also reports that daemon's inventory under `daemon`.
+
+When two plugins claim the same provider, the first one wins: bundled providers, then installed plugins in package-name order, then, once #3757 lets an embedding host pass plugins, those. The others are `failed` with `duplicate_provider`. The first claim holds even when that plugin then fails to set up, so a later plugin for the same provider doesn't take over. `cloud` and `proxy` are reserved and can't be claimed.
+
+A lease that names a provider this daemon has no runtime for refuses with `UNSUPPORTED_OPERATION` and reason `provider-not-registered`, before any lease is recorded. The error lists the registered providers and, as `failedPlugins`, any plugin that failed to register for that provider (or failed before its provider was known); restart the daemon with the provider's plugin installed. Leases with no provider, `proxy`, and `cloud` need no provider runtime.
 
 ## Create a plugin
 
-The interface is experimental. Publish this declaration in your package manifest:
+The interface is experimental. A plugin package exports a factory at `./agent-device`. Use `agent-device` as a development dependency; plugins import only types from it.
+
+```json
+{
+  "name": "@example/agent-device-provider",
+  "type": "module",
+  "exports": {
+    "./agent-device": { "import": "./dist/plugin.mjs" }
+  }
+}
+```
+
+```ts
+import type { AgentDevicePluginFactory } from 'agent-device/plugins';
+
+type ExampleOptions = { credentials?: { username: string; accessKey: string } };
+
+const example: AgentDevicePluginFactory<ExampleOptions> = (options = {}) => ({
+  apiVersion: 2,
+  provider: 'example',
+  credentials: {
+    // Variables the daemon reads credentials from; none when the caller passes them as options.
+    variables: options.credentials ? [] : ['EXAMPLE_USERNAME', 'EXAMPLE_ACCESS_KEY'],
+  },
+  setup: async (host) => ({ runtime, platformModule }),
+});
+
+export default example;
+```
+
+The factory is called with the package's `options` from `config.json` (`plugins["<package>"].options`; leave `installation` unchanged). A JavaScript host that imports the package calls the same factory directly with its own options.
+
+The host resolves the `./agent-device` export with import conditions. It falls back to the package's root export only when that subpath does not exist. If the subpath exists but its import or `setup` throws, the plugin is reported as failed and the root export is not tried.
+
+`setup(host)` receives `ProviderPluginHost`: `env`, `options`, `clientVersion`, and `createError` for host-recognized errors. Return one of:
+
+- `{ runtime, platformModule, dispose? }` implementing the [provider runtime](https://github.com/callstack/agent-device/blob/main/packages/contracts/src/provider-device-runtime.ts) and [platform module](https://github.com/callstack/agent-device/blob/main/packages/contracts/src/platform-runtime-operations.ts) contracts. The runtime's `provider` and the module owner's `provider` must equal the plugin's `provider`, and the module owner must declare `kind: 'provider-runtime'` and a nonempty `instance`.
+- `{ webDriver, dispose? }` for an Appium or WebDriver service. `WebDriverPluginOptions` is available through the type-only `agent-device/plugins/webdriver` import. The host supplies the client version and creates the shared runtime. Provider callbacks prepare sessions, upload apps, and retrieve artifacts.
+
+The host checks required runtime methods and owner metadata when it sets the plugin up; operation contracts are checked when used. `dispose` runs once after the runtime shuts down. A failing `setup` cleans up its own resources; the host shuts down a runtime it already received if validation then refuses it.
+
+Keep the factory and `setup` fast, with no network I/O or device allocation; a stalled plugin delays daemon startup. Load platform mechanics through `platformModule.loadRuntime` and perform remote work in request-bound operations.
+
+Incompatible contract changes require a new `apiVersion`. Plugins can't replace bundled providers or register arbitrary commands.
+
+### Credentials
+
+List the environment variables the provider reads in `credentials.variables`. A local daemon keeps the values it started with; when the shell holds different ones, the first command that allocates a lease refuses with reason `provider-credentials-changed` until the daemon is stopped. The check treats a whitespace-only value as unset. If a lease reads fewer variables on one backend, narrow them with `credentials.byBackend`, for example `{ "android-instance": ["EXAMPLE_API_KEY"] }`. Credentials the caller passes as factory options are not in the environment, so list no variable for them.
+
+### Connect
+
+To support `agent-device connect example`, add a `connection` to the plugin:
+
+```ts
+connection: {
+  capabilities: {
+    leaseKind: 'direct-device-provider',
+    requiresAppAttachment: false,
+    requiresRemoteDaemon: false,
+    supportsArtifacts: false,
+    supportsDeferredAppSelection: true,
+    supportsDirectPortReverse: false,
+    usesCloudWebDriverLease: false,
+  },
+  resolve: async ({ flags, env, cwd, stateDir, host }) => ({ profile }),
+  verify: async ({ flags, env, host }) => verification,
+},
+```
+
+`resolve` validates provider flags and returns `{ profile, extraFlags? }`; `profile.leaseProvider` must match the plugin's `provider`. The host supplies connection identity, session defaults, Metro settings, and persists the profile. `verify` returns the provider verification result. Both also receive `host`, the same `ProviderPluginHost` that `setup` gets, built from the `env` of that call. Both run without allocating a device or setting up a runtime. `agent-device` loads installed plugins' factories, not their `setup`, to read these capabilities.
+
+### Package for installation
+
+Bundle the plugin implementation and ship ready-to-run ESM: installation disables lifecycle scripts. Bundle shared helpers with the plugin; `AppError` carries a shared brand so the host preserves its code and details across package copies. Import types with `import type` to keep them out of the runtime dependency graph.
+
+## Version 1 plugins
+
+Packages that declare `agentDevicePlugin` with `apiVersion: 1` in `package.json` keep working. The host reads the manifest's `provider`, `entry`, `connection`, and `credentialVariables` before running any plugin code, then calls the default export with `ProviderPluginHost` and registers the `{ runtime, platformModule }` or `{ webDriver, connection? }` it returns. Support for this form ends in a later release; move to the `./agent-device` factory.
 
 ```json
 {"agentDevicePlugin": {"apiVersion": 1, "provider": "example", "entry": "./dist/plugin.mjs"}}
 ```
 
-Use `agent-device` as a development dependency. The default factory accepts `ProviderPluginHost` from `agent-device/plugins`: `env`, package-specific `options`, `clientVersion`, and `createError` for host-recognized errors. Return `{ runtime, platformModule }` implementing the [provider runtime](https://github.com/callstack/agent-device/blob/main/packages/contracts/src/provider-device-runtime.ts) and [platform module](https://github.com/callstack/agent-device/blob/main/packages/contracts/src/platform-runtime-operations.ts) contracts. Both provider IDs must match the manifest; the module owner must declare `kind: 'provider-runtime'` and a nonempty `instance`. Core checks required runtime methods and owner metadata at startup; operation contracts are checked when used. Provider packages own implementation types; the SDK exposes only factory context. Set options through `plugins["<package>"].options` in user config; leave `installation` unchanged.
-
-Keep the factory fast, with no network I/O or device allocation; a stalled factory blocks daemon startup. Load platform mechanics through `platformModule.loadRuntime` and perform remote work in request-bound operations. A failing factory cleans up its own resources; core shuts down previously returned runtimes if another plugin fails.
-
-Incompatible contract changes require a new API version. Plugins cannot replace bundled providers or register arbitrary commands. Plugins can add `connect <provider>` through the connection callbacks described below. Limrun, BrowserStack, and AWS Device Farm remain bundled.
-
-For an Appium or WebDriver service, return `{ webDriver: options }` instead of building an engine. `WebDriverPluginOptions` is available through the type-only `agent-device/plugins/webdriver` import. Core supplies the client version and creates the shared runtime. Provider callbacks prepare sessions, upload apps, and retrieve artifacts.
-
-To support `agent-device connect example`, declare `agentDevicePlugin.connection` in the package manifest:
-
-```json
-{
-  "agentDevicePlugin": {
-    "apiVersion": 1,
-    "provider": "example",
-    "entry": "./dist/plugin.mjs",
-    "connection": {
-      "leaseKind": "direct-device-provider",
-      "requiresAppAttachment": false,
-      "requiresRemoteDaemon": false,
-      "supportsArtifacts": false,
-      "supportsDeferredAppSelection": true,
-      "supportsDirectPortReverse": false,
-      "usesCloudWebDriverLease": false
-    }
-  }
-}
-```
-
-If the provider reads credentials from the environment, list the variables in `agentDevicePlugin.credentialVariables`, for example `["EXAMPLE_USERNAME", "EXAMPLE_ACCESS_KEY"]`. A local daemon keeps the values it started with; when the shell holds different ones, the first command that allocates a lease refuses with reason `provider-credentials-changed` until the daemon is stopped. Core reads this list from the manifest without loading the plugin, and treats a whitespace-only value as unset.
-
-Return `connection` alongside the runtime or WebDriver options. Its `resolve({ flags, env, cwd, stateDir })` callback validates provider flags and returns `{ profile, extraFlags? }`; `profile.leaseProvider` must match the manifest. Core supplies connection identity, session defaults, Metro settings, and persists the profile. Its async `verify({ flags, env })` callback returns the provider verification result. These callbacks run without allocating a device and their temporary runtimes are shut down afterwards.
-
-Bundle the plugin implementation and ship ready-to-run ESM: installation disables lifecycle scripts. Bundle shared implementation helpers with the plugin; `AppError` carries a shared brand so core preserves its code and details across package copies. Import types with `import type` to keep them out of the runtime dependency graph.
+A package that exports `./agent-device` is loaded as a version 2 plugin even if it also keeps the manifest, so one package can serve both old and new hosts.
 
 
 
@@ -4557,7 +4721,7 @@ A failing `replay`/`test` step returns a structured `REPLAY_DIVERGENCE` error. T
 
 - **`step`** — the 1-based plan index and its source file/line (through Maestro `runFlow` includes).
 - **`screen`** — a fresh post-failure snapshot digest with actionable refs, or `unavailable` with a reason/hint when capture failed or was sparse (never a stale tree).
-- **`suggestions`** — up to 5 ranked, re-resolved candidates for the failing selector (id match ranks above role+label, which ranks above label-only), each with a `basis` you can inspect before acting.
+- **`suggestions`** — up to 5 ranked, re-resolved candidates for the failing selector (id match ranks above role+label, which ranks above label-only), each with a `basis` you can inspect before acting. For a verified `target-v1` annotation, equally strong candidates in the recorded scroll region rank first; document order breaks remaining ties.
 - **`resume`** — whether and how to continue without re-running the script from the top.
 
 ```jsonc
@@ -4583,6 +4747,8 @@ A failing `replay`/`test` step returns a structured `REPLAY_DIVERGENCE` error. T
 Text output prints a compact summary of the same fields; `--json`/MCP carry the full object.
 
 ## Resume a failed replay
+
+During a repair armed with `replay --save-script`, diagnostic reads stay out of the healed script. To keep a corrective read, pass `--record` on that invocation, or `record: true` in that SDK/MCP call. `--record` is per-invocation only: the config key `record` and `AGENT_DEVICE_RECORD` were removed, and a config file or environment still naming them fails with migration guidance. Authored replay observations are retained automatically.
 
 `replay --from <n> --plan-digest <sha256>` resumes **at** plan step `n`, not after it, skipping `1..n-1` without executing them. Both flags come from a divergence report's `resume` field — `from` is the failed step, `planDigest` is the digest of the exact unchanged plan that produced it.
 
@@ -4735,7 +4901,7 @@ CLI commands run through a per-user background daemon:
 - Artifact uploads are size-capped, filenames are sanitized, and archive extraction rejects path-traversal entries. Artifact downloads resolve through server-side IDs, never client-supplied paths.
 - `install-from-source` protects the daemon host while it downloads and extracts the artifact; it does not vouch for the app inside. An app installed and launched on an iOS simulator runs as a process on the host Mac, so treat permission to send install requests as permission to run code on that Mac.
 
-For remote or cloud deployments, you can add a custom auth hook for remotely consumable HTTP routes: set `AGENT_DEVICE_HTTP_AUTH_HOOK` to a module path that the daemon imports, and `AGENT_DEVICE_HTTP_AUTH_EXPORT` to select the export. The host-local `/admin/human-control/*` route uses the daemon token instead. The hook runs with the daemon's full privileges, so treat it as trusted code: point it only at a read-only path you control, never at a location that less-trusted users or processes can write to. Whoever controls the daemon's environment controls the hook.
+For remote or cloud deployments, you can add a custom auth hook for remotely consumable HTTP routes: set `AGENT_DEVICE_HTTP_AUTH_HOOK` to a module path that the daemon imports, and `AGENT_DEVICE_HTTP_AUTH_EXPORT` to select the export. Relative hook paths resolve from the daemon host's working directory. The host-local `/admin/human-control/*` route uses the daemon token instead. The hook runs with the daemon's full privileges, so treat it as trusted code: point it only at a read-only path you control, never at a location that less-trusted users or processes can write to. Whoever controls the daemon's environment controls the hook.
 
 Lease-owner human-control RPCs pass normal authentication and tenant/lease admission. They can
 target only the admitted lease's device and cannot alter a host administrator's hold. Host
@@ -5063,11 +5229,19 @@ budget, so several agents can queue on one device.
 
 `--wait` waits only for another session. A device claimed by another workspace's
 daemon is never waited for; `open` fails at once and names the command that releases it.
+Device-mutating commands like `install` and `reinstall` don't wait either: while a
+session other than yours holds the device, they fail at once with `DEVICE_IN_USE`.
+Copying the owner's `--session` address doesn't change that — the claim must also
+record your workspace, so a command run from another checkout is refused even under
+the owner's name. The error names the owner when the claim is readable; when it
+isn't, `agent-device device status` shows what holds the device.
 
-## Release a device another workspace holds
+## Release a device another session or workspace holds
 
 Each daemon claims the devices its sessions use. A claim whose owner is live, or can't be proven
-gone, blocks `open` from another workspace. List the claims on this host without starting a daemon:
+gone, blocks `open` from another workspace, and blocks device-mutating commands like `install`
+from any other owner — another session, or the same session name from another workspace.
+List the claims on this host without starting a daemon:
 
 ```bash
 agent-device device status
@@ -5682,7 +5856,7 @@ releases the lease. Keep `leases.release()` in `finally`: it does nothing after 
 and releases the lease when a command fails first. Add `providerDeviceType: 'real'` to
 `leases.allocate` to run on a real device.
 
-The daemon reads `LT_USERNAME` and `LT_ACCESS_KEY` from its environment. If you change credentials while the daemon runs, see [Change credentials while the daemon runs](/agent-device/docs/device-clouds.md#change-credentials-while-the-daemon-runs).
+The daemon reads `LT_USERNAME` and `LT_ACCESS_KEY` from its environment, unless a JavaScript host passes the plugin `testmu({ credentials })` instead. If you change credentials while the daemon runs, see [Change credentials while the daemon runs](/agent-device/docs/device-clouds.md#change-credentials-while-the-daemon-runs).
 
 ```ts
 import { createAgentDeviceClient } from 'agent-device';

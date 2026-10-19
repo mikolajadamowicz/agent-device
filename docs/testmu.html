@@ -9,7 +9,7 @@
 <script defer src="/agent-device/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/static/js/index.ae147f1967.js"></script>
+<script defer src="/agent-device/static/js/index.4a94939736.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -131,7 +131,7 @@ create a client scoped to it for device commands. <code>sessions.close()</code> 
 releases the lease. Keep <code>leases.release()</code> in <code>finally</code>: it does nothing after a successful close,
 and releases the lease when a command fails first. Add <code>providerDeviceType: &#x27;real&#x27;</code> to
 <code>leases.allocate</code> to run on a real device.</p>
-<p>The daemon reads <code>LT_USERNAME</code> and <code>LT_ACCESS_KEY</code> from its environment. If you change credentials while the daemon runs, see <a href="/agent-device/docs/device-clouds#change-credentials-while-the-daemon-runs" class="rp-link">Change credentials while the daemon runs</a>.</p>
+<p>The daemon reads <code>LT_USERNAME</code> and <code>LT_ACCESS_KEY</code> from its environment, unless a JavaScript host passes the plugin <code>testmu({ credentials })</code> instead. If you change credentials while the daemon runs, see <a href="/agent-device/docs/device-clouds#change-credentials-while-the-daemon-runs" class="rp-link">Change credentials while the daemon runs</a>.</p>
 <div class="rp-codeblock language-ts"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="ts"><code><span class="line"><span style="color:var(--shiki-token-keyword)">import</span><span style="color:var(--shiki-foreground)"> { createAgentDeviceClient } </span><span style="color:var(--shiki-token-keyword)">from</span><span style="color:var(--shiki-token-string-expression)"> &#x27;agent-device&#x27;</span><span style="color:var(--shiki-foreground)">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:var(--shiki-token-keyword)">const</span><span style="color:var(--shiki-token-constant)"> scope</span><span style="color:var(--shiki-token-keyword)"> =</span><span style="color:var(--shiki-foreground)"> {</span></span>

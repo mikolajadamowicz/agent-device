@@ -9,7 +9,7 @@
 <script defer src="/agent-device/static/js/lib-react.e84adf13b9.js"></script>
 <script defer src="/agent-device/static/js/lib-router.270f17bfa6.js"></script>
 <script defer src="/agent-device/static/js/476.52ed165336.js"></script>
-<script defer src="/agent-device/static/js/index.ae147f1967.js"></script>
+<script defer src="/agent-device/static/js/index.4a94939736.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Rspress v2.0.12">
 <meta property="og:url" content="https://oss.callstack.com/agent-device">
@@ -38,7 +38,7 @@
 <li>Artifact uploads are size-capped, filenames are sanitized, and archive extraction rejects path-traversal entries. Artifact downloads resolve through server-side IDs, never client-supplied paths.</li>
 <li><code>install-from-source</code> protects the daemon host while it downloads and extracts the artifact; it does not vouch for the app inside. An app installed and launched on an iOS simulator runs as a process on the host Mac, so treat permission to send install requests as permission to run code on that Mac.</li>
 </ul>
-<p>For remote or cloud deployments, you can add a custom auth hook for remotely consumable HTTP routes: set <code>AGENT_DEVICE_HTTP_AUTH_HOOK</code> to a module path that the daemon imports, and <code>AGENT_DEVICE_HTTP_AUTH_EXPORT</code> to select the export. The host-local <code>/admin/human-control/*</code> route uses the daemon token instead. The hook runs with the daemon&#x27;s full privileges, so treat it as trusted code: point it only at a read-only path you control, never at a location that less-trusted users or processes can write to. Whoever controls the daemon&#x27;s environment controls the hook.</p>
+<p>For remote or cloud deployments, you can add a custom auth hook for remotely consumable HTTP routes: set <code>AGENT_DEVICE_HTTP_AUTH_HOOK</code> to a module path that the daemon imports, and <code>AGENT_DEVICE_HTTP_AUTH_EXPORT</code> to select the export. Relative hook paths resolve from the daemon host&#x27;s working directory. The host-local <code>/admin/human-control/*</code> route uses the daemon token instead. The hook runs with the daemon&#x27;s full privileges, so treat it as trusted code: point it only at a read-only path you control, never at a location that less-trusted users or processes can write to. Whoever controls the daemon&#x27;s environment controls the hook.</p>
 <p>Lease-owner human-control RPCs pass normal authentication and tenant/lease admission. They can
 target only the admitted lease&#x27;s device and cannot alter a host administrator&#x27;s hold. Host
 administration is a separate capability: the daemon accepts <code>/admin/human-control/*</code> only on its
