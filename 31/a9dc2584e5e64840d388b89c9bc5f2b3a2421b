@@ -1,0 +1,19 @@
+src/client/client-types.ts
+  s_219f3abcaba3f0::t_f092498e816505 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31a9dc2584e5e64840d388b89c9bc5f2b3a2421b",
+  "prompts": {},
+  "sessions": {
+    "s_219f3abcaba3f0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "276ac8d0-5389-4b51-a2dc-75f404ea037f",
+        "model": "unknown"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
