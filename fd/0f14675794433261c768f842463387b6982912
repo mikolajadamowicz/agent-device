@@ -1,0 +1,14 @@
+packages/daemon/src/execution/orientation-runtime.ts
+  h_9683addb5f4448 28,35-41,65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fd0f14675794433261c768f842463387b6982912",
+  "prompts": {},
+  "humans": {
+    "h_9683addb5f4448": {
+      "author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
