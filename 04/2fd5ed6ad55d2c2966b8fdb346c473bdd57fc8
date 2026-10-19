@@ -1,0 +1,24 @@
+packages/daemon/src/__tests__/support/runtime-binding-conformance.ts
+  h_9683addb5f4448 58-59,61-65,147-159,209,219-224
+packages/daemon/src/sessions/__tests__/runtime-binding-conformance-completeness.test.ts
+  h_9683addb5f4448 9,47
+packages/platform-harmonyos/src/runtime.test.ts
+  h_9683addb5f4448 112-115,121
+packages/platform-vega/src/runtime.test.ts
+  h_9683addb5f4448 174-179
+packages/platform-web/src/runtime.test.ts
+  h_9683addb5f4448 259-265
+packages/provider-webdriver/src/platform-runtime.test.ts
+  h_9683addb5f4448 357-359
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "042fd5ed6ad55d2c2966b8fdb346c473bdd57fc8",
+  "prompts": {},
+  "humans": {
+    "h_9683addb5f4448": {
+      "author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
