@@ -1,0 +1,68 @@
+packages/platform-android/src/__tests__/test-utils/fake-timers.ts
+  s_7918cddea2ba7d::t_6831cc653caf98 1-20
+packages/platform-android/src/inventory.test.ts
+  s_7918cddea2ba7d::t_4d64b9d3229307 145-170
+packages/platform-android/src/inventory-parsers.ts
+  s_7918cddea2ba7d::t_af39c3982581fa 66-71
+packages/platform-android/src/inventory-parsers.test.ts
+  s_7918cddea2ba7d::t_48f12e5a851ce9 10,35-42
+packages/contracts/src/settings-catalog.ts
+  s_7918cddea2ba7d::t_1dfadc79b69fef 104-105,107
+  s_7918cddea2ba7d::t_e0c3946386af68 106
+packages/daemon/src/execution/handlers/__tests__/snapshot-settings-handler.test.ts
+  s_7918cddea2ba7d::t_8612cae5d7d283 228-250
+src/commands/capture/settings.test.ts
+  s_7918cddea2ba7d::t_0616fe411ab92f 180,183
+packages/platform-android/src/__tests__/fill-verification.test.ts
+  s_7918cddea2ba7d::t_6fa735adf010e2 11,14
+packages/platform-android/src/settings.ts
+  s_7918cddea2ba7d::t_613b069b3b33f8 31,43,105,107
+  s_7918cddea2ba7d::t_c8cff827ec0cce 106
+packages/platform-android/src/__tests__/alert.test.ts
+  s_7918cddea2ba7d::t_48c791a51b15a5 3
+packages/platform-android/src/inventory.ts
+  s_7918cddea2ba7d::t_3f4fbcc186f45e 22,232-235
+packages/platform-android/src/__tests__/device-sdk-int.test.ts
+  s_7918cddea2ba7d::t_4e52ebcb2d84ff 1-23
+packages/platform-android/src/device-sdk-int.ts
+  s_7918cddea2ba7d::t_274b7e123d864b 1-10,12-14,16-20
+  s_7918cddea2ba7d::t_c8cff827ec0cce 11,15
+packages/platform-android/src/settings-permission.ts
+  s_7918cddea2ba7d::t_db5c0eaf07f4cd 14,666
+packages/platform-android/src/__tests__/settings-bluetooth.test.ts
+  s_7918cddea2ba7d::t_ffe6c74251881e 1-118,121-124,149-155,161-171,173-183,185-195,197-204,210-214,220-232,254
+  s_7918cddea2ba7d::t_e7486fce47ab21 133-135,137-143
+  s_7918cddea2ba7d::t_e69ec424048287 119-120,125-132,136,144-148,156-160,172,184,196,205-209,215-219,233-253
+packages/provider-limrun/src/interaction-operations.ts
+  s_7918cddea2ba7d::t_f3f54a7c9369ef 371
+packages/daemon/src/__tests__/support/snapshot-runtime-fixture.ts
+  s_7918cddea2ba7d::t_cd67348858b647 182
+packages/contracts/src/settings.test.ts
+  s_7918cddea2ba7d::t_03cda0dbf67481 44,59
+  s_7918cddea2ba7d::t_41e1c70f212aad 73-76,91
+packages/platform-android/src/settings-bluetooth.ts
+  s_7918cddea2ba7d::t_2d645d3a8f5a50 1,3-10,13-32,34,86-106,127,135-140,148,164-165
+  s_7918cddea2ba7d::t_63676c66c65ccd 2,11-12,33,35-85,107-126,128-134,141-147,149-163
+  s_7918cddea2ba7d::t_baa4efcea3e9d2 166-169
+packages/platform-android/src/runtime.ts
+  s_7918cddea2ba7d::t_08adc6f657a1cd 361
+website/docs/docs/commands.md
+  s_7918cddea2ba7d::t_669788fe6a2a55 655-656
+  s_7918cddea2ba7d::t_e0c3946386af68 706
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "72640bed9945563e9c5a35b39f95019dbdb09173",
+  "prompts": {},
+  "sessions": {
+    "s_7918cddea2ba7d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f3aa2b9-1f3a-410d-9b78-ab4cfee4c8e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": null
+    }
+  }
+}

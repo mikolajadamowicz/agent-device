@@ -1,0 +1,21 @@
+packages/platform-android/src/settings-global-toggle.ts
+  s_7918cddea2ba7d::t_a26f2a1f2f05b1 35-36,78
+packages/platform-android/src/__tests__/settings-global-toggle.test.ts
+  s_7918cddea2ba7d::t_7e7e602c1fa71b 1-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6ec553db8441688e215689e74089c27d5f4e6d5",
+  "prompts": {},
+  "sessions": {
+    "s_7918cddea2ba7d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f3aa2b9-1f3a-410d-9b78-ab4cfee4c8e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+packages/platform-android/src/settings-bluetooth.ts
+  s_7918cddea2ba7d::t_497470e73b2aa8 7-11,29,50
+packages/platform-android/src/__tests__/settings-global-toggle.test.ts
+  s_7918cddea2ba7d::t_497470e73b2aa8 9
+packages/platform-android/src/settings-global-toggle.ts
+  s_7918cddea2ba7d::t_497470e73b2aa8 18,26,39,41,44,60-61
+packages/platform-android/src/settings.ts
+  s_7918cddea2ba7d::t_497470e73b2aa8 309
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "902ac6936c80308d7c85134db07c03525ac2e1e5",
+  "prompts": {},
+  "sessions": {
+    "s_7918cddea2ba7d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f3aa2b9-1f3a-410d-9b78-ab4cfee4c8e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
