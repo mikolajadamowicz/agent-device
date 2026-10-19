@@ -1,0 +1,23 @@
+packages/platform-apple/src/runner-demand.ts
+  s_eba110eace1a29::t_1cd0a9c476cea8 58
+src/commands/schema/cli-help.ts
+  s_eba110eace1a29::t_e55b64a5decda0 2,272
+src/commands/system/index.ts
+  s_eba110eace1a29::t_d712f83fa74c62 321,460
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "abd8fc6dc8272a8204927b93516be4bb324d0fc7",
+  "prompts": {},
+  "sessions": {
+    "s_eba110eace1a29": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0e73229d-893a-40ff-80c0-5d46f4ef7046",
+        "model": "unknown"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
