@@ -1,0 +1,31 @@
+packages/daemon/src/execution/handlers/__tests__/snapshot-settings-handler.test.ts
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 681-686,688-698,700-708
+packages/platform-android/src/__tests__/device-sdk-int.test.ts
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 11
+packages/contracts/src/settings-catalog.ts
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 106-108
+packages/platform-android/src/device-sdk-int.ts
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 18-19
+packages/contracts/src/settings.test.ts
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 242-252
+website/docs/docs/commands.md
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 706,710,735
+src/commands/capture/settings.test.ts
+  s_ceebd8e041cc13::t_f80e6e0b5f294f 109-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "acd38a0a155264ef80977d58e34b0b40c863807d",
+  "prompts": {},
+  "sessions": {
+    "s_ceebd8e041cc13": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d5a9c42d-dce5-4087-b58a-3592621f09a8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
