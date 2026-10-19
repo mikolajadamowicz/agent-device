@@ -1,0 +1,16 @@
+packages/platform-apple/src/runner-demand.test.ts
+  h_9683addb5f4448 16-17
+packages/platform-apple/src/runner-demand.ts
+  h_9683addb5f4448 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6301ff1081920335360885fb6a5faba404818cb7",
+  "prompts": {},
+  "humans": {
+    "h_9683addb5f4448": {
+      "author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
