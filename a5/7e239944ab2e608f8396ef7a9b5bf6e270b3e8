@@ -1,0 +1,107 @@
+packages/session-journal/src/__tests__/session-event-action.test.ts
+  852ec636af3787b2 231-247
+packages/contracts/src/tv-remote.ts
+  852ec636af3787b2 120-163
+src/commands/system/index.test.ts
+  852ec636af3787b2 8,25-26,75-77,384-403
+packages/provider-webdriver/src/platform-runtime.ts
+  852ec636af3787b2 218-222,633
+packages/daemon/src/execution/__tests__/system-button-runtime.test.ts
+  852ec636af3787b2 16,33,210-358
+packages/platform-apple/src/runtime.test.ts
+  852ec636af3787b2 353-375
+packages/platform-android/src/mechanics.ts
+  852ec636af3787b2 186
+packages/platform-android/src/runtime.test.ts
+  852ec636af3787b2 202-218,350
+packages/platform-android/src/input-actions.ts
+  852ec636af3787b2 23-28,66-69
+packages/platform-web/src/runtime.test.ts
+  852ec636af3787b2 217-218
+packages/contracts/src/system-button-runtime.test.ts
+  852ec636af3787b2 6,26-32,38,83-117
+packages/daemon/src/execution/system-button-runtime.ts
+  852ec636af3787b2 4,13,15,91-121
+packages/contracts/src/tv-remote.test.ts
+  852ec636af3787b2 4-5,8,43-76
+packages/daemon/src/execution/generic-runtime-execution.ts
+  852ec636af3787b2 11-15,130-137
+website/docs/docs/commands.md
+  852ec636af3787b2 58-59,122-123
+packages/contracts/src/client-system.ts
+  852ec636af3787b2 10,107-110
+packages/contracts/src/system-button-runtime.ts
+  852ec636af3787b2 5,12-14,20-26,41-43,45-49,52,68,75-76,80-92,105,114-135
+packages/contracts/src/platform-runtime-operations.ts
+  852ec636af3787b2 120
+packages/provider-limrun/src/interaction-operations.test.ts
+  852ec636af3787b2 69,73,87,93
+src/__tests__/agent-device-client-system-commands.test.ts
+  852ec636af3787b2 66-71
+packages/contracts/src/interactor-operation-catalog-conformance.test.ts
+  852ec636af3787b2 31
+packages/contracts/src/interactor-types.ts
+  852ec636af3787b2 8,416-422
+packages/command-registry/src/registry.ts
+  852ec636af3787b2 61,1498-1508
+packages/platform-apple/src/runner-demand.ts
+  852ec636af3787b2 58-59
+packages/platform-android/src/runtime.ts
+  852ec636af3787b2 93-95,344-345,350
+src/commands/system/index.ts
+  852ec636af3787b2 24-25,28,84,182-189,266,319-320,452-464,508-513,552-556,591-594,732-745,760,817-826
+packages/contracts/src/navigation.ts
+  852ec636af3787b2 5,92-98
+website/docs/docs/client-api.md
+  852ec636af3787b2 239,281
+packages/session-journal/src/session-event-action-presentation.ts
+  852ec636af3787b2 4,56-57,113-114,268-272
+packages/command-registry/src/__tests__/command-result.test.ts
+  852ec636af3787b2 16,66,98,142
+packages/contracts/src/facades/client.ts
+  852ec636af3787b2 123
+src/core/interactors/android.ts
+  852ec636af3787b2 20,120
+packages/contracts/src/interactor-operation-catalog.ts
+  852ec636af3787b2 23-28,71
+packages/command-registry/src/command-result.ts
+  852ec636af3787b2 18,76
+packages/platform-linux/src/runtime.test.ts
+  852ec636af3787b2 223-224
+packages/daemon/src/core/runtime-operation-effects.ts
+  852ec636af3787b2 51
+src/agent-device-client.ts
+  852ec636af3787b2 201-202
+packages/provider-limrun/src/interaction-operations.ts
+  852ec636af3787b2 134,293-295,309
+src/commands/system/output.ts
+  852ec636af3787b2 56
+packages/platform-apple/src/navigation/runtime.ts
+  852ec636af3787b2 134
+packages/contracts/src/runtime-operation-names.ts
+  852ec636af3787b2 44
+packages/platform-android/src/__tests__/input-actions.test.ts
+  852ec636af3787b2 8,416-431
+src/client/client-types.ts
+  s_eba110eace1a29::t_7fa81ebdfdacbf 72,177
+src/commands/replay/replay-script.fixtures.ts
+  s_eba110eace1a29::t_8ce127ef6599ca 183
+src/commands/schema/cli-help.ts
+  s_eba110eace1a29::t_38efd89bd6409a 271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a57e239944ab2e608f8396ef7a9b5bf6e270b3e8",
+  "prompts": {},
+  "sessions": {
+    "s_eba110eace1a29": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0e73229d-893a-40ff-80c0-5d46f4ef7046",
+        "model": "unknown"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
