@@ -1,0 +1,23 @@
+packages/contracts/src/hardware-key-runtime.test.ts
+  s_63195ce8e2d796::t_c8549ed00c8fdb 4
+packages/platform-android/src/input-actions.ts
+  s_63195ce8e2d796::t_c8549ed00c8fdb 27
+packages/contracts/src/hardware-key.test.ts
+  s_63195ce8e2d796::t_c8549ed00c8fdb 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e267f85260956c1c4e86bfac1d42aab4d26d0d6e",
+  "prompts": {},
+  "sessions": {
+    "s_63195ce8e2d796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae7bf5e6-16d5-4025-994a-d62883501623",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
