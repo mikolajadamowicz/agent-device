@@ -1,0 +1,19 @@
+packages/command-registry/src/registry.ts
+  s_63195ce8e2d796::t_61b6e407ffec72 1503-1505
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "72d7e99f6b03fd5c5cc289074ab485f54f63e796",
+  "prompts": {},
+  "sessions": {
+    "s_63195ce8e2d796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae7bf5e6-16d5-4025-994a-d62883501623",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
