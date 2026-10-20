@@ -1,0 +1,20 @@
+packages/provider-webdriver/src/platform-runtime.ts
+  s_63195ce8e2d796::t_c4b04750fb27c3 635
+  s_63195ce8e2d796::t_fccfcbeb40ece7 34,519
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b8becffae1217e07aaa11e1c8e17564141ee2967",
+  "prompts": {},
+  "sessions": {
+    "s_63195ce8e2d796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae7bf5e6-16d5-4025-994a-d62883501623",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
