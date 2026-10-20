@@ -1,0 +1,19 @@
+packages/daemon/src/execution/generic-runtime-execution.ts
+  s_63195ce8e2d796::t_4bcde7becc78e6 40,59,67,81,96,105,115,124,133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a6b5caf56b6514f313f6681b8052c9b835dc25ee",
+  "prompts": {},
+  "sessions": {
+    "s_63195ce8e2d796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae7bf5e6-16d5-4025-994a-d62883501623",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
