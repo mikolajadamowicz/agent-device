@@ -1,0 +1,66 @@
+packages/provider-webdriver/src/webdriver-interactor-hardware-key.test.ts
+  s_63195ce8e2d796::t_02b0f9386bcbec 3
+packages/platform-android/src/runtime.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 50-53
+packages/daemon/src/execution/__tests__/hardware-key-runtime.test.ts
+  s_63195ce8e2d796::t_9b4a7085def998 16
+packages/contracts/src/platform-runtime-unavailable.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 25-28
+packages/contracts/src/interactor-operation-catalog.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 13-18
+packages/provider-limrun/src/interaction-operations.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 33-36
+packages/contracts/src/platform-runtime-operations.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 28-31
+packages/contracts/src/client-system.ts
+  s_63195ce8e2d796::t_c70b5572764615 10
+packages/contracts/src/tv-remote.ts
+  s_63195ce8e2d796::t_bbcc444b2a5ebc 120-196
+packages/provider-webdriver/src/platform-runtime.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 32-35
+src/commands/schema/cli-help.ts
+  s_63195ce8e2d796::t_02b0f9386bcbec 2
+packages/platform-apple/src/navigation/runtime.ts
+  s_63195ce8e2d796::t_07a419426a5bbc 8-11
+packages/contracts/src/navigation.ts
+  s_63195ce8e2d796::t_c70b5572764615 5
+src/commands/system/index.ts
+  s_63195ce8e2d796::t_c70b5572764615 28
+packages/provider-webdriver/src/webdriver-interactor.ts
+  s_63195ce8e2d796::t_02b0f9386bcbec 430
+  s_63195ce8e2d796::t_e6d4decdc656f7 427
+  s_63195ce8e2d796::t_32a8f74bb1b9c0 18
+packages/contracts/src/tv-remote-hardware-key.test.ts
+  s_63195ce8e2d796::t_bbcc444b2a5ebc 1-71
+packages/contracts/src/interactor-types.ts
+  s_63195ce8e2d796::t_32a8f74bb1b9c0 9
+packages/contracts/src/tv-remote-runtime-hardware-key.test.ts
+  s_63195ce8e2d796::t_9b4a7085def998 1-58
+packages/daemon/src/execution/hardware-key-runtime.ts
+  s_63195ce8e2d796::t_02b0f9386bcbec 4
+  s_63195ce8e2d796::t_9b4a7085def998 1
+packages/contracts/src/tv-remote-runtime.ts
+  s_63195ce8e2d796::t_32a8f74bb1b9c0 2
+  s_63195ce8e2d796::t_f718b78c4aac38 66-121,124
+  s_63195ce8e2d796::t_7f22af4adf3db2 122-123
+packages/platform-android/src/input-actions.ts
+  s_63195ce8e2d796::t_32a8f74bb1b9c0 25,27-28
+packages/session-journal/src/session-event-action-presentation.ts
+  s_63195ce8e2d796::t_32a8f74bb1b9c0 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ff08e4b490b4330a471c8d466f229c133979bec0",
+  "prompts": {},
+  "sessions": {
+    "s_63195ce8e2d796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae7bf5e6-16d5-4025-994a-d62883501623",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
