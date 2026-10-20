@@ -1,0 +1,23 @@
+packages/contracts/src/device-rotation.test.ts
+  s_63195ce8e2d796::t_0612d802072213 9,11-14,18-20,24,28,37,45-49
+packages/contracts/src/device-rotation.ts
+  s_63195ce8e2d796::t_600ab07c2d89c2 48-49
+packages/contracts/src/orientation-runtime.ts
+  s_63195ce8e2d796::t_f7dc1629f33f6a 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f38cea0949a2370a6d5d67f6710c8db83c8a9466",
+  "prompts": {},
+  "sessions": {
+    "s_63195ce8e2d796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae7bf5e6-16d5-4025-994a-d62883501623",
+        "model": "unknown"
+      },
+      "human_author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
