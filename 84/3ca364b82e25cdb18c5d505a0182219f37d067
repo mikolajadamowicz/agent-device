@@ -1,0 +1,14 @@
+packages/provider-webdriver/src/platform-runtime.ts
+  h_9683addb5f4448 220-225,228
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "843ca364b82e25cdb18c5d505a0182219f37d067",
+  "prompts": {},
+  "humans": {
+    "h_9683addb5f4448": {
+      "author": "Mikolaj Adamowicz <mikolaj.adamowicz@homesoft.app>"
+    }
+  }
+}
